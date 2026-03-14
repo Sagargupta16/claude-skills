@@ -1,0 +1,49 @@
+{
+  "name": "sagar-dev-skills",
+  "owner": {
+    "name": "Sagar Gupta",
+    "email": "sg85207@gmail.com"
+  },
+  "metadata": {
+    "description": "Custom Claude Code skills for FARM stack development, open source contributions, repository maintenance, and portfolio management.",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "farm-stack",
+      "description": "FARM stack (FastAPI + React + MongoDB) development patterns, scaffolding, and best practices.",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./plugins/farm-stack/skills/farm-stack"
+      ]
+    },
+    {
+      "name": "oss-contrib",
+      "description": "Open source contribution workflow -- upstream sync, CONTRIBUTING.md compliance, project-specific patterns.",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./plugins/oss-contrib/skills/oss-contrib"
+      ]
+    },
+    {
+      "name": "repo-polish",
+      "description": "Repository polishing -- .gitignore, .env.example, README, LICENSE generation and maintenance.",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./plugins/repo-polish/skills/repo-polish"
+      ]
+    },
+    {
+      "name": "portfolio-updater",
+      "description": "Portfolio data management -- scan repos, update projects.json, sync achievements and contributions.",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./plugins/portfolio-updater/skills/portfolio-updater"
+      ]
+    }
+  ]
+}
