@@ -19,6 +19,6 @@ Steps:
 6. Validate: all ids unique, dates in "Month Year" format, URLs valid
 7. Optionally run `npm run dev` to verify locally
 
-Portfolio location: `c:/Code/GitHub/My Repos/portfolios/portfolio-react/`
+Portfolio location: `c:/Code/GitHub/portfolio-react/`
 
 Use the portfolio-updater skill for data format conventions.
