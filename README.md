@@ -1,6 +1,8 @@
 # Claude Skills
 
-Custom Claude Code plugin marketplace with skills for FARM stack development, open source contributions, repository maintenance, and portfolio management.
+Custom Claude Code plugin marketplace with reusable skills for full-stack development, open source contributions, and repository maintenance.
+
+These skills work with any project -- install the ones relevant to your stack.
 
 ## Plugins
 
