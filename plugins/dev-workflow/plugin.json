@@ -1,0 +1,14 @@
+{
+  "name": "dev-workflow",
+  "description": "Everyday dev commands -- commit, review, test, fix bugs, create PRs, check repo status, and inspect PR health.",
+  "skills": ["./skills/dev-workflow"],
+  "commands": [
+    "./commands/commit.md",
+    "./commands/review.md",
+    "./commands/test.md",
+    "./commands/fix.md",
+    "./commands/pr.md",
+    "./commands/status.md",
+    "./commands/check-pr.md"
+  ]
+}

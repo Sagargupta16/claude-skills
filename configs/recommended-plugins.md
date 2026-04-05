@@ -22,6 +22,15 @@ Pick the plugins that match your tech stack.
 # Full-stack web (FastAPI + React + MongoDB)
 /plugin install farm-stack@sagar-dev-skills
 
+# Testing (pytest, jest/vitest, go test, cargo test)
+/plugin install testing@sagar-dev-skills
+
+# API design (REST conventions, error formats, pagination)
+/plugin install api-design@sagar-dev-skills
+
+# Database (schema design, migrations, indexing)
+/plugin install database@sagar-dev-skills
+
 # CI/CD (GitHub Actions)
 /plugin install ci-cd@sagar-dev-skills
 

@@ -10,6 +10,18 @@ Docker best practices, Dockerfile templates, and compose patterns for developmen
 
 - `/dockerize`: Detect project type and generate Docker configuration
 
+## Example
+
+```
+> /dockerize
+
+Detected: Python (FastAPI) from main.py + requirements.txt
+Generated:
+  Dockerfile          (multi-stage, python-slim, non-root user)
+  docker-compose.yml  (MongoDB + backend, health checks)
+  .dockerignore       (excludes .env, .git, __pycache__)
+```
+
 ## Installation
 
 ```

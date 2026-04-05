@@ -10,6 +10,21 @@ Repository hygiene - .gitignore, .env.example, README, LICENSE generation, and s
 
 - `/polish-repo`: Audit and fix missing hygiene files in the current repo
 
+## Example
+
+```
+> /polish-repo
+
+Detected: Python (FastAPI) from requirements.txt + main.py
+
+Audit results:
+  .gitignore    MISSING -- generated (Python template)
+  .env.example  MISSING -- generated (found 8 env vars in code)
+  README.md     EXISTS  -- OK
+  LICENSE       MISSING -- generated (MIT)
+  Secrets       CLEAN   -- no credentials found in git history
+```
+
 ## Installation
 
 ```

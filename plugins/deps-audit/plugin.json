@@ -1,0 +1,6 @@
+{
+  "name": "deps-audit",
+  "description": "Dependency auditing -- vulnerability scanning, outdated package detection, unused dependency identification, and safe update strategies.",
+  "skills": ["./skills/deps-audit"],
+  "commands": ["./commands/audit-deps.md"]
+}

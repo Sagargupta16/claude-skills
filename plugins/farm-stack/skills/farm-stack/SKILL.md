@@ -201,6 +201,7 @@ async def create_item(data: ItemCreate):
 ## Docker Pattern
 
 ```dockerfile
+# Check latest stable: https://hub.docker.com/_/python
 FROM python:3.13-alpine
 WORKDIR /app
 RUN adduser -D appuser
@@ -212,9 +213,11 @@ EXPOSE 8000
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
 ```
 
-docker-compose.yml includes: MongoDB 8 with persistent volume, backend with hot-reload, shared bridge network. Environment flows from `.env` to compose to containers.
+docker-compose.yml includes: MongoDB 8+ with persistent volume, backend with hot-reload, shared bridge network. Environment flows from `.env` to compose to containers.
 
 ## Core Dependencies
+
+Version numbers below are minimums as of early 2026 -- check PyPI for latest stable:
 
 ```
 fastapi>=0.115.0

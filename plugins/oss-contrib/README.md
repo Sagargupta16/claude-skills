@@ -11,11 +11,23 @@ Open source contribution workflow - upstream sync, compliance, code style matchi
 - `/sync-upstream`: Sync fork with upstream remote
 - `/prep-pr`: Prepare and validate a PR for upstream submission
 
-## References
+## Example
 
-- `references/airflow.md`: Apache Airflow contribution patterns
+```
+> /sync-upstream
 
-Add your own project-specific references in the `references/` directory.
+Fetching upstream...
+Merged upstream/main into local main (15 new commits).
+Pushed to origin/main.
+Your feature branch 'fix/template-fields' is 3 commits behind main.
+Run: git rebase main
+
+> /prep-pr
+
+Read CONTRIBUTING.md: conventional commits required, CLA signed.
+PR template found. Pre-filled: description, testing done, related issue.
+Ready to submit.
+```
 
 ## Installation
 

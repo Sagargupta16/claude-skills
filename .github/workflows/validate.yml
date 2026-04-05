@@ -1,0 +1,35 @@
+name: Validate Plugins
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate marketplace.json is valid JSON
+        run: python3 -c "import json; json.load(open('.claude-plugin/marketplace.json'))"
+
+      - name: Validate plugin structure and skill quality
+        run: bash scripts/validate-plugins.sh
+
+      - name: Check for broken internal links in README
+        run: |
+          errors=0
+          # Check that paths referenced in README.md exist
+          grep -oP '\[.*?\]\(((?!https?://)[^)]+)\)' README.md | \
+            grep -oP '\(([^)]+)\)' | tr -d '()' | while read -r path; do
+              if [[ ! -e "$path" ]]; then
+                echo "ERROR: Broken link in README.md -> $path"
+                errors=$((errors + 1))
+              fi
+            done
+          exit $errors

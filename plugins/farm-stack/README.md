@@ -10,6 +10,22 @@ FastAPI + React + MongoDB (FARM stack) development patterns and project scaffold
 
 - `/scaffold-farm`: Scaffold a complete FARM project with all boilerplate files
 
+## Example
+
+```
+> /scaffold-farm my-app
+
+Created project structure:
+  my-app/main.py           (FastAPI entry with lifespan)
+  my-app/config/            (env + YAML config loader)
+  my-app/models/            (Pydantic v2 base models)
+  my-app/routes/            (API router stubs)
+  my-app/services/          (async MongoDB service layer)
+  my-app/docker-compose.yml (MongoDB + backend)
+  my-app/.env.example
+  my-app/Makefile
+```
+
 ## Installation
 
 ```

@@ -1,0 +1,6 @@
+{
+  "name": "testing",
+  "description": "Test strategy, framework patterns, mocking approaches, fixture design, and coverage guidance for pytest, jest/vitest, go test, and cargo test.",
+  "skills": ["./skills/testing"],
+  "commands": ["./commands/write-tests.md"]
+}

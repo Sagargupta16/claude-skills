@@ -1,0 +1,6 @@
+{
+  "name": "repo-polish",
+  "description": "Repository hygiene -- .gitignore, .env.example, README, LICENSE generation, secret detection, and project type detection.",
+  "skills": ["./skills/repo-polish"],
+  "commands": ["./commands/polish-repo.md"]
+}

@@ -1,5 +1,25 @@
 # Changelog
 
+## [3.0.0] - 2026-04-05
+
+### Added
+- `testing` plugin: Test strategy, framework patterns (pytest, jest/vitest, go test, cargo test), mocking, fixtures, coverage guidance, and `/write-tests` command
+- `api-design` plugin: REST API design patterns, URL structure, HTTP conventions, RFC 9457 error format, pagination, authentication, versioning, and `/design-api` command
+- `database` plugin: Schema design for Postgres/MongoDB, migration tools (Alembic, Prisma, Drizzle, goose), indexing, query optimization, connection pooling, and `/design-schema` command
+- `plugin.json` manifest for every plugin -- makes each plugin self-describing with explicit skill and command listings
+- GitHub Actions CI workflow (`validate.yml`) that validates marketplace.json, plugin structure, and skill quality
+- Validation script (`scripts/validate-plugins.sh`) enforcing CONTRIBUTING.md quality standards
+- `CODEOWNERS` file for automatic PR review assignment
+- Example sections in all plugin READMEs showing what each command does in practice
+- `CLAUDE.md` for Claude Code context when working in this repo
+
+### Changed
+- Version comments added to all hardcoded runtime versions in farm-stack, ci-cd, and docker-deploy skills -- prevents silent staleness
+- Base image table in docker-deploy now uses `<version>` placeholders instead of pinned numbers
+- Removed `references/airflow.md` from oss-contrib (too project-specific for a generic marketplace)
+- Updated oss-contrib SKILL.md to remove airflow reference
+- Bumped version to 3.0.0
+
 ## [2.1.0] - 2026-04-05
 
 ### Added

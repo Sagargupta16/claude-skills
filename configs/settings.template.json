@@ -38,6 +38,9 @@
   "enabledPlugins": {
     "dev-workflow@sagar-dev-skills": true,
     "dev-rules@sagar-dev-skills": true,
+    "testing@sagar-dev-skills": true,
+    "api-design@sagar-dev-skills": true,
+    "database@sagar-dev-skills": true,
     "ci-cd@sagar-dev-skills": true,
     "docker-deploy@sagar-dev-skills": true,
     "deps-audit@sagar-dev-skills": true,

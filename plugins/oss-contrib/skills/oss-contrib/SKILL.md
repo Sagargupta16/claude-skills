@@ -78,8 +78,6 @@ Create reference files in `references/` for projects you regularly contribute to
 - Commit message format
 - Any AI disclosure or CLA requirements
 
-See `references/airflow.md` for an example of a well-documented project reference.
-
 ## Common Pitfalls
 
 | Mistake | Prevention |

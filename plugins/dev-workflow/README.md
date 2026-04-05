@@ -18,6 +18,22 @@ Everyday development commands - commit, review, test, fix, create PRs, and check
 
 - **dev-workflow**: Structured workflows for git operations, code review checklists, test runner patterns, and bug fix methodology.
 
+## Example
+
+```
+> /commit
+
+Staged 3 files: src/auth.py, src/routes.py, tests/test_auth.py
+Matched repo style from recent commits.
+Created commit: feat: add JWT authentication to user endpoints
+
+> /test
+
+Detected pytest from pyproject.toml.
+Running: pytest
+12 passed, 0 failed (2.3s)
+```
+
 ## Installation
 
 ```

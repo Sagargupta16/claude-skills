@@ -59,7 +59,7 @@ jobs:
       - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 22  # Check https://nodejs.org for current LTS
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm lint
@@ -78,7 +78,7 @@ jobs:
       - uses: astral-sh/setup-uv@v5
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.13"
+          python-version: "3.13"  # Check https://python.org for current stable
       - run: uv sync
       - run: uv run ruff check .
       - run: uv run pytest
@@ -94,7 +94,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
-          python-version: "3.13"
+          python-version: "3.13"  # Check https://python.org for current stable
           cache: pip
       - run: pip install -r requirements.txt
       - run: ruff check .

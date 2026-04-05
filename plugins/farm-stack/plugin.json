@@ -1,0 +1,6 @@
+{
+  "name": "farm-stack",
+  "description": "FARM stack (FastAPI + React + MongoDB) development patterns, scaffolding, and best practices.",
+  "skills": ["./skills/farm-stack"],
+  "commands": ["./commands/scaffold-farm.md"]
+}

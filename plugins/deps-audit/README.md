@@ -10,6 +10,22 @@ Multi-language dependency auditing, security scanning, and update management.
 
 - `/audit-deps`: Scan dependencies for vulnerabilities, outdated packages, and unused deps
 
+## Example
+
+```
+> /audit-deps
+
+Detected: pnpm from pnpm-lock.yaml
+Running: pnpm audit
+
+Found 2 vulnerabilities:
+  HIGH   lodash <4.17.21 (prototype pollution) -- fix: pnpm update lodash
+  LOW    debug <4.3.1 (ReDoS) -- fix: pnpm update debug
+
+Outdated: 5 packages (3 minor, 2 major)
+Unused: 1 package (left-pad)
+```
+
 ## Installation
 
 ```

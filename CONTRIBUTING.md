@@ -7,6 +7,7 @@ Contributions are welcome. Here's how to add or improve skills.
 1. Create the directory structure:
    ```
    plugins/your-plugin/
+   ├── plugin.json
    ├── README.md
    ├── skills/your-plugin/
    │   └── SKILL.md
@@ -22,11 +23,23 @@ Contributions are welcome. Here's how to add or improve skills.
    ---
    ```
 
-3. Add the plugin to `.claude-plugin/marketplace.json`
+3. Create a `plugin.json` listing skills and commands:
+   ```json
+   {
+     "name": "your-plugin",
+     "description": "Short description.",
+     "skills": ["./skills/your-plugin"],
+     "commands": ["./commands/your-command.md"]
+   }
+   ```
 
-4. Update the README.md plugin table
+4. Add the plugin to `.claude-plugin/marketplace.json`
 
-5. Add a CHANGELOG.md entry
+5. Update the README.md plugin table
+
+6. Add a CHANGELOG.md entry
+
+7. Run `bash scripts/validate-plugins.sh` to verify
 
 ## Skill Quality Standards
 

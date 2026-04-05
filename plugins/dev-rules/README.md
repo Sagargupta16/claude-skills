@@ -15,10 +15,20 @@ Development guardrails - git safety, security best practices, PR workflow discip
 | PR workflow | Read comments first, check merge readiness, verify before deleting forks |
 | Context optimization | Progressive disclosure, targeted reads, efficient exploration |
 
+## Example
+
+When you run `git add .`, the skill intervenes:
+
+```
+WARN: `git add .` risks staging secrets or binaries.
+Staging specific files instead: src/api.py, src/models.py
+Skipped: .env (matches secret pattern)
+```
+
 ## Installation
 
 ```
 /plugin install dev-rules@sagar-dev-skills
 ```
 
-This plugin has no commands - it provides background guardrails that activate automatically.
+This plugin has no commands -- it provides background guardrails that activate automatically.

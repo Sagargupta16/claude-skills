@@ -20,7 +20,7 @@ description: Use when creating Dockerfiles, docker-compose configs, or container
 ### Python (FastAPI / Flask / Django)
 
 ```dockerfile
-# Build stage
+# Build stage -- check https://hub.docker.com/_/python for latest
 FROM python:3.13-slim AS builder
 WORKDIR /app
 COPY requirements.txt .
@@ -40,7 +40,7 @@ CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
 ### Node.js (Express / Next.js / Vite)
 
 ```dockerfile
-# Build stage
+# Build stage -- check https://hub.docker.com/_/node for latest LTS
 FROM node:22-alpine AS builder
 WORKDIR /app
 COPY package.json pnpm-lock.yaml ./
@@ -63,7 +63,7 @@ CMD ["node", "dist/index.js"]
 ### Go
 
 ```dockerfile
-# Build stage
+# Build stage -- check https://hub.docker.com/_/golang for latest
 FROM golang:1.23-alpine AS builder
 WORKDIR /app
 COPY go.mod go.sum ./
@@ -82,7 +82,7 @@ ENTRYPOINT ["/server"]
 ### Rust
 
 ```dockerfile
-# Build stage
+# Build stage -- check https://hub.docker.com/_/rust for latest
 FROM rust:1.82-slim AS builder
 WORKDIR /app
 COPY Cargo.toml Cargo.lock ./
@@ -205,9 +205,9 @@ build/
 
 | Use Case | Base Image | Size |
 |----------|-----------|------|
-| Python apps | `python:3.13-slim` | ~150MB |
-| Python minimal | `python:3.13-alpine` | ~50MB |
-| Node.js apps | `node:22-alpine` | ~130MB |
+| Python apps | `python:<version>-slim` | ~150MB |
+| Python minimal | `python:<version>-alpine` | ~50MB |
+| Node.js apps | `node:<lts>-alpine` | ~130MB |
 | Go apps | `gcr.io/distroless/static` | ~2MB |
 | Rust apps | `gcr.io/distroless/cc` | ~20MB |
 | Static files | `nginx:alpine` | ~40MB |

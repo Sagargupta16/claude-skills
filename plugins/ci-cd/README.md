@@ -10,6 +10,18 @@ GitHub Actions CI/CD patterns, workflow templates, and debugging guides.
 
 - `/setup-ci`: Detect project type and generate a CI workflow
 
+## Example
+
+```
+> /setup-ci
+
+Detected: Node.js (pnpm) from pnpm-lock.yaml
+Generated: .github/workflows/ci.yml
+  - Checkout, pnpm setup, install, lint, test, build
+  - Cache: pnpm store via setup-node
+  - Triggers: push to main, pull requests
+```
+
 ## Installation
 
 ```
