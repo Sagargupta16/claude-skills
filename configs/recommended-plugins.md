@@ -41,7 +41,31 @@ Pick the plugins that match your tech stack.
 /plugin install deps-audit@sagar-dev-skills
 ```
 
-## Tier 3: Open Source and Maintenance
+## Tier 3: General Purpose
+
+Apply to any project regardless of stack.
+
+```
+# Code refactoring (smell detection, safe rename, migrations)
+/plugin install refactoring@sagar-dev-skills
+
+# Documentation (README, ADR, changelog, API docs)
+/plugin install documentation@sagar-dev-skills
+
+# Advanced git (rebase, cherry-pick, bisect, conflict resolution)
+/plugin install git-advanced@sagar-dev-skills
+
+# Performance (profiling, caching, N+1, bundle analysis)
+/plugin install performance@sagar-dev-skills
+
+# Security (OWASP, headers, rate limiting, input validation)
+/plugin install security-hardening@sagar-dev-skills
+
+# Logging (structured logging, health checks, metrics)
+/plugin install logging-observability@sagar-dev-skills
+```
+
+## Tier 4: Open Source and Maintenance
 
 For open source contributors and repo maintenance.
 
@@ -53,7 +77,7 @@ For open source contributors and repo maintenance.
 /plugin install repo-polish@sagar-dev-skills
 ```
 
-## Tier 4: Official Plugins (from claude-plugins-official)
+## Tier 5: Official Plugins (from claude-plugins-official)
 
 Recommended official plugins that pair well with this marketplace:
 

@@ -1,0 +1,5 @@
+{
+  "name": "documentation",
+  "description": "Documentation patterns -- README structure, ADRs, changelogs, code comments, API docs, and technical specs.",
+  "version": "3.1.0"
+}

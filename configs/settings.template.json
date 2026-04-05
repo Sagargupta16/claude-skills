@@ -46,6 +46,12 @@
     "deps-audit@sagar-dev-skills": true,
     "oss-contrib@sagar-dev-skills": true,
     "repo-polish@sagar-dev-skills": true,
+    "refactoring@sagar-dev-skills": true,
+    "documentation@sagar-dev-skills": true,
+    "git-advanced@sagar-dev-skills": true,
+    "performance@sagar-dev-skills": true,
+    "security-hardening@sagar-dev-skills": true,
+    "logging-observability@sagar-dev-skills": true,
 
     "pyright-lsp@claude-plugins-official": true,
     "typescript-lsp@claude-plugins-official": true,

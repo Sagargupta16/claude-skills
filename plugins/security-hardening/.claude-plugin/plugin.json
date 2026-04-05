@@ -1,0 +1,5 @@
+{
+  "name": "security-hardening",
+  "description": "Security hardening -- OWASP top 10 prevention, security headers, rate limiting, input validation, CORS configuration, and vulnerability scanning.",
+  "version": "3.1.0"
+}

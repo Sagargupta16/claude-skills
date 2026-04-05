@@ -1,11 +1,11 @@
 # Claude Skills
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Plugins](https://img.shields.io/badge/plugins-11-green.svg)](#plugins)
-[![Version](https://img.shields.io/badge/version-3.0.0-orange.svg)](CHANGELOG.md)
+[![Plugins](https://img.shields.io/badge/plugins-17-green.svg)](#plugins)
+[![Version](https://img.shields.io/badge/version-3.1.0-orange.svg)](CHANGELOG.md)
 [![CI](https://img.shields.io/github/actions/workflow/status/Sagargupta16/claude-skills/validate.yml?label=validate)](https://github.com/Sagargupta16/claude-skills/actions)
 
-Custom Claude Code plugin marketplace with reusable skills for full-stack development, testing, API design, databases, CI/CD, Docker, dependency management, open source contributions, repository maintenance, and everyday dev workflows.
+Custom Claude Code plugin marketplace with reusable skills for full-stack development, testing, API design, databases, CI/CD, Docker, security, performance, logging, refactoring, documentation, git workflows, open source contributions, and repository maintenance.
 
 These skills work with any project -- install the ones relevant to your stack.
 
@@ -29,6 +29,17 @@ These skills work with any project -- install the ones relevant to your stack.
 | **ci-cd** | `/setup-ci` | GitHub Actions workflows, caching, matrix builds, release automation |
 | **docker-deploy** | `/dockerize` | Multi-stage Dockerfiles, compose patterns, image optimization, security |
 | **deps-audit** | `/audit-deps` | Vulnerability scanning, outdated packages, unused deps, update strategies |
+
+### General Purpose
+
+| Plugin | Commands | What It Does |
+|--------|----------|-------------|
+| **refactoring** | `/refactor` | Code smell detection, extract/rename/move, migration patterns (JS->TS, CJS->ESM) |
+| **documentation** | `/write-docs` | README, ADR, changelog, API docs, technical spec generation |
+| **git-advanced** | `/resolve-conflict` | Rebase, cherry-pick, bisect, stash, conflict resolution, undo |
+| **performance** | `/optimize` | Profiling, caching, N+1 detection, bundle analysis, benchmarking |
+| **security-hardening** | `/security-audit` | OWASP top 10, security headers, rate limiting, input validation |
+| **logging-observability** | `/setup-logging` | Structured logging, health checks, error tracking, metrics |
 
 ### Open Source and Maintenance
 
@@ -59,6 +70,12 @@ These skills work with any project -- install the ones relevant to your stack.
 /plugin install deps-audit@sagar-dev-skills
 /plugin install oss-contrib@sagar-dev-skills
 /plugin install repo-polish@sagar-dev-skills
+/plugin install refactoring@sagar-dev-skills
+/plugin install documentation@sagar-dev-skills
+/plugin install git-advanced@sagar-dev-skills
+/plugin install performance@sagar-dev-skills
+/plugin install security-hardening@sagar-dev-skills
+/plugin install logging-observability@sagar-dev-skills
 ```
 
 ## Structure
@@ -112,10 +129,34 @@ claude-skills/
 │   │   ├── .claude-plugin/plugin.json
 │   │   ├── skills/oss-contrib/SKILL.md
 │   │   └── commands/{sync-upstream,prep-pr}.md
-│   └── repo-polish/               # Repository hygiene
+│   ├── repo-polish/               # Repository hygiene
+│   │   ├── .claude-plugin/plugin.json
+│   │   ├── skills/repo-polish/SKILL.md
+│   │   └── commands/polish-repo.md
+│   ├── refactoring/               # Code refactoring
+│   │   ├── .claude-plugin/plugin.json
+│   │   ├── skills/refactoring/SKILL.md
+│   │   └── commands/refactor.md
+│   ├── documentation/             # Documentation patterns
+│   │   ├── .claude-plugin/plugin.json
+│   │   ├── skills/documentation/SKILL.md
+│   │   └── commands/write-docs.md
+│   ├── git-advanced/              # Advanced git operations
+│   │   ├── .claude-plugin/plugin.json
+│   │   ├── skills/git-advanced/SKILL.md
+│   │   └── commands/resolve-conflict.md
+│   ├── performance/               # Performance optimization
+│   │   ├── .claude-plugin/plugin.json
+│   │   ├── skills/performance/SKILL.md
+│   │   └── commands/optimize.md
+│   ├── security-hardening/        # Security hardening
+│   │   ├── .claude-plugin/plugin.json
+│   │   ├── skills/security-hardening/SKILL.md
+│   │   └── commands/security-audit.md
+│   └── logging-observability/     # Logging and monitoring
 │       ├── .claude-plugin/plugin.json
-│       ├── skills/repo-polish/SKILL.md
-│       └── commands/polish-repo.md
+│       ├── skills/logging-observability/SKILL.md
+│       └── commands/setup-logging.md
 ├── configs/
 │   ├── settings.template.json
 │   └── recommended-plugins.md

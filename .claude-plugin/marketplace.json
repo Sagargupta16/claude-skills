@@ -5,8 +5,8 @@
     "email": "sg85207@gmail.com"
   },
   "metadata": {
-    "description": "Claude Code skills for full-stack development, testing, API design, databases, CI/CD, Docker, dependency management, open source contributions, repository maintenance, and everyday dev workflows.",
-    "version": "3.0.0",
+    "description": "Claude Code skills for full-stack development, testing, API design, databases, CI/CD, Docker, dependency management, security, performance, logging, refactoring, documentation, git workflows, open source contributions, and repository maintenance.",
+    "version": "3.1.0",
     "pluginRoot": "./plugins"
   },
   "plugins": [
@@ -119,6 +119,66 @@
       "license": "MIT",
       "keywords": ["gitignore", "readme", "license", "hygiene", "secrets"],
       "category": "maintenance"
+    },
+    {
+      "name": "refactoring",
+      "source": "refactoring",
+      "description": "Safe refactoring workflows -- code smell detection, extract/rename/move patterns, migration strategies (JS to TS, CJS to ESM), and structured refactoring process.",
+      "version": "3.1.0",
+      "author": { "name": "Sagar Gupta" },
+      "license": "MIT",
+      "keywords": ["refactoring", "code-smells", "extract", "rename", "migration"],
+      "category": "development"
+    },
+    {
+      "name": "documentation",
+      "source": "documentation",
+      "description": "Documentation patterns -- README structure, ADRs, changelogs, code comments, API docs, and technical specs.",
+      "version": "3.1.0",
+      "author": { "name": "Sagar Gupta" },
+      "license": "MIT",
+      "keywords": ["readme", "adr", "changelog", "docs", "technical-writing"],
+      "category": "documentation"
+    },
+    {
+      "name": "git-advanced",
+      "source": "git-advanced",
+      "description": "Advanced git operations -- rebasing, cherry-picking, conflict resolution, bisect, stash management, history exploration, and undo strategies.",
+      "version": "3.1.0",
+      "author": { "name": "Sagar Gupta" },
+      "license": "MIT",
+      "keywords": ["git", "rebase", "cherry-pick", "bisect", "conflict", "stash"],
+      "category": "development"
+    },
+    {
+      "name": "performance",
+      "source": "performance",
+      "description": "Performance optimization -- profiling, caching strategies, N+1 detection, bundle analysis, connection pooling, and benchmarking.",
+      "version": "3.1.0",
+      "author": { "name": "Sagar Gupta" },
+      "license": "MIT",
+      "keywords": ["performance", "caching", "profiling", "optimization", "bundle"],
+      "category": "optimization"
+    },
+    {
+      "name": "security-hardening",
+      "source": "security-hardening",
+      "description": "Security hardening -- OWASP top 10 prevention, security headers, rate limiting, input validation, CORS configuration, and vulnerability scanning.",
+      "version": "3.1.0",
+      "author": { "name": "Sagar Gupta" },
+      "license": "MIT",
+      "keywords": ["security", "owasp", "headers", "rate-limiting", "xss", "injection"],
+      "category": "security"
+    },
+    {
+      "name": "logging-observability",
+      "source": "logging-observability",
+      "description": "Logging and observability -- structured logging, health checks, error tracking, request correlation, metrics, and monitoring patterns.",
+      "version": "3.1.0",
+      "author": { "name": "Sagar Gupta" },
+      "license": "MIT",
+      "keywords": ["logging", "observability", "health-checks", "metrics", "monitoring"],
+      "category": "operations"
     }
   ]
 }

@@ -1,5 +1,16 @@
 # Changelog
 
+## [3.1.0] - 2026-04-05
+
+### Added
+- `refactoring` plugin: Code smell detection, extract/rename/move patterns, migration strategies (JS->TS, CJS->ESM), safe refactoring workflow, and `/refactor` command
+- `documentation` plugin: README structure, ADRs, changelogs, code comment guidelines, docstring patterns, technical specs, and `/write-docs` command
+- `git-advanced` plugin: Rebase workflows, cherry-pick, conflict resolution, bisect, stash management, undo operations, reflog recovery, and `/resolve-conflict` command
+- `performance` plugin: Profiling workflow, caching strategies, N+1 detection, bundle optimization, connection pooling, benchmarking, and `/optimize` command
+- `security-hardening` plugin: OWASP top 10 prevention, security headers, rate limiting, CORS, input validation, password hashing, and `/security-audit` command
+- `logging-observability` plugin: Structured logging (structlog/pino/slog), health checks, request correlation IDs, error handling, metrics, and `/setup-logging` command
+- Marketplace now has 17 plugins total
+
 ## [3.0.0] - 2026-04-05
 
 ### Added
