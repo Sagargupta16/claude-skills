@@ -1,11 +1,17 @@
 # FARM Stack Plugin
 
-Skills and commands for FastAPI + React + MongoDB development.
+FastAPI + React + MongoDB (FARM stack) development patterns and project scaffolding.
 
 ## Skills
 
-- **farm-stack**: Project structure patterns, CRUD generation, config setup, Docker conventions
+- **farm-stack**: Project structure, async MongoDB with Motor, Pydantic v2 models, dual-layer config, Docker setup, and testing conventions.
 
 ## Commands
 
-- `/scaffold-farm`: Scaffold a new FARM stack project with full directory structure
+- `/scaffold-farm`: Scaffold a complete FARM project with all boilerplate files
+
+## Installation
+
+```
+/plugin install farm-stack@sagar-dev-skills
+```

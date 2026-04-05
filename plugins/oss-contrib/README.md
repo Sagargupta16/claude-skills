@@ -1,12 +1,24 @@
-# Open Source Contribution Plugin
+# OSS Contrib Plugin
 
-Skills and commands for contributing to upstream open source projects.
+Open source contribution workflow - upstream sync, compliance, code style matching, and PR preparation.
 
 ## Skills
 
-- **oss-contrib**: Contribution workflow, upstream sync, project-specific patterns (Airflow, Chroma, DSPy, etc.)
+- **oss-contrib**: Fork management, CONTRIBUTING.md compliance, code style matching, PR template filling, and project-specific reference patterns.
 
 ## Commands
 
-- `/sync-upstream`: Sync fork with upstream and prepare for contribution
-- `/prep-pr`: Prepare a PR for an upstream open source project
+- `/sync-upstream`: Sync fork with upstream remote
+- `/prep-pr`: Prepare and validate a PR for upstream submission
+
+## References
+
+- `references/airflow.md`: Apache Airflow contribution patterns
+
+Add your own project-specific references in the `references/` directory.
+
+## Installation
+
+```
+/plugin install oss-contrib@sagar-dev-skills
+```

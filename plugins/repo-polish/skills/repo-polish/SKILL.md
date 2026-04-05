@@ -1,29 +1,28 @@
 ---
 name: repo-polish
-description: Activates when polishing, auditing, or maintaining repositories. Handles .gitignore generation, .env.example creation, README writing, LICENSE addition, and general repo hygiene. Use when setting up new repos, auditing existing ones, or preparing repos for public visibility.
+description: Use when setting up new repositories, auditing existing ones, or preparing repos for public visibility. Generates .gitignore, .env.example, README, and LICENSE files. Detects committed secrets and flags security issues.
 ---
 
-# Repository Polish Skill
+# Repository Polish
 
 ## Audit Checklist
-
-When polishing a repository, check each item:
 
 | Item | Required | Check |
 |------|----------|-------|
 | `.gitignore` | Yes | Covers OS files, editor files, language artifacts, .env, secrets |
 | `.env.example` | If .env used | Documents all env vars with placeholder values |
 | `README.md` | Yes | Project name, description, setup, usage, tech stack |
-| `LICENSE` | Yes | MIT for personal projects, match upstream for forks |
+| `LICENSE` | Yes | MIT for personal, match upstream for forks |
 | No committed secrets | Critical | No .env, credentials, API keys in git history |
 
 ## Workflow
 
-1. **Sync first**: Always `git pull` before making changes
-2. **Audit**: Check what exists and what's missing
-3. **Fix**: Create/update files as needed
-4. **Commit**: Use conventional commits (`chore: add .gitignore and .env.example`)
-5. **Push**: Push changes to remote
+1. **Sync first**: `git pull` before making changes (skip for forks)
+2. **Detect**: Identify project type from config files
+3. **Audit**: Check what exists and what's missing
+4. **Fix**: Create/update files using templates below
+5. **Verify**: Search for committed secrets
+6. **Commit**: `chore: add missing repo hygiene files`
 
 ## .gitignore Templates
 
@@ -42,8 +41,6 @@ npm-debug.log*
 Thumbs.db
 .vscode/
 .idea/
-*.swp
-*.swo
 coverage/
 ```
 
@@ -55,12 +52,10 @@ __pycache__/
 *.so
 venv/
 .venv/
-env/
 .env
 *.egg-info/
 dist/
 build/
-.eggs/
 .pytest_cache/
 .coverage
 htmlcov/
@@ -75,7 +70,33 @@ Thumbs.db
 .idea/
 ```
 
-### Unity / C# Games
+### Go
+```
+bin/
+vendor/
+*.exe
+*.test
+*.out
+.env
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+```
+
+### Rust
+```
+target/
+Cargo.lock
+*.pdb
+.env
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+```
+
+### Unity / C#
 ```
 [Ll]ibrary/
 [Tt]emp/
@@ -85,73 +106,44 @@ Thumbs.db
 [Ll]ogs/
 [Uu]ser[Ss]ettings/
 *.csproj
-*.unityproj
 *.sln
 *.suo
-*.tmp
 *.user
-*.userprefs
-*.pidb
-*.booproj
-*.svd
 *.pdb
-*.mdb
-*.opendb
-*.VC.db
 .DS_Store
 Thumbs.db
-```
-
-### Academic / DSA
-```
-*.class
-*.o
-*.exe
-*.out
-__pycache__/
-*.py[cod]
-.ipynb_checkpoints/
-.DS_Store
-Thumbs.db
-.vscode/
-.idea/
 ```
 
 ## .env.example Generation
 
-To create an accurate .env.example:
-
 1. **Search for env var usage** in the codebase:
    - Node.js: `process.env.VAR_NAME`
    - Python: `os.environ["VAR"]`, `os.getenv("VAR")`, `dotenv`
-   - Config files: YAML, JSON config loaders
+   - Go: `os.Getenv("VAR")`
+   - Config files: YAML, JSON, TOML loaders
 
-2. **Write placeholders** -- never real values:
-   ```
-   DATABASE_URL=mongodb://localhost:27017/dbname
-   JWT_SECRET=your-secret-key-here
-   API_KEY=your-api-key-here
-   PORT=3000
-   ```
-
-3. **Group by category** with comments:
+2. **Write placeholders** - never real values:
    ```
    # Database
-   MONGODB_URI=mongodb://localhost:27017/dbname
+   DATABASE_URL=postgresql://localhost:5432/dbname
 
    # Authentication
    JWT_SECRET=your-secret-key-here
 
    # External APIs
-   OPENAI_API_KEY=your-openai-api-key
+   API_KEY=your-api-key-here
    ```
 
+3. **Group by category** with comments.
+
 ## README Template
+
+Adapt based on the actual project - never write generic filler.
 
 ```markdown
 # Project Name
 
-Brief description of what this project does.
+Brief description of what this project does and why.
 
 ## Features
 
@@ -165,43 +157,30 @@ Brief description of what this project does.
 
 ## Getting Started
 
-1. Clone the repo:
-   ```bash
-   git clone https://github.com/Sagargupta16/repo-name.git
-   cd repo-name
-   ```
+### Prerequisites
 
-2. Install dependencies:
-   ```bash
-   npm install  # or pip install -r requirements.txt
-   ```
+- Runtime version (e.g., Node.js 22+, Python 3.13+)
 
-3. Set up environment:
-   ```bash
-   cp .env.example .env
-   # Edit .env with your values
-   ```
+### Installation
 
-4. Run:
-   ```bash
-   npm run dev  # or uvicorn main:app --reload
-   ```
+1. Clone the repo
+2. Install dependencies
+3. Set up environment: `cp .env.example .env`
+4. Run the project
 
 ## License
 
 MIT
 ```
 
-Adapt based on the actual project type and features. Never write generic filler -- describe what the project actually does.
-
 ## LICENSE
 
-Use MIT for personal projects:
+Use MIT for personal projects (replace placeholders with actual values):
 
 ```
 MIT License
 
-Copyright (c) 2024 Sagar Gupta
+Copyright (c) <YEAR> <YOUR NAME>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -222,15 +201,30 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
 
-For forks: match the upstream project's license.
+For forks: always match the upstream project's license.
 
 ## Security Checks
 
 Before pushing, verify:
 - No `.env` files with real values are staged
 - No API keys, passwords, or tokens in any file
-- `config/secrets.yml` is git-ignored (FARM projects)
+- Secret config files (e.g., `secrets.yml`) are git-ignored
 - `.env.example` contains only placeholders
-- No MongoDB connection strings with real credentials
+- No database connection strings with real credentials
 
-If real credentials are found in git history, they must be rotated immediately -- removing from future commits does not invalidate exposed secrets.
+If real credentials are found in git history, they must be rotated immediately - removing from future commits does not invalidate exposed secrets.
+
+## Project Type Detection
+
+Detect the project type by checking for these files:
+
+| File | Project Type |
+|------|-------------|
+| `package.json` | Node.js / React / Next.js |
+| `requirements.txt` / `pyproject.toml` | Python |
+| `Cargo.toml` | Rust |
+| `go.mod` | Go |
+| `*.csproj` / `*.sln` | C# / Unity |
+| `Makefile` only | C / C++ |
+
+Use the appropriate .gitignore template based on detected type. For multi-language projects, combine relevant templates.

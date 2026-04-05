@@ -5,8 +5,8 @@
     "email": "sg85207@gmail.com"
   },
   "metadata": {
-    "description": "Custom Claude Code skills for FARM stack development, open source contributions, repository maintenance, and portfolio management.",
-    "version": "1.0.0"
+    "description": "Claude Code skills for full-stack development, CI/CD, Docker, dependency management, open source contributions, and repository maintenance.",
+    "version": "2.0.0"
   },
   "plugins": [
     {
@@ -20,7 +20,7 @@
     },
     {
       "name": "oss-contrib",
-      "description": "Open source contribution workflow -- upstream sync, CONTRIBUTING.md compliance, project-specific patterns.",
+      "description": "Open source contribution workflow -- upstream sync, CONTRIBUTING.md compliance, code style matching, PR preparation.",
       "source": "./",
       "strict": false,
       "skills": [
@@ -29,7 +29,7 @@
     },
     {
       "name": "repo-polish",
-      "description": "Repository polishing -- .gitignore, .env.example, README, LICENSE generation and maintenance.",
+      "description": "Repository hygiene -- .gitignore, .env.example, README, LICENSE generation, secret detection, and project type detection.",
       "source": "./",
       "strict": false,
       "skills": [
@@ -37,12 +37,30 @@
       ]
     },
     {
-      "name": "portfolio-updater",
-      "description": "Portfolio data management -- scan repos, update projects.json, sync achievements and contributions.",
+      "name": "ci-cd",
+      "description": "GitHub Actions CI/CD -- workflow templates, caching, matrix builds, secrets management, release automation, and debugging failing checks.",
       "source": "./",
       "strict": false,
       "skills": [
-        "./plugins/portfolio-updater/skills/portfolio-updater"
+        "./plugins/ci-cd/skills/ci-cd"
+      ]
+    },
+    {
+      "name": "docker-deploy",
+      "description": "Docker best practices -- multi-stage Dockerfiles, compose patterns, image optimization, health checks, signal handling, and security hardening.",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./plugins/docker-deploy/skills/docker-deploy"
+      ]
+    },
+    {
+      "name": "deps-audit",
+      "description": "Dependency auditing -- vulnerability scanning, outdated package detection, unused dependency identification, and safe update strategies.",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./plugins/deps-audit/skills/deps-audit"
       ]
     }
   ]

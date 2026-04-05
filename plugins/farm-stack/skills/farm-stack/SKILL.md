@@ -1,6 +1,6 @@
 ---
 name: farm-stack
-description: Activates when building or scaffolding FastAPI + React + MongoDB (FARM stack) applications. Provides project structure, config patterns, CRUD generation, Docker setup, and deployment conventions used across this workspace. Use when creating new FARM projects, adding features to existing ones, or troubleshooting FARM stack issues.
+description: Use when building or scaffolding FastAPI + React + MongoDB (FARM stack) applications. Covers project structure, async MongoDB with Motor, Pydantic v2 models, config patterns, Docker setup, and testing conventions.
 ---
 
 # FARM Stack Development Patterns
@@ -9,39 +9,38 @@ description: Activates when building or scaffolding FastAPI + React + MongoDB (F
 
 | Task | Approach |
 |------|----------|
-| New project | Scaffold from template structure below |
-| Add feature | Create model -> service -> route files |
-| Config setup | Dual-layer: env vars (priority) + secrets.yml (fallback) |
-| Database | Motor async client via `config/secrets_parser.py` |
-| Docker | Alpine-based, compose with MongoDB + backend services |
-| Frontend | Vite + React, built to `client_build/` for production |
-| Testing | pytest + httpx async fixtures, 80%+ coverage target |
+| New project | Use `/scaffold-farm` or follow structure below |
+| Add feature | Create model -> service -> route (one file per domain per layer) |
+| Config | Dual-layer: env vars (priority) + YAML fallback |
+| Database | Motor async client, never sync PyMongo in routes |
+| Docker | Alpine-based, compose with MongoDB + backend |
+| Frontend | Vite + React, proxy API in dev, static mount in prod |
+| Testing | pytest + httpx async, 80%+ coverage target |
 
 ## Project Structure
 
 ```
 project-root/
-├── main.py                    # FastAPI entry point with lifespan
+├── main.py                    # FastAPI entry with lifespan
 ├── requirements.txt           # Pinned dependencies
 ├── pyproject.toml             # Tool config (ruff, pytest)
 ├── .env.example               # Environment template
 ├── Dockerfile                 # python:3.13-alpine
 ├── docker-compose.yml         # MongoDB + backend + optional frontend
-├── Makefile                   # Dev commands
+├── Makefile                   # Dev commands (run, test, lint, build)
 ├── config/
 │   ├── __init__.py
 │   ├── secrets_parser.py      # Env + YAML config loader, Motor client
-│   ├── secrets.yml            # MongoDB connection (git-ignored)
-│   ├── secrets.yml.example    # Template for secrets.yml
+│   ├── secrets.yml            # Local dev config (git-ignored)
+│   ├── secrets.yml.example    # Template with placeholders
 │   └── logging.py             # Logging setup
 ├── models/                    # Pydantic v2 data models
-│   └── {domain}_models.py     # Base, Create, Response per domain
+│   └── {domain}_models.py     # Base -> Create -> Response per domain
 ├── routes/                    # API endpoint handlers
 │   └── {domain}_routes.py     # APIRouter per domain
 ├── services/                  # Business logic layer
 │   └── {domain}_services.py   # Async MongoDB operations
 ├── utils/                     # Shared utilities
-│   └── hashing.py             # Password hashing (passlib+bcrypt)
 ├── tests/                     # pytest suite
 │   └── test_{domain}.py       # Per-domain tests
 ├── client/                    # React + Vite frontend
@@ -51,19 +50,20 @@ project-root/
 └── client_build/              # Built frontend (served as static)
 ```
 
-## Naming Conventions
+## Naming Convention
 
-Domain files follow strict naming: `{domain}_models.py`, `{domain}_services.py`, `{domain}_routes.py`, `test_{domain}.py`. For example, adding a "product" feature creates: `product_models.py`, `product_services.py`, `product_routes.py`, `test_product.py`.
+Domain files follow strict naming: `{domain}_models.py`, `{domain}_services.py`, `{domain}_routes.py`, `test_{domain}.py`.
 
-## Config Pattern (secrets_parser.py)
+Adding a "product" feature creates: `product_models.py`, `product_services.py`, `product_routes.py`, `test_product.py`.
 
-The config loader uses dual-layer precedence:
+## Config Pattern
 
-1. **Environment variables** (highest priority) -- loaded via `python-dotenv`
-2. **YAML fallback** -- `config/secrets.yml` for local development
+Dual-layer precedence:
+1. **Environment variables** (highest priority) via `python-dotenv`
+2. **YAML fallback** via `config/secrets.yml` for local dev
 
 ```python
-# Standard config flow:
+# config/secrets_parser.py
 # 1. dotenv.load_dotenv()
 # 2. Read secrets.yml as fallback defaults
 # 3. Build MongoDB connection string
@@ -80,20 +80,23 @@ MongoDB connection variations:
 ## Standard .env.example
 
 ```
+# Database
 MONGODB_HOST=localhost
 MONGODB_PORT=27017
 MONGODB_DATABASE=app_name
 MONGODB_USERNAME=
 MONGODB_PASSWORD=
 
+# Server
 API_HOST=0.0.0.0
 API_PORT=8000
 DEBUG=True
 
+# CORS
 CORS_ORIGINS=http://localhost:3000,http://localhost:5173
 ```
 
-## main.py Pattern
+## Entry Point Pattern
 
 ```python
 from contextlib import asynccontextmanager
@@ -103,25 +106,22 @@ from fastapi.staticfiles import StaticFiles
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # Startup
+    # Startup: init DB connections, caches
     yield
-    # Shutdown
+    # Shutdown: close connections
 
 app = FastAPI(title="App Name", version="1.0.0", lifespan=lifespan)
 
-# CORS from env var (comma-separated origins)
+# CORS from env (comma-separated origins)
 cors_origins = os.getenv("CORS_ORIGINS", "http://localhost:3000").split(",")
 app.add_middleware(CORSMiddleware,
-    allow_origins=cors_origins,
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_origins=cors_origins, allow_credentials=True,
+    allow_methods=["*"], allow_headers=["*"],
 )
 
-# Mount routers with /api/v1 prefix
+# Mount routers with versioned prefix
 app.include_router(domain_router, prefix="/api/v1", tags=["domain"])
 
-# Health check endpoint
 @app.get("/health")
 async def health_check():
     return {"status": "healthy"}
@@ -132,6 +132,8 @@ if os.path.exists("client_build"):
 ```
 
 ## Model Pattern (Pydantic v2)
+
+Three-tier: Base (shared fields) -> Create (input extras) -> Response (id + timestamps).
 
 ```python
 from pydantic import BaseModel, EmailStr
@@ -148,11 +150,8 @@ class User(UserBase):
     id: str
     created_at: datetime
 
-    class Config:
-        from_attributes = True
+    model_config = {"from_attributes": True}
 ```
-
-Three-tier: Base (shared fields) -> Create (input with extra fields) -> Response (output with id + timestamps).
 
 ## Service Pattern (Async MongoDB)
 
@@ -180,7 +179,7 @@ class DomainService:
         return doc
 ```
 
-Key: Always convert `_id` (ObjectId) to string `id` when returning from MongoDB.
+Always convert `_id` (ObjectId) to string `id` when returning from MongoDB.
 
 ## Route Pattern
 
@@ -201,17 +200,19 @@ async def create_item(data: ItemCreate):
 
 ## Docker Pattern
 
-**Dockerfile** (Alpine-based):
 ```dockerfile
 FROM python:3.13-alpine
 WORKDIR /app
-COPY . /app/
-RUN pip install --upgrade pip && pip install -r requirements.txt
+RUN adduser -D appuser
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+COPY . .
+USER appuser
 EXPOSE 8000
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
 ```
 
-**docker-compose.yml** includes: MongoDB 8 service with persistent volume, backend service with hot-reload, shared bridge network. Environment vars flow from `.env` file to compose to containers.
+docker-compose.yml includes: MongoDB 8 with persistent volume, backend with hot-reload, shared bridge network. Environment flows from `.env` to compose to containers.
 
 ## Core Dependencies
 
@@ -228,10 +229,14 @@ python-multipart>=0.0.20
 
 Dev: `pytest`, `httpx`, `ruff`, `coverage`
 
-## Anti-Patterns to Avoid
+## Anti-Patterns
 
-- Never use sync PyMongo in FastAPI routes -- always Motor async
-- Never hardcode CORS origins -- always from env var
-- Never commit `config/secrets.yml` -- only `secrets.yml.example`
-- Never use `from_attributes = True` without converting `_id` first
-- Never skip the service layer -- routes should not contain business logic
+| Don't | Do Instead |
+|-------|-----------|
+| Sync PyMongo in FastAPI routes | Motor async client |
+| Hardcode CORS origins | Read from env var |
+| Commit `config/secrets.yml` | Only commit `secrets.yml.example` |
+| Use `from_attributes` without converting `_id` | Convert ObjectId to str first |
+| Put business logic in routes | Use service layer |
+| Use `class Config:` in Pydantic v2 | Use `model_config = {}` dict |
+| Run as root in Docker | Add non-root user |
