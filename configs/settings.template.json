@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "allow": [
+      "Bash(git status*)",
+      "Bash(git diff*)",
+      "Bash(git log*)",
+      "Bash(git branch*)",
+      "Bash(git checkout*)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git push *)",
+      "Bash(git fetch*)",
+      "Bash(git remote*)",
+      "Bash(git stash*)",
+      "Bash(gh *)",
+      "Bash(pnpm *)",
+      "Bash(npm *)",
+      "Bash(npx *)",
+      "Bash(uv *)",
+      "Bash(python *)",
+      "Bash(pip *)",
+      "Bash(ruff *)",
+      "Bash(pytest*)",
+      "Bash(docker *)",
+      "Bash(ls *)",
+      "Bash(mkdir *)",
+      "Bash(cd *)",
+      "Bash(which *)",
+      "Bash(echo *)"
+    ],
+    "deny": [
+      "Bash(git push --force*)",
+      "Bash(git reset --hard*)",
+      "Bash(rm -rf*)"
+    ]
+  },
+  "enabledPlugins": {
+    "dev-workflow@sagar-dev-skills": true,
+    "dev-rules@sagar-dev-skills": true,
+    "ci-cd@sagar-dev-skills": true,
+    "docker-deploy@sagar-dev-skills": true,
+    "deps-audit@sagar-dev-skills": true,
+    "oss-contrib@sagar-dev-skills": true,
+    "repo-polish@sagar-dev-skills": true,
+
+    "pyright-lsp@claude-plugins-official": true,
+    "typescript-lsp@claude-plugins-official": true,
+
+    "github@claude-plugins-official": true,
+    "pr-review-toolkit@claude-plugins-official": true,
+    "code-simplifier@claude-plugins-official": true,
+    "feature-dev@claude-plugins-official": true,
+    "superpowers@claude-plugins-official": true,
+    "context7@claude-plugins-official": true,
+    "playground@claude-plugins-official": true,
+
+    "explanatory-output-style@claude-plugins-official": true
+  },
+  "extraKnownMarketplaces": {
+    "sagar-dev-skills": {
+      "source": {
+        "source": "github",
+        "repo": "Sagargupta16/claude-skills"
+      }
+    }
+  },
+  "alwaysThinkingEnabled": true,
+  "effortLevel": "high",
+  "autoUpdatesChannel": "latest"
+}

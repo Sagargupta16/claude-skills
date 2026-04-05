@@ -100,6 +100,17 @@ claude-skills/
 | Rust | Yes | - | Yes | Yes | Yes | Yes |
 | C# / Unity | Yes | - | - | - | - | Yes |
 
+## Full Setup Guide
+
+Want the complete curated Claude Code setup (plugins + permissions + recommended config)?
+
+1. **Copy the template settings** to get started:
+   - See [configs/settings.template.json](configs/settings.template.json) - a ready-to-use settings file
+   - Copy to `~/.claude/settings.json` and customize
+
+2. **Read the recommended plugin stack** for a tiered approach:
+   - See [configs/recommended-plugins.md](configs/recommended-plugins.md) - organized by use case with tips
+
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on adding new skills or improving existing ones.
