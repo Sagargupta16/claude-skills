@@ -7,7 +7,8 @@ Contributions are welcome. Here's how to add or improve skills.
 1. Create the directory structure:
    ```
    plugins/your-plugin/
-   ├── plugin.json
+   ├── .claude-plugin/
+   │   └── plugin.json
    ├── README.md
    ├── skills/your-plugin/
    │   └── SKILL.md
@@ -23,17 +24,17 @@ Contributions are welcome. Here's how to add or improve skills.
    ---
    ```
 
-3. Create a `plugin.json` listing skills and commands:
+3. Create `.claude-plugin/plugin.json`:
    ```json
    {
      "name": "your-plugin",
      "description": "Short description.",
-     "skills": ["./skills/your-plugin"],
-     "commands": ["./commands/your-command.md"]
+     "version": "3.0.0"
    }
    ```
+   Skills and commands are auto-discovered from `skills/` and `commands/` directories.
 
-4. Add the plugin to `.claude-plugin/marketplace.json`
+4. Add the plugin to `.claude-plugin/marketplace.json` (source is just the directory name)
 
 5. Update the README.md plugin table
 

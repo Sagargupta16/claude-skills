@@ -25,45 +25,69 @@ if ! python3 -c "import json; json.load(open('$MARKETPLACE'))" 2>/dev/null && \
 fi
 info "$MARKETPLACE is valid JSON"
 
-# Extract plugin names and skill paths from marketplace.json
+# Extract plugin names and pluginRoot from marketplace.json
 if command -v python3 &>/dev/null; then
-  PLUGINS=$(python3 -c "
+  PLUGIN_ROOT=$(python3 -c "
+import json
+data = json.load(open('$MARKETPLACE'))
+print(data.get('metadata', {}).get('pluginRoot', '.'))
+")
+  PLUGIN_NAMES=$(python3 -c "
 import json
 data = json.load(open('$MARKETPLACE'))
 for p in data['plugins']:
-    skills = ' '.join(p.get('skills', []))
-    print(f\"{p['name']}|{skills}\")
+    print(p['name'] + '|' + p.get('source', p['name']))
 ")
 elif command -v node &>/dev/null; then
-  PLUGINS=$(node -e "
+  PLUGIN_ROOT=$(node -e "
 const data = JSON.parse(require('fs').readFileSync('$MARKETPLACE','utf8'));
-data.plugins.forEach(p => {
-  const skills = (p.skills || []).join(' ');
-  console.log(p.name + '|' + skills);
-});
+console.log((data.metadata || {}).pluginRoot || '.');
+")
+  PLUGIN_NAMES=$(node -e "
+const data = JSON.parse(require('fs').readFileSync('$MARKETPLACE','utf8'));
+data.plugins.forEach(p => console.log(p.name + '|' + (p.source || p.name)));
 ")
 else
   error "Neither python3 nor node available for JSON parsing"
   exit 1
 fi
 
-while IFS='|' read -r name skill_paths; do
+# Normalize pluginRoot (strip leading ./)
+PLUGIN_ROOT="${PLUGIN_ROOT#./}"
+
+while IFS='|' read -r name source; do
   echo ""
   echo "--- Plugin: $name ---"
 
-  # Check plugin directory exists
-  plugin_dir="plugins/$name"
+  # Resolve plugin directory from pluginRoot + source
+  source="${source#./}"
+  if [[ "$PLUGIN_ROOT" == "." ]]; then
+    plugin_dir="$source"
+  else
+    plugin_dir="$PLUGIN_ROOT/$source"
+  fi
+
   if [[ ! -d "$plugin_dir" ]]; then
     error "Plugin directory $plugin_dir not found"
     continue
   fi
   info "Directory exists"
 
-  # Check plugin.json exists
-  if [[ -f "$plugin_dir/plugin.json" ]]; then
-    info "plugin.json exists"
+  # Check .claude-plugin/plugin.json exists (correct location per docs)
+  if [[ -f "$plugin_dir/.claude-plugin/plugin.json" ]]; then
+    info ".claude-plugin/plugin.json exists"
+    # Validate it's valid JSON
+    if ! python3 -c "import json; json.load(open('$plugin_dir/.claude-plugin/plugin.json'))" 2>/dev/null && \
+       ! node -e "JSON.parse(require('fs').readFileSync('$plugin_dir/.claude-plugin/plugin.json','utf8'))" 2>/dev/null; then
+      error "$plugin_dir/.claude-plugin/plugin.json is not valid JSON"
+    fi
   else
-    warn "No plugin.json in $plugin_dir"
+    warn "No .claude-plugin/plugin.json in $plugin_dir"
+  fi
+
+  # Warn if plugin.json exists at wrong location (root instead of .claude-plugin/)
+  if [[ -f "$plugin_dir/plugin.json" ]]; then
+    warn "$plugin_dir/plugin.json found at root -- should be in .claude-plugin/"
   fi
 
   # Check README.md exists
@@ -73,45 +97,48 @@ while IFS='|' read -r name skill_paths; do
     warn "No README.md in $plugin_dir"
   fi
 
-  # Validate each skill path
-  for skill_path in $skill_paths; do
-    skill_md="$skill_path/SKILL.md"
-    if [[ ! -f "$skill_md" ]]; then
-      error "Skill file $skill_md not found (referenced in marketplace.json)"
-      continue
-    fi
-    info "SKILL.md exists at $skill_path"
+  # Auto-discover and validate skills (convention: skills/*/SKILL.md)
+  if [[ -d "$plugin_dir/skills" ]]; then
+    for skill_dir in "$plugin_dir/skills"/*/; do
+      [[ -d "$skill_dir" ]] || continue
+      skill_md="${skill_dir}SKILL.md"
+      if [[ ! -f "$skill_md" ]]; then
+        warn "Skill directory $skill_dir has no SKILL.md"
+        continue
+      fi
+      info "SKILL.md exists at $skill_dir"
 
-    # Check frontmatter has name and description
-    if ! head -5 "$skill_md" | grep -q "^---"; then
-      error "$skill_md missing YAML frontmatter"
-      continue
-    fi
+      # Check frontmatter has name and description
+      if ! head -5 "$skill_md" | grep -q "^---"; then
+        error "$skill_md missing YAML frontmatter"
+        continue
+      fi
 
-    if ! grep -q "^name:" "$skill_md"; then
-      error "$skill_md missing 'name' in frontmatter"
-    fi
+      if ! grep -q "^name:" "$skill_md"; then
+        error "$skill_md missing 'name' in frontmatter"
+      fi
 
-    if ! grep -q "^description:" "$skill_md"; then
-      error "$skill_md missing 'description' in frontmatter"
-    fi
+      if ! grep -q "^description:" "$skill_md"; then
+        error "$skill_md missing 'description' in frontmatter"
+      fi
 
-    # Check description starts with "Use when"
-    desc_line=$(grep "^description:" "$skill_md" | head -1)
-    if ! echo "$desc_line" | grep -qi "Use when"; then
-      error "$skill_md description does not start with 'Use when'"
-    else
-      info "Description starts with 'Use when'"
-    fi
+      # Check description starts with "Use when"
+      desc_line=$(grep "^description:" "$skill_md" | head -1)
+      if ! echo "$desc_line" | grep -qi "Use when"; then
+        error "$skill_md description does not start with 'Use when'"
+      else
+        info "Description starts with 'Use when'"
+      fi
 
-    # Check file length < 500 lines
-    line_count=$(wc -l < "$skill_md")
-    if (( line_count > 500 )); then
-      warn "$skill_md is $line_count lines (target: under 500)"
-    else
-      info "SKILL.md is $line_count lines (under 500)"
-    fi
-  done
+      # Check file length < 500 lines
+      line_count=$(wc -l < "$skill_md")
+      if (( line_count > 500 )); then
+        warn "$skill_md is $line_count lines (target: under 500)"
+      else
+        info "SKILL.md is $line_count lines (under 500)"
+      fi
+    done
+  fi
 
   # Validate command files if commands/ directory exists
   if [[ -d "$plugin_dir/commands" ]]; then
@@ -129,7 +156,7 @@ while IFS='|' read -r name skill_paths; do
     done
   fi
 
-done <<< "$PLUGINS"
+done <<< "$PLUGIN_NAMES"
 
 echo ""
 echo "================================"

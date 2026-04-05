@@ -1,0 +1,5 @@
+{
+  "name": "dev-workflow",
+  "description": "Everyday dev commands -- commit, review, test, fix bugs, create PRs, check repo status, and inspect PR health.",
+  "version": "3.0.0"
+}

@@ -74,46 +74,46 @@ claude-skills/
 │   └── validate-plugins.sh
 ├── plugins/
 │   ├── dev-workflow/              # Everyday dev commands
-│   │   ├── plugin.json
+│   │   ├── .claude-plugin/plugin.json
 │   │   ├── skills/dev-workflow/SKILL.md
 │   │   └── commands/{commit,review,test,fix,pr,status,check-pr}.md
 │   ├── dev-rules/                 # Development guardrails
-│   │   ├── plugin.json
+│   │   ├── .claude-plugin/plugin.json
 │   │   └── skills/dev-rules/SKILL.md
 │   ├── farm-stack/                # FARM stack development
-│   │   ├── plugin.json
+│   │   ├── .claude-plugin/plugin.json
 │   │   ├── skills/farm-stack/SKILL.md
 │   │   └── commands/scaffold-farm.md
 │   ├── testing/                   # Test strategy and patterns
-│   │   ├── plugin.json
+│   │   ├── .claude-plugin/plugin.json
 │   │   ├── skills/testing/SKILL.md
 │   │   └── commands/write-tests.md
 │   ├── api-design/                # REST API design
-│   │   ├── plugin.json
+│   │   ├── .claude-plugin/plugin.json
 │   │   ├── skills/api-design/SKILL.md
 │   │   └── commands/design-api.md
 │   ├── database/                  # Database patterns
-│   │   ├── plugin.json
+│   │   ├── .claude-plugin/plugin.json
 │   │   ├── skills/database/SKILL.md
 │   │   └── commands/design-schema.md
 │   ├── ci-cd/                     # GitHub Actions CI/CD
-│   │   ├── plugin.json
+│   │   ├── .claude-plugin/plugin.json
 │   │   ├── skills/ci-cd/SKILL.md
 │   │   └── commands/setup-ci.md
 │   ├── docker-deploy/             # Docker and deployment
-│   │   ├── plugin.json
+│   │   ├── .claude-plugin/plugin.json
 │   │   ├── skills/docker-deploy/SKILL.md
 │   │   └── commands/dockerize.md
 │   ├── deps-audit/                # Dependency management
-│   │   ├── plugin.json
+│   │   ├── .claude-plugin/plugin.json
 │   │   ├── skills/deps-audit/SKILL.md
 │   │   └── commands/audit-deps.md
 │   ├── oss-contrib/               # Open source contributions
-│   │   ├── plugin.json
+│   │   ├── .claude-plugin/plugin.json
 │   │   ├── skills/oss-contrib/SKILL.md
 │   │   └── commands/{sync-upstream,prep-pr}.md
 │   └── repo-polish/               # Repository hygiene
-│       ├── plugin.json
+│       ├── .claude-plugin/plugin.json
 │       ├── skills/repo-polish/SKILL.md
 │       └── commands/polish-repo.md
 ├── configs/

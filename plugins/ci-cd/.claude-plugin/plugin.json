@@ -1,6 +1,5 @@
 {
   "name": "ci-cd",
   "description": "GitHub Actions CI/CD -- workflow templates, caching, matrix builds, secrets management, release automation, and debugging failing checks.",
-  "skills": ["./skills/ci-cd"],
-  "commands": ["./commands/setup-ci.md"]
+  "version": "3.0.0"
 }

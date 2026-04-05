@@ -6,107 +6,119 @@
   },
   "metadata": {
     "description": "Claude Code skills for full-stack development, testing, API design, databases, CI/CD, Docker, dependency management, open source contributions, repository maintenance, and everyday dev workflows.",
-    "version": "3.0.0"
+    "version": "3.0.0",
+    "pluginRoot": "./plugins"
   },
   "plugins": [
     {
       "name": "dev-workflow",
+      "source": "dev-workflow",
       "description": "Everyday dev commands -- commit, review, test, fix bugs, create PRs, check repo status, and inspect PR health.",
-      "source": "./",
-      "strict": false,
-      "skills": [
-        "./plugins/dev-workflow/skills/dev-workflow"
-      ]
+      "version": "3.0.0",
+      "author": { "name": "Sagar Gupta" },
+      "license": "MIT",
+      "keywords": ["git", "commit", "review", "testing", "pr", "workflow"],
+      "category": "development"
     },
     {
       "name": "dev-rules",
+      "source": "dev-rules",
       "description": "Development guardrails -- git safety, security best practices, PR workflow discipline, and context optimization patterns.",
-      "source": "./",
-      "strict": false,
-      "skills": [
-        "./plugins/dev-rules/skills/dev-rules"
-      ]
+      "version": "3.0.0",
+      "author": { "name": "Sagar Gupta" },
+      "license": "MIT",
+      "keywords": ["git", "security", "guardrails", "best-practices"],
+      "category": "development"
     },
     {
       "name": "farm-stack",
+      "source": "farm-stack",
       "description": "FARM stack (FastAPI + React + MongoDB) development patterns, scaffolding, and best practices.",
-      "source": "./",
-      "strict": false,
-      "skills": [
-        "./plugins/farm-stack/skills/farm-stack"
-      ]
+      "version": "3.0.0",
+      "author": { "name": "Sagar Gupta" },
+      "license": "MIT",
+      "keywords": ["fastapi", "react", "mongodb", "farm", "python", "fullstack"],
+      "category": "framework"
     },
     {
       "name": "testing",
+      "source": "testing",
       "description": "Test strategy, framework patterns, mocking approaches, fixture design, and coverage guidance for pytest, jest/vitest, go test, and cargo test.",
-      "source": "./",
-      "strict": false,
-      "skills": [
-        "./plugins/testing/skills/testing"
-      ]
+      "version": "3.0.0",
+      "author": { "name": "Sagar Gupta" },
+      "license": "MIT",
+      "keywords": ["pytest", "jest", "vitest", "testing", "coverage", "mocking"],
+      "category": "testing"
     },
     {
       "name": "api-design",
+      "source": "api-design",
       "description": "REST and GraphQL API design -- URL structure, HTTP conventions, error formats, pagination, authentication, versioning, and OpenAPI.",
-      "source": "./",
-      "strict": false,
-      "skills": [
-        "./plugins/api-design/skills/api-design"
-      ]
+      "version": "3.0.0",
+      "author": { "name": "Sagar Gupta" },
+      "license": "MIT",
+      "keywords": ["rest", "api", "openapi", "pagination", "authentication"],
+      "category": "design"
     },
     {
       "name": "database",
+      "source": "database",
       "description": "Database schema design, migrations, indexing, query optimization, and connection pooling for Postgres, MongoDB, and SQLite.",
-      "source": "./",
-      "strict": false,
-      "skills": [
-        "./plugins/database/skills/database"
-      ]
+      "version": "3.0.0",
+      "author": { "name": "Sagar Gupta" },
+      "license": "MIT",
+      "keywords": ["postgres", "mongodb", "sqlite", "migrations", "schema", "indexing"],
+      "category": "database"
     },
     {
       "name": "ci-cd",
+      "source": "ci-cd",
       "description": "GitHub Actions CI/CD -- workflow templates, caching, matrix builds, secrets management, release automation, and debugging failing checks.",
-      "source": "./",
-      "strict": false,
-      "skills": [
-        "./plugins/ci-cd/skills/ci-cd"
-      ]
+      "version": "3.0.0",
+      "author": { "name": "Sagar Gupta" },
+      "license": "MIT",
+      "keywords": ["github-actions", "ci", "cd", "caching", "releases"],
+      "category": "devops"
     },
     {
       "name": "docker-deploy",
+      "source": "docker-deploy",
       "description": "Docker best practices -- multi-stage Dockerfiles, compose patterns, image optimization, health checks, signal handling, and security hardening.",
-      "source": "./",
-      "strict": false,
-      "skills": [
-        "./plugins/docker-deploy/skills/docker-deploy"
-      ]
+      "version": "3.0.0",
+      "author": { "name": "Sagar Gupta" },
+      "license": "MIT",
+      "keywords": ["docker", "dockerfile", "compose", "containers", "deployment"],
+      "category": "devops"
     },
     {
       "name": "deps-audit",
+      "source": "deps-audit",
       "description": "Dependency auditing -- vulnerability scanning, outdated package detection, unused dependency identification, and safe update strategies.",
-      "source": "./",
-      "strict": false,
-      "skills": [
-        "./plugins/deps-audit/skills/deps-audit"
-      ]
+      "version": "3.0.0",
+      "author": { "name": "Sagar Gupta" },
+      "license": "MIT",
+      "keywords": ["dependencies", "security", "vulnerabilities", "npm", "pip", "cargo"],
+      "category": "security"
     },
     {
       "name": "oss-contrib",
+      "source": "oss-contrib",
       "description": "Open source contribution workflow -- upstream sync, CONTRIBUTING.md compliance, code style matching, PR preparation.",
-      "source": "./",
-      "strict": false,
-      "skills": [
-        "./plugins/oss-contrib/skills/oss-contrib"
-      ]
+      "version": "3.0.0",
+      "author": { "name": "Sagar Gupta" },
+      "license": "MIT",
+      "keywords": ["open-source", "fork", "upstream", "contributing", "pr"],
+      "category": "workflow"
     },
     {
       "name": "repo-polish",
+      "source": "repo-polish",
       "description": "Repository hygiene -- .gitignore, .env.example, README, LICENSE generation, secret detection, and project type detection.",
-      "source": "./",
-      "strict": false,
-      "skills": [
-        "./plugins/repo-polish/skills/repo-polish"
-      ]
+      "version": "3.0.0",
+      "author": { "name": "Sagar Gupta" },
+      "license": "MIT",
+      "keywords": ["gitignore", "readme", "license", "hygiene", "secrets"],
+      "category": "maintenance"
     }
   ]
 }

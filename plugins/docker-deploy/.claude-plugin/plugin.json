@@ -1,6 +1,5 @@
 {
   "name": "docker-deploy",
   "description": "Docker best practices -- multi-stage Dockerfiles, compose patterns, image optimization, health checks, signal handling, and security hardening.",
-  "skills": ["./skills/docker-deploy"],
-  "commands": ["./commands/dockerize.md"]
+  "version": "3.0.0"
 }

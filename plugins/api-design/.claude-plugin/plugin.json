@@ -1,6 +1,5 @@
 {
   "name": "api-design",
   "description": "REST and GraphQL API design -- URL structure, HTTP conventions, error formats, pagination, authentication, versioning, and OpenAPI.",
-  "skills": ["./skills/api-design"],
-  "commands": ["./commands/design-api.md"]
+  "version": "3.0.0"
 }

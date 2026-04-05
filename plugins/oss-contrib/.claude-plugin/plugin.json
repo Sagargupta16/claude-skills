@@ -1,9 +1,5 @@
 {
   "name": "oss-contrib",
   "description": "Open source contribution workflow -- upstream sync, CONTRIBUTING.md compliance, code style matching, PR preparation.",
-  "skills": ["./skills/oss-contrib"],
-  "commands": [
-    "./commands/sync-upstream.md",
-    "./commands/prep-pr.md"
-  ]
+  "version": "3.0.0"
 }

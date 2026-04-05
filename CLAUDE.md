@@ -9,18 +9,18 @@ A Claude Code plugin marketplace (`sagar-dev-skills`) containing 11 reusable plu
 ## Architecture
 
 ```
-.claude-plugin/marketplace.json   # Plugin registry -- lists all plugins and their skill paths
+.claude-plugin/marketplace.json       # Plugin registry -- lists all plugins with metadata
 plugins/{name}/
-  ├── plugin.json                 # Per-plugin manifest (skills + commands)
-  ├── README.md                   # Plugin overview (for GitHub display)
-  ├── skills/{name}/SKILL.md      # Skill definition (YAML frontmatter + Markdown body)
-  ├── skills/{name}/references/   # Optional supplementary reference files
-  └── commands/{cmd}.md           # Slash command definitions (YAML frontmatter + steps)
+  ├── .claude-plugin/plugin.json      # Per-plugin manifest (name, description, version)
+  ├── README.md                       # Plugin overview (for GitHub display)
+  ├── skills/{name}/SKILL.md          # Skill definition (YAML frontmatter + Markdown body)
+  ├── skills/{name}/references/       # Optional supplementary reference files
+  └── commands/{cmd}.md               # Slash command definitions (YAML frontmatter + steps)
 ```
 
-**marketplace.json** is the entry point. Each plugin entry has `name`, `description`, `source`, and `skills` (array of paths to skill directories). Claude Code reads this to discover available plugins.
+**marketplace.json** is the entry point. Uses `metadata.pluginRoot: "./plugins"` so each plugin's `source` is just its directory name. Each entry has `name`, `source`, `description`, `version`, `author`, `license`, `keywords`, and `category`. Claude Code reads this to discover available plugins.
 
-**plugin.json** (per-plugin) is the local manifest listing both skills and commands, making each plugin self-describing.
+**plugin.json** (at `.claude-plugin/plugin.json` inside each plugin) is the plugin manifest. With `strict: true` (the default), this file is the authority for component definitions. Skills and commands are auto-discovered from conventional `skills/` and `commands/` directories.
 
 **SKILL.md frontmatter** follows a strict format:
 ```yaml
@@ -78,8 +78,8 @@ This checks: marketplace.json validity, plugin directory existence, SKILL.md fro
 ## Making Changes
 
 When adding a new plugin:
-1. Create `plugins/{name}/` with plugin.json, README.md, skills, and optional commands
-2. Add the plugin entry to `.claude-plugin/marketplace.json`
+1. Create `plugins/{name}/` with `.claude-plugin/plugin.json`, README.md, skills, and optional commands
+2. Add the plugin entry to `.claude-plugin/marketplace.json` (source is just the directory name thanks to `pluginRoot`)
 3. Update the README.md plugin tables and install commands
 4. Add a CHANGELOG.md entry
 5. Run `bash scripts/validate-plugins.sh` to verify
@@ -87,7 +87,7 @@ When adding a new plugin:
 
 When modifying an existing plugin:
 - Keep the SKILL.md frontmatter `description` in sync with what the skill actually does
-- Keep plugin.json in sync with any added/removed commands
+- Keep `.claude-plugin/plugin.json` version in sync with marketplace version
 - Maintain the Quick Reference table if adding new capabilities
 - Bump version in marketplace.json `metadata.version` for significant changes
 

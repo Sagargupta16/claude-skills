@@ -1,6 +1,5 @@
 {
   "name": "dev-rules",
   "description": "Development guardrails -- git safety, security best practices, PR workflow discipline, and context optimization patterns.",
-  "skills": ["./skills/dev-rules"],
-  "commands": []
+  "version": "3.0.0"
 }
