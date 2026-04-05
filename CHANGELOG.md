@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.0] - 2026-04-05
+
+### Added
+- `dev-workflow` plugin: 7 everyday commands - `/commit`, `/review`, `/test`, `/fix`, `/pr`, `/status`, `/check-pr`
+- `dev-rules` plugin: Auto-activating guardrails for git safety, security, PR workflow, and context optimization
+- Anyone installing these plugins gets a complete dev setup via the marketplace - no manual config copying needed
+
 ## [2.0.0] - 2026-04-05
 
 ### Added

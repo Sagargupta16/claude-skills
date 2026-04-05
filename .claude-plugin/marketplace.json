@@ -5,8 +5,8 @@
     "email": "sg85207@gmail.com"
   },
   "metadata": {
-    "description": "Claude Code skills for full-stack development, CI/CD, Docker, dependency management, open source contributions, and repository maintenance.",
-    "version": "2.0.0"
+    "description": "Claude Code skills for full-stack development, CI/CD, Docker, dependency management, open source contributions, repository maintenance, and everyday dev workflows.",
+    "version": "2.1.0"
   },
   "plugins": [
     {
@@ -61,6 +61,24 @@
       "strict": false,
       "skills": [
         "./plugins/deps-audit/skills/deps-audit"
+      ]
+    },
+    {
+      "name": "dev-workflow",
+      "description": "Everyday dev commands -- commit, review, test, fix bugs, create PRs, check repo status, and inspect PR health.",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./plugins/dev-workflow/skills/dev-workflow"
+      ]
+    },
+    {
+      "name": "dev-rules",
+      "description": "Development guardrails -- git safety, security best practices, PR workflow discipline, and context optimization patterns.",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./plugins/dev-rules/skills/dev-rules"
       ]
     }
   ]
