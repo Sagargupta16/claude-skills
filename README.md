@@ -176,6 +176,14 @@ claude-skills/
 | Rust | Yes | Yes | - | - | Yes | Yes | Yes | Yes | Yes |
 | C# / Unity | Yes | - | - | - | - | - | - | - | Yes |
 
+## Companion Plugins
+
+These standalone plugin marketplaces complement this collection:
+
+| Plugin | Install | What It Does |
+|--------|---------|-------------|
+| [claude-cost-optimizer](https://github.com/Sagargupta16/claude-cost-optimizer) | `/plugin marketplace add Sagargupta16/claude-cost-optimizer` | Cost-mode skill that saves 30-60% through concise responses, model routing, and budget hooks |
+
 ## Full Setup Guide
 
 Want the complete curated Claude Code setup (plugins + permissions + recommended config)?
