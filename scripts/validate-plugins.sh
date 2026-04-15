@@ -7,8 +7,8 @@ set -euo pipefail
 ERRORS=0
 WARNINGS=0
 
-error() { echo "ERROR: $1"; ((ERRORS++)); }
-warn() { echo "WARN:  $1"; ((WARNINGS++)); }
+error() { echo "ERROR: $1"; ERRORS=$((ERRORS + 1)); }
+warn() { echo "WARN:  $1"; WARNINGS=$((WARNINGS + 1)); }
 info() { echo "OK:    $1"; }
 
 # Check marketplace.json exists and is valid JSON
@@ -154,6 +154,64 @@ while IFS='|' read -r name source; do
         warn "$cmd_file missing 'user_invocable' field"
       fi
     done
+  fi
+
+  # Validate agent files if agents/ directory exists
+  if [[ -d "$plugin_dir/agents" ]]; then
+    agent_count=0
+    for agent_file in "$plugin_dir/agents"/*.md; do
+      [[ -f "$agent_file" ]] || continue
+      agent_count=$((agent_count + 1))
+
+      # Check frontmatter exists
+      if ! head -5 "$agent_file" | grep -q "^---"; then
+        error "$agent_file missing YAML frontmatter"
+        continue
+      fi
+
+      # Check required fields
+      if ! grep -q "^name:" "$agent_file"; then
+        error "$agent_file missing 'name' in frontmatter"
+      fi
+      if ! grep -q "^description:" "$agent_file"; then
+        error "$agent_file missing 'description' in frontmatter"
+      fi
+      if ! grep -q "^model:" "$agent_file"; then
+        error "$agent_file missing 'model' in frontmatter"
+      else
+        # Validate model is haiku or sonnet
+        model_val=$(grep "^model:" "$agent_file" | head -1 | sed 's/model: *//')
+        if [[ "$model_val" != "haiku" && "$model_val" != "sonnet" && "$model_val" != "opus" ]]; then
+          error "$agent_file has invalid model '$model_val' (expected: haiku, sonnet, or opus)"
+        fi
+      fi
+    done
+    if (( agent_count > 0 )); then
+      info "$agent_count agent(s) validated"
+    fi
+  fi
+
+  # Validate hook files if hooks/ directory exists
+  if [[ -d "$plugin_dir/hooks" ]]; then
+    hook_count=0
+    for hook_file in "$plugin_dir/hooks"/*.sh; do
+      [[ -f "$hook_file" ]] || continue
+      hook_count=$((hook_count + 1))
+
+      # Check shebang line
+      first_line=$(head -1 "$hook_file")
+      if [[ "$first_line" != "#!/usr/bin/env bash" && "$first_line" != "#!/bin/bash" ]]; then
+        warn "$hook_file missing bash shebang (got: $first_line)"
+      fi
+
+      # Check set -euo pipefail for safety
+      if ! grep -q "set -euo pipefail" "$hook_file"; then
+        warn "$hook_file missing 'set -euo pipefail' (recommended for safety)"
+      fi
+    done
+    if (( hook_count > 0 )); then
+      info "$hook_count hook(s) validated"
+    fi
   fi
 
 done <<< "$PLUGIN_NAMES"

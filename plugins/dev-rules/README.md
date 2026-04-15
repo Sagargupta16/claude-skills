@@ -6,6 +6,20 @@ Development guardrails - git safety, security best practices, PR workflow discip
 
 - **dev-rules**: Auto-activates as guardrails when writing code, making git operations, handling secrets, reviewing PRs, or working with dependencies. Enforces safe defaults without requiring manual invocation.
 
+## Agents
+
+| Agent | Model | Description |
+|-------|-------|-------------|
+| `guardrail-checker` | haiku | Verifies code changes follow git safety, security, and coding standards |
+
+## Hooks
+
+| Hook | Event | Description |
+|------|-------|-------------|
+| `secret-guard` | PreToolCall (git commit) | Blocks commits containing hardcoded secrets |
+| `no-force-push` | PreToolCall (git push) | Blocks force pushes to main/master |
+| `branch-guard` | PreToolCall (git commit) | Warns when committing directly to main |
+
 ## What It Covers
 
 | Area | Examples |
@@ -30,5 +44,3 @@ Skipped: .env (matches secret pattern)
 ```
 /plugin install dev-rules@sagar-dev-skills
 ```
-
-This plugin has no commands -- it provides background guardrails that activate automatically.

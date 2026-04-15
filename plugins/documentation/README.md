@@ -8,7 +8,15 @@ Documentation patterns for READMEs, ADRs, changelogs, API docs, and technical sp
 
 ## Commands
 
-- `/write-docs`: Generate or improve project documentation
+| Command | Description |
+|---------|-------------|
+| `/write-docs` | Generate or improve project documentation |
+
+## Agents
+
+| Agent | Model | Description |
+|-------|-------|-------------|
+| `doc-generator` | haiku | Generates README sections, function docstrings, and API documentation from code |
 
 ## Example
 

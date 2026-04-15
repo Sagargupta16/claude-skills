@@ -8,8 +8,22 @@ Open source contribution workflow - upstream sync, compliance, code style matchi
 
 ## Commands
 
-- `/sync-upstream`: Sync fork with upstream remote
-- `/prep-pr`: Prepare and validate a PR for upstream submission
+| Command | Description |
+|---------|-------------|
+| `/sync-upstream` | Sync fork with upstream remote |
+| `/prep-pr` | Prepare and validate a PR for upstream submission |
+
+## Agents
+
+| Agent | Model | Description |
+|-------|-------|-------------|
+| `pr-analyzer` | sonnet | Checks PR health -- CI status, review comments, merge readiness, and action items |
+
+## Hooks
+
+| Hook | Event | Description |
+|------|-------|-------------|
+| `upstream-sync-check` | PreToolCall (gh pr create) | Warns if fork is behind upstream before creating a PR |
 
 ## Example
 

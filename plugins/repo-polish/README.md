@@ -8,7 +8,15 @@ Repository hygiene - .gitignore, .env.example, README, LICENSE generation, and s
 
 ## Commands
 
-- `/polish-repo`: Audit and fix missing hygiene files in the current repo
+| Command | Description |
+|---------|-------------|
+| `/polish-repo` | Audit and fix missing hygiene files in the current repo |
+
+## Agents
+
+| Agent | Model | Description |
+|-------|-------|-------------|
+| `repo-auditor` | haiku | Full repository health audit -- README, LICENSE, .gitignore, CI, dependencies |
 
 ## Example
 

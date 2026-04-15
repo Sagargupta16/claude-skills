@@ -1,5 +1,42 @@
 # Changelog
 
+## [4.0.0] - 2026-04-15
+
+### Added
+- **20 agents** across all 17 plugins for autonomous code review, debugging, test generation, security scanning, and more
+  - dev-workflow: `code-reviewer` (sonnet), `debugger` (sonnet)
+  - dev-rules: `guardrail-checker` (haiku)
+  - testing: `test-runner` (haiku), `test-generator` (sonnet)
+  - security-hardening: `security-scanner` (sonnet)
+  - deps-audit: `dependency-auditor` (haiku)
+  - ci-cd: `ci-fixer` (sonnet)
+  - docker-deploy: `dockerfile-optimizer` (haiku)
+  - git-advanced: `git-assistant` (sonnet)
+  - oss-contrib: `pr-analyzer` (sonnet)
+  - repo-polish: `repo-auditor` (haiku)
+  - api-design: `api-reviewer` (sonnet), `api-scaffolder` (sonnet)
+  - database: `schema-reviewer` (sonnet)
+  - documentation: `doc-generator` (haiku)
+  - logging-observability: `observability-checker` (haiku)
+  - performance: `performance-profiler` (sonnet)
+  - refactoring: `refactorer` (sonnet)
+  - farm-stack: `farm-scaffolder` (sonnet)
+- **8 hooks** across 6 plugins for automated safety guardrails
+  - dev-rules: `secret-guard` (blocks commits with secrets), `no-force-push` (blocks force push to main), `branch-guard` (warns on direct main commits)
+  - security-hardening: `secret-scanner` (warns on secrets in new files)
+  - git-advanced: `commit-lint` (validates conventional commit format)
+  - oss-contrib: `upstream-sync-check` (warns if fork behind upstream)
+  - database: `migration-guard` (warns on destructive migrations)
+  - logging-observability: `debug-log-check` (flags print/console.log in production code)
+- Updated validation script to validate agents and hooks exist
+- Updated CONTRIBUTING.md with agent and hook guidelines
+- Updated CLAUDE.md with complete component architecture
+
+### Changed
+- Bumped all 17 plugins from 3.x to 4.0.0
+- README.md now documents agents and hooks columns in plugin tables
+- All plugin READMEs updated with agents and hooks sections
+
 ## [3.1.0] - 2026-04-05
 
 ### Added

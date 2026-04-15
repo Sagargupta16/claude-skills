@@ -8,7 +8,15 @@ FastAPI + React + MongoDB (FARM stack) development patterns and project scaffold
 
 ## Commands
 
-- `/scaffold-farm`: Scaffold a complete FARM project with all boilerplate files
+| Command | Description |
+|---------|-------------|
+| `/scaffold-farm` | Scaffold a complete FARM project with all boilerplate files |
+
+## Agents
+
+| Agent | Model | Description |
+|-------|-------|-------------|
+| `farm-scaffolder` | sonnet | Scaffolds FARM stack components -- CRUD endpoints, React pages, MongoDB models |
 
 ## Example
 

@@ -8,7 +8,21 @@ Web application security hardening and vulnerability prevention.
 
 ## Commands
 
-- `/security-audit`: Scan code for security vulnerabilities and hardening opportunities
+| Command | Description |
+|---------|-------------|
+| `/security-audit` | Scan code for security vulnerabilities and hardening opportunities |
+
+## Agents
+
+| Agent | Model | Description |
+|-------|-------|-------------|
+| `security-scanner` | sonnet | Deep scan for OWASP top 10, hardcoded secrets, and security misconfigurations |
+
+## Hooks
+
+| Hook | Event | Description |
+|------|-------|-------------|
+| `secret-scanner` | PostToolCall (file write/edit) | Warns when newly written files contain potential secrets |
 
 ## Example
 

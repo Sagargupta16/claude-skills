@@ -12,7 +12,7 @@ These give you a complete everyday dev workflow.
 /plugin install dev-rules@sagar-dev-skills
 ```
 
-This gives you: `/commit`, `/review`, `/test`, `/fix`, `/pr`, `/status`, `/check-pr` + auto-activating guardrails for git safety and security.
+This gives you: `/commit`, `/review`, `/test`, `/fix`, `/pr`, `/status`, `/check-pr` + auto-activating guardrails for git safety and security. Also includes agents (code-reviewer, debugger, guardrail-checker) and hooks (secret-guard, no-force-push, branch-guard).
 
 ## Tier 2: Your Stack
 

@@ -8,7 +8,15 @@ Multi-language dependency auditing, security scanning, and update management.
 
 ## Commands
 
-- `/audit-deps`: Scan dependencies for vulnerabilities, outdated packages, and unused deps
+| Command | Description |
+|---------|-------------|
+| `/audit-deps` | Scan dependencies for vulnerabilities, outdated packages, and unused deps |
+
+## Agents
+
+| Agent | Model | Description |
+|-------|-------|-------------|
+| `dependency-auditor` | haiku | Audits dependencies for CVEs, outdated versions, and compatibility issues |
 
 ## Example
 

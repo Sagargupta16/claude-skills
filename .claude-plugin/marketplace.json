@@ -5,16 +5,16 @@
     "email": "sg85207@gmail.com"
   },
   "metadata": {
-    "description": "Claude Code skills for full-stack development, testing, API design, databases, CI/CD, Docker, dependency management, security, performance, logging, refactoring, documentation, git workflows, open source contributions, and repository maintenance.",
-    "version": "3.1.0",
+    "description": "Claude Code skills for full-stack development, testing, API design, databases, CI/CD, Docker, dependency management, security, performance, logging, refactoring, documentation, git workflows, open source contributions, and repository maintenance. Includes agents for autonomous code review, debugging, test generation, security scanning, and more. Hooks for git safety, secret detection, and commit validation.",
+    "version": "4.0.0",
     "pluginRoot": "./plugins"
   },
   "plugins": [
     {
       "name": "dev-workflow",
       "source": "dev-workflow",
-      "description": "Everyday dev commands -- commit, review, test, fix bugs, create PRs, check repo status, and inspect PR health.",
-      "version": "3.0.0",
+      "description": "Everyday dev commands -- commit, review, test, fix bugs, create PRs, check repo status, and inspect PR health. Agents: code-reviewer, debugger.",
+      "version": "4.0.0",
       "author": { "name": "Sagar Gupta" },
       "license": "MIT",
       "keywords": ["git", "commit", "review", "testing", "pr", "workflow"],
@@ -23,18 +23,18 @@
     {
       "name": "dev-rules",
       "source": "dev-rules",
-      "description": "Development guardrails -- git safety, security best practices, PR workflow discipline, and context optimization patterns.",
-      "version": "3.0.0",
+      "description": "Development guardrails -- git safety, security best practices, PR workflow discipline, and context optimization patterns. Hooks: secret-guard, no-force-push, branch-guard.",
+      "version": "4.0.0",
       "author": { "name": "Sagar Gupta" },
       "license": "MIT",
-      "keywords": ["git", "security", "guardrails", "best-practices"],
+      "keywords": ["git", "security", "guardrails", "best-practices", "hooks"],
       "category": "development"
     },
     {
       "name": "farm-stack",
       "source": "farm-stack",
-      "description": "FARM stack (FastAPI + React + MongoDB) development patterns, scaffolding, and best practices.",
-      "version": "3.0.0",
+      "description": "FARM stack (FastAPI + React + MongoDB) development patterns, scaffolding, and best practices. Agent: farm-scaffolder.",
+      "version": "4.0.0",
       "author": { "name": "Sagar Gupta" },
       "license": "MIT",
       "keywords": ["fastapi", "react", "mongodb", "farm", "python", "fullstack"],
@@ -43,8 +43,8 @@
     {
       "name": "testing",
       "source": "testing",
-      "description": "Test strategy, framework patterns, mocking approaches, fixture design, and coverage guidance for pytest, jest/vitest, go test, and cargo test.",
-      "version": "3.0.0",
+      "description": "Test strategy, framework patterns, mocking approaches, fixture design, and coverage guidance. Agents: test-runner, test-generator.",
+      "version": "4.0.0",
       "author": { "name": "Sagar Gupta" },
       "license": "MIT",
       "keywords": ["pytest", "jest", "vitest", "testing", "coverage", "mocking"],
@@ -53,8 +53,8 @@
     {
       "name": "api-design",
       "source": "api-design",
-      "description": "REST and GraphQL API design -- URL structure, HTTP conventions, error formats, pagination, authentication, versioning, and OpenAPI.",
-      "version": "3.0.0",
+      "description": "REST and GraphQL API design -- URL structure, HTTP conventions, error formats, pagination, authentication, versioning, and OpenAPI. Agents: api-reviewer, api-scaffolder.",
+      "version": "4.0.0",
       "author": { "name": "Sagar Gupta" },
       "license": "MIT",
       "keywords": ["rest", "api", "openapi", "pagination", "authentication"],
@@ -63,8 +63,8 @@
     {
       "name": "database",
       "source": "database",
-      "description": "Database schema design, migrations, indexing, query optimization, and connection pooling for Postgres, MongoDB, and SQLite.",
-      "version": "3.0.0",
+      "description": "Database schema design, migrations, indexing, query optimization, and connection pooling. Agent: schema-reviewer. Hook: migration-guard.",
+      "version": "4.0.0",
       "author": { "name": "Sagar Gupta" },
       "license": "MIT",
       "keywords": ["postgres", "mongodb", "sqlite", "migrations", "schema", "indexing"],
@@ -73,8 +73,8 @@
     {
       "name": "ci-cd",
       "source": "ci-cd",
-      "description": "GitHub Actions CI/CD -- workflow templates, caching, matrix builds, secrets management, release automation, and debugging failing checks.",
-      "version": "3.0.0",
+      "description": "GitHub Actions CI/CD -- workflow templates, caching, matrix builds, secrets management, release automation, and debugging failing checks. Agent: ci-fixer.",
+      "version": "4.0.0",
       "author": { "name": "Sagar Gupta" },
       "license": "MIT",
       "keywords": ["github-actions", "ci", "cd", "caching", "releases"],
@@ -83,8 +83,8 @@
     {
       "name": "docker-deploy",
       "source": "docker-deploy",
-      "description": "Docker best practices -- multi-stage Dockerfiles, compose patterns, image optimization, health checks, signal handling, and security hardening.",
-      "version": "3.0.0",
+      "description": "Docker best practices -- multi-stage Dockerfiles, compose patterns, image optimization, health checks, signal handling, and security hardening. Agent: dockerfile-optimizer.",
+      "version": "4.0.0",
       "author": { "name": "Sagar Gupta" },
       "license": "MIT",
       "keywords": ["docker", "dockerfile", "compose", "containers", "deployment"],
@@ -93,8 +93,8 @@
     {
       "name": "deps-audit",
       "source": "deps-audit",
-      "description": "Dependency auditing -- vulnerability scanning, outdated package detection, unused dependency identification, and safe update strategies.",
-      "version": "3.0.0",
+      "description": "Dependency auditing -- vulnerability scanning, outdated package detection, unused dependency identification, and safe update strategies. Agent: dependency-auditor.",
+      "version": "4.0.0",
       "author": { "name": "Sagar Gupta" },
       "license": "MIT",
       "keywords": ["dependencies", "security", "vulnerabilities", "npm", "pip", "cargo"],
@@ -103,8 +103,8 @@
     {
       "name": "oss-contrib",
       "source": "oss-contrib",
-      "description": "Open source contribution workflow -- upstream sync, CONTRIBUTING.md compliance, code style matching, PR preparation.",
-      "version": "3.0.0",
+      "description": "Open source contribution workflow -- upstream sync, CONTRIBUTING.md compliance, code style matching, PR preparation. Agent: pr-analyzer. Hook: upstream-sync-check.",
+      "version": "4.0.0",
       "author": { "name": "Sagar Gupta" },
       "license": "MIT",
       "keywords": ["open-source", "fork", "upstream", "contributing", "pr"],
@@ -113,8 +113,8 @@
     {
       "name": "repo-polish",
       "source": "repo-polish",
-      "description": "Repository hygiene -- .gitignore, .env.example, README, LICENSE generation, secret detection, and project type detection.",
-      "version": "3.0.0",
+      "description": "Repository hygiene -- .gitignore, .env.example, README, LICENSE generation, secret detection, and project type detection. Agent: repo-auditor.",
+      "version": "4.0.0",
       "author": { "name": "Sagar Gupta" },
       "license": "MIT",
       "keywords": ["gitignore", "readme", "license", "hygiene", "secrets"],
@@ -123,8 +123,8 @@
     {
       "name": "refactoring",
       "source": "refactoring",
-      "description": "Safe refactoring workflows -- code smell detection, extract/rename/move patterns, migration strategies (JS to TS, CJS to ESM), and structured refactoring process.",
-      "version": "3.1.0",
+      "description": "Safe refactoring workflows -- code smell detection, extract/rename/move patterns, migration strategies (JS to TS, CJS to ESM), and structured refactoring process. Agent: refactorer.",
+      "version": "4.0.0",
       "author": { "name": "Sagar Gupta" },
       "license": "MIT",
       "keywords": ["refactoring", "code-smells", "extract", "rename", "migration"],
@@ -133,8 +133,8 @@
     {
       "name": "documentation",
       "source": "documentation",
-      "description": "Documentation patterns -- README structure, ADRs, changelogs, code comments, API docs, and technical specs.",
-      "version": "3.1.0",
+      "description": "Documentation patterns -- README structure, ADRs, changelogs, code comments, API docs, and technical specs. Agent: doc-generator.",
+      "version": "4.0.0",
       "author": { "name": "Sagar Gupta" },
       "license": "MIT",
       "keywords": ["readme", "adr", "changelog", "docs", "technical-writing"],
@@ -143,8 +143,8 @@
     {
       "name": "git-advanced",
       "source": "git-advanced",
-      "description": "Advanced git operations -- rebasing, cherry-picking, conflict resolution, bisect, stash management, history exploration, and undo strategies.",
-      "version": "3.1.0",
+      "description": "Advanced git operations -- rebasing, cherry-picking, conflict resolution, bisect, stash management, history exploration, and undo strategies. Agent: git-assistant. Hook: commit-lint.",
+      "version": "4.0.0",
       "author": { "name": "Sagar Gupta" },
       "license": "MIT",
       "keywords": ["git", "rebase", "cherry-pick", "bisect", "conflict", "stash"],
@@ -153,8 +153,8 @@
     {
       "name": "performance",
       "source": "performance",
-      "description": "Performance optimization -- profiling, caching strategies, N+1 detection, bundle analysis, connection pooling, and benchmarking.",
-      "version": "3.1.0",
+      "description": "Performance optimization -- profiling, caching strategies, N+1 detection, bundle analysis, connection pooling, and benchmarking. Agent: performance-profiler.",
+      "version": "4.0.0",
       "author": { "name": "Sagar Gupta" },
       "license": "MIT",
       "keywords": ["performance", "caching", "profiling", "optimization", "bundle"],
@@ -163,21 +163,21 @@
     {
       "name": "security-hardening",
       "source": "security-hardening",
-      "description": "Security hardening -- OWASP top 10 prevention, security headers, rate limiting, input validation, CORS configuration, and vulnerability scanning.",
-      "version": "3.1.0",
+      "description": "Security hardening -- OWASP top 10 prevention, security headers, rate limiting, input validation, CORS configuration, and vulnerability scanning. Agent: security-scanner. Hook: secret-scanner.",
+      "version": "4.0.0",
       "author": { "name": "Sagar Gupta" },
       "license": "MIT",
-      "keywords": ["security", "owasp", "headers", "rate-limiting", "xss", "injection"],
+      "keywords": ["security", "owasp", "headers", "rate-limiting", "xss", "injection", "hooks"],
       "category": "security"
     },
     {
       "name": "logging-observability",
       "source": "logging-observability",
-      "description": "Logging and observability -- structured logging, health checks, error tracking, request correlation, metrics, and monitoring patterns.",
-      "version": "3.1.0",
+      "description": "Logging and observability -- structured logging, health checks, error tracking, request correlation, metrics, and monitoring patterns. Agent: observability-checker. Hook: debug-log-check.",
+      "version": "4.0.0",
       "author": { "name": "Sagar Gupta" },
       "license": "MIT",
-      "keywords": ["logging", "observability", "health-checks", "metrics", "monitoring"],
+      "keywords": ["logging", "observability", "health-checks", "metrics", "monitoring", "hooks"],
       "category": "operations"
     }
   ]

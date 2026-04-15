@@ -8,7 +8,15 @@ Performance optimization patterns for backend, frontend, and database.
 
 ## Commands
 
-- `/optimize`: Profile and identify bottlenecks, then suggest targeted optimizations
+| Command | Description |
+|---------|-------------|
+| `/optimize` | Profile and identify bottlenecks, then suggest targeted optimizations |
+
+## Agents
+
+| Agent | Model | Description |
+|-------|-------|-------------|
+| `performance-profiler` | sonnet | Analyzes code for N+1 queries, memory leaks, slow renders, and bundle bloat |
 
 ## Example
 

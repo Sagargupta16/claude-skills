@@ -8,7 +8,21 @@ Database schema design, migrations, query optimization, and connection pooling p
 
 ## Commands
 
-- `/design-schema`: Design a database schema for a feature with tables, indexes, and migrations
+| Command | Description |
+|---------|-------------|
+| `/design-schema` | Design a database schema for a feature with tables, indexes, and migrations |
+
+## Agents
+
+| Agent | Model | Description |
+|-------|-------|-------------|
+| `schema-reviewer` | sonnet | Reviews schemas and migrations for correctness, indexing, and destructive operation safety |
+
+## Hooks
+
+| Hook | Event | Description |
+|------|-------|-------------|
+| `migration-guard` | PreToolCall (file write on migration files) | Warns about destructive operations like DROP TABLE and TRUNCATE |
 
 ## Example
 

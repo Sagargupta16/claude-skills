@@ -1,5 +1,5 @@
 {
   "name": "ci-cd",
   "description": "GitHub Actions CI/CD -- workflow templates, caching, matrix builds, secrets management, release automation, and debugging failing checks.",
-  "version": "3.0.0"
+  "version": "4.0.0"
 }

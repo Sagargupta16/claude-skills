@@ -8,7 +8,15 @@ GitHub Actions CI/CD patterns, workflow templates, and debugging guides.
 
 ## Commands
 
-- `/setup-ci`: Detect project type and generate a CI workflow
+| Command | Description |
+|---------|-------------|
+| `/setup-ci` | Detect project type and generate a CI workflow |
+
+## Agents
+
+| Agent | Model | Description |
+|-------|-------|-------------|
+| `ci-fixer` | sonnet | Diagnoses failing CI/CD pipelines and proposes fixes |
 
 ## Example
 

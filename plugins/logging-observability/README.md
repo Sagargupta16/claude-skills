@@ -8,7 +8,21 @@ Structured logging, health checks, error tracking, and monitoring patterns.
 
 ## Commands
 
-- `/setup-logging`: Set up structured logging, health checks, and error handling
+| Command | Description |
+|---------|-------------|
+| `/setup-logging` | Set up structured logging, health checks, and error handling |
+
+## Agents
+
+| Agent | Model | Description |
+|-------|-------|-------------|
+| `observability-checker` | haiku | Audits logging, health checks, error tracking, and monitoring coverage |
+
+## Hooks
+
+| Hook | Event | Description |
+|------|-------|-------------|
+| `debug-log-check` | PostToolCall (file write/edit) | Flags debug/print statements left in production code |
 
 ## Example
 

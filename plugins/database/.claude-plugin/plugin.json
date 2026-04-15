@@ -1,5 +1,5 @@
 {
   "name": "database",
   "description": "Database schema design, migrations, indexing, query optimization, and connection pooling for Postgres, MongoDB, and SQLite.",
-  "version": "3.0.0"
+  "version": "4.0.0"
 }

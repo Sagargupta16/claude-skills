@@ -2,51 +2,60 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Plugins](https://img.shields.io/badge/plugins-17-green.svg)](#plugins)
-[![Version](https://img.shields.io/badge/version-3.1.0-orange.svg)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-4.0.0-orange.svg)](CHANGELOG.md)
 [![CI](https://img.shields.io/github/actions/workflow/status/Sagargupta16/claude-skills/validate.yml?label=validate)](https://github.com/Sagargupta16/claude-skills/actions)
 
-Custom Claude Code plugin marketplace with reusable skills for full-stack development, testing, API design, databases, CI/CD, Docker, security, performance, logging, refactoring, documentation, git workflows, open source contributions, and repository maintenance.
+Custom Claude Code plugin marketplace with reusable skills, agents, and hooks for full-stack development, testing, API design, databases, CI/CD, Docker, security, performance, logging, refactoring, documentation, git workflows, open source contributions, and repository maintenance.
 
-These skills work with any project -- install the ones relevant to your stack.
+These plugins work with any project -- install the ones relevant to your stack.
 
 ## Plugins
 
 ### Development Essentials
 
-| Plugin | Commands | What It Does |
-|--------|----------|-------------|
-| **dev-workflow** | `/commit`, `/review`, `/test`, `/fix`, `/pr`, `/status`, `/check-pr` | Everyday dev commands -- commit, review, test, fix, PR, status |
-| **dev-rules** | _(auto-activates)_ | Guardrails: git safety, security, PR workflow, context optimization |
+| Plugin | Commands | Agents | Hooks | What It Does |
+|--------|----------|--------|-------|-------------|
+| **dev-workflow** | `/commit`, `/review`, `/test`, `/fix`, `/pr`, `/status`, `/check-pr` | code-reviewer, debugger | - | Everyday dev commands -- commit, review, test, fix, PR, status |
+| **dev-rules** | _(auto-activates)_ | guardrail-checker | secret-guard, no-force-push, branch-guard | Guardrails: git safety, security, PR workflow, context optimization |
 
 ### Stack-Specific
 
-| Plugin | Commands | What It Does |
-|--------|----------|-------------|
-| **farm-stack** | `/scaffold-farm` | FastAPI + React + MongoDB patterns, project scaffolding, config, Docker |
-| **testing** | `/write-tests` | Test strategy, framework patterns (pytest, jest, go, cargo), mocking, coverage |
-| **api-design** | `/design-api` | REST API design -- URLs, status codes, error formats, pagination, auth |
-| **database** | `/design-schema` | Schema design, migrations (Alembic, Prisma, Drizzle), indexing, optimization |
-| **ci-cd** | `/setup-ci` | GitHub Actions workflows, caching, matrix builds, release automation |
-| **docker-deploy** | `/dockerize` | Multi-stage Dockerfiles, compose patterns, image optimization, security |
-| **deps-audit** | `/audit-deps` | Vulnerability scanning, outdated packages, unused deps, update strategies |
+| Plugin | Commands | Agents | Hooks | What It Does |
+|--------|----------|--------|-------|-------------|
+| **farm-stack** | `/scaffold-farm` | farm-scaffolder | - | FastAPI + React + MongoDB patterns, project scaffolding, config, Docker |
+| **testing** | `/write-tests` | test-runner, test-generator | - | Test strategy, framework patterns (pytest, jest, go, cargo), mocking, coverage |
+| **api-design** | `/design-api` | api-reviewer, api-scaffolder | - | REST API design -- URLs, status codes, error formats, pagination, auth |
+| **database** | `/design-schema` | schema-reviewer | migration-guard | Schema design, migrations (Alembic, Prisma, Drizzle), indexing, optimization |
+| **ci-cd** | `/setup-ci` | ci-fixer | - | GitHub Actions workflows, caching, matrix builds, release automation |
+| **docker-deploy** | `/dockerize` | dockerfile-optimizer | - | Multi-stage Dockerfiles, compose patterns, image optimization, security |
+| **deps-audit** | `/audit-deps` | dependency-auditor | - | Vulnerability scanning, outdated packages, unused deps, update strategies |
 
 ### General Purpose
 
-| Plugin | Commands | What It Does |
-|--------|----------|-------------|
-| **refactoring** | `/refactor` | Code smell detection, extract/rename/move, migration patterns (JS->TS, CJS->ESM) |
-| **documentation** | `/write-docs` | README, ADR, changelog, API docs, technical spec generation |
-| **git-advanced** | `/resolve-conflict` | Rebase, cherry-pick, bisect, stash, conflict resolution, undo |
-| **performance** | `/optimize` | Profiling, caching, N+1 detection, bundle analysis, benchmarking |
-| **security-hardening** | `/security-audit` | OWASP top 10, security headers, rate limiting, input validation |
-| **logging-observability** | `/setup-logging` | Structured logging, health checks, error tracking, metrics |
+| Plugin | Commands | Agents | Hooks | What It Does |
+|--------|----------|--------|-------|-------------|
+| **refactoring** | `/refactor` | refactorer | - | Code smell detection, extract/rename/move, migration patterns (JS->TS, CJS->ESM) |
+| **documentation** | `/write-docs` | doc-generator | - | README, ADR, changelog, API docs, technical spec generation |
+| **git-advanced** | `/resolve-conflict` | git-assistant | commit-lint | Rebase, cherry-pick, bisect, stash, conflict resolution, undo |
+| **performance** | `/optimize` | performance-profiler | - | Profiling, caching, N+1 detection, bundle analysis, benchmarking |
+| **security-hardening** | `/security-audit` | security-scanner | secret-scanner | OWASP top 10, security headers, rate limiting, input validation |
+| **logging-observability** | `/setup-logging` | observability-checker | debug-log-check | Structured logging, health checks, error tracking, metrics |
 
 ### Open Source and Maintenance
 
-| Plugin | Commands | What It Does |
-|--------|----------|-------------|
-| **oss-contrib** | `/sync-upstream`, `/prep-pr` | Fork sync, upstream compliance, code style matching, PR preparation |
-| **repo-polish** | `/polish-repo` | .gitignore, .env.example, README, LICENSE generation, secret detection |
+| Plugin | Commands | Agents | Hooks | What It Does |
+|--------|----------|--------|-------|-------------|
+| **oss-contrib** | `/sync-upstream`, `/prep-pr` | pr-analyzer | upstream-sync-check | Fork sync, upstream compliance, code style matching, PR preparation |
+| **repo-polish** | `/polish-repo` | repo-auditor | - | .gitignore, .env.example, README, LICENSE generation, secret detection |
+
+## Component Types
+
+| Type | Count | What It Does |
+|------|-------|-------------|
+| **Skills** | 17 | Background knowledge that auto-activates based on context |
+| **Commands** | ~20 | User-invocable slash commands (`/commit`, `/test`, etc.) |
+| **Agents** | 20 | Autonomous sub-conversations for code review, debugging, scanning, etc. |
+| **Hooks** | 8 | Shell scripts that auto-execute on events (block secrets, validate commits, etc.) |
 
 ## Installation
 
@@ -90,73 +99,22 @@ claude-skills/
 ├── scripts/
 │   └── validate-plugins.sh
 ├── plugins/
-│   ├── dev-workflow/              # Everyday dev commands
+│   ├── dev-workflow/
 │   │   ├── .claude-plugin/plugin.json
 │   │   ├── skills/dev-workflow/SKILL.md
-│   │   └── commands/{commit,review,test,fix,pr,status,check-pr}.md
-│   ├── dev-rules/                 # Development guardrails
+│   │   ├── commands/{commit,review,test,fix,pr,status,check-pr}.md
+│   │   └── agents/{code-reviewer,debugger}.md
+│   ├── dev-rules/
 │   │   ├── .claude-plugin/plugin.json
-│   │   └── skills/dev-rules/SKILL.md
-│   ├── farm-stack/                # FARM stack development
-│   │   ├── .claude-plugin/plugin.json
-│   │   ├── skills/farm-stack/SKILL.md
-│   │   └── commands/scaffold-farm.md
-│   ├── testing/                   # Test strategy and patterns
+│   │   ├── skills/dev-rules/SKILL.md
+│   │   ├── agents/guardrail-checker.md
+│   │   └── hooks/{secret-guard,no-force-push,branch-guard}.sh
+│   ├── testing/
 │   │   ├── .claude-plugin/plugin.json
 │   │   ├── skills/testing/SKILL.md
-│   │   └── commands/write-tests.md
-│   ├── api-design/                # REST API design
-│   │   ├── .claude-plugin/plugin.json
-│   │   ├── skills/api-design/SKILL.md
-│   │   └── commands/design-api.md
-│   ├── database/                  # Database patterns
-│   │   ├── .claude-plugin/plugin.json
-│   │   ├── skills/database/SKILL.md
-│   │   └── commands/design-schema.md
-│   ├── ci-cd/                     # GitHub Actions CI/CD
-│   │   ├── .claude-plugin/plugin.json
-│   │   ├── skills/ci-cd/SKILL.md
-│   │   └── commands/setup-ci.md
-│   ├── docker-deploy/             # Docker and deployment
-│   │   ├── .claude-plugin/plugin.json
-│   │   ├── skills/docker-deploy/SKILL.md
-│   │   └── commands/dockerize.md
-│   ├── deps-audit/                # Dependency management
-│   │   ├── .claude-plugin/plugin.json
-│   │   ├── skills/deps-audit/SKILL.md
-│   │   └── commands/audit-deps.md
-│   ├── oss-contrib/               # Open source contributions
-│   │   ├── .claude-plugin/plugin.json
-│   │   ├── skills/oss-contrib/SKILL.md
-│   │   └── commands/{sync-upstream,prep-pr}.md
-│   ├── repo-polish/               # Repository hygiene
-│   │   ├── .claude-plugin/plugin.json
-│   │   ├── skills/repo-polish/SKILL.md
-│   │   └── commands/polish-repo.md
-│   ├── refactoring/               # Code refactoring
-│   │   ├── .claude-plugin/plugin.json
-│   │   ├── skills/refactoring/SKILL.md
-│   │   └── commands/refactor.md
-│   ├── documentation/             # Documentation patterns
-│   │   ├── .claude-plugin/plugin.json
-│   │   ├── skills/documentation/SKILL.md
-│   │   └── commands/write-docs.md
-│   ├── git-advanced/              # Advanced git operations
-│   │   ├── .claude-plugin/plugin.json
-│   │   ├── skills/git-advanced/SKILL.md
-│   │   └── commands/resolve-conflict.md
-│   ├── performance/               # Performance optimization
-│   │   ├── .claude-plugin/plugin.json
-│   │   ├── skills/performance/SKILL.md
-│   │   └── commands/optimize.md
-│   ├── security-hardening/        # Security hardening
-│   │   ├── .claude-plugin/plugin.json
-│   │   ├── skills/security-hardening/SKILL.md
-│   │   └── commands/security-audit.md
-│   └── logging-observability/     # Logging and monitoring
-│       ├── .claude-plugin/plugin.json
-│       ├── skills/logging-observability/SKILL.md
-│       └── commands/setup-logging.md
+│   │   ├── commands/write-tests.md
+│   │   └── agents/{test-runner,test-generator}.md
+│   └── ... (14 more plugins with same structure)
 ├── configs/
 │   ├── settings.template.json
 │   └── recommended-plugins.md
@@ -197,7 +155,7 @@ Want the complete curated Claude Code setup (plugins + permissions + recommended
 
 ## Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on adding new skills or improving existing ones.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on adding new skills, agents, or hooks.
 
 ## License
 

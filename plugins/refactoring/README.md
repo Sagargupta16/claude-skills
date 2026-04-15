@@ -8,7 +8,15 @@ Safe code refactoring workflows, code smell detection, and migration patterns.
 
 ## Commands
 
-- `/refactor`: Identify code smells and apply safe refactorings with test verification
+| Command | Description |
+|---------|-------------|
+| `/refactor` | Identify code smells and apply safe refactorings with test verification |
+
+## Agents
+
+| Agent | Model | Description |
+|-------|-------|-------------|
+| `refactorer` | sonnet | Systematic multi-file refactoring -- renames, extractions, and pattern migrations |
 
 ## Example
 

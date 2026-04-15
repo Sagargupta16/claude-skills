@@ -2,13 +2,22 @@
 
 Test strategy, framework-specific patterns, and coverage guidance for multi-language projects.
 
+## Commands
+
+| Command | Description |
+|---------|-------------|
+| `/write-tests` | Analyze code and generate tests with the appropriate framework |
+
 ## Skills
 
 - **testing**: Framework detection, test organization, fixture patterns, mocking strategies, coverage targets, and anti-patterns for pytest, jest/vitest, go test, and cargo test.
 
-## Commands
+## Agents
 
-- `/write-tests`: Analyze code and generate tests with the appropriate framework
+| Agent | Model | Description |
+|-------|-------|-------------|
+| `test-runner` | haiku | Detects test framework, runs tests, and reports results with failure analysis |
+| `test-generator` | sonnet | Generates unit tests matching project patterns, covering happy paths, errors, and edge cases |
 
 ## Example
 

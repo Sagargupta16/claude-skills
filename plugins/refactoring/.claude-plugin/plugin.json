@@ -1,5 +1,5 @@
 {
   "name": "refactoring",
   "description": "Safe refactoring workflows -- code smell detection, extract/rename/move patterns, migration strategies (JS to TS, CJS to ESM), and structured refactoring process.",
-  "version": "3.1.0"
+  "version": "4.0.0"
 }

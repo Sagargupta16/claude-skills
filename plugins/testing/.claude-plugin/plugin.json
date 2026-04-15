@@ -1,5 +1,5 @@
 {
   "name": "testing",
   "description": "Test strategy, framework patterns, mocking approaches, fixture design, and coverage guidance for pytest, jest/vitest, go test, and cargo test.",
-  "version": "3.0.0"
+  "version": "4.0.0"
 }

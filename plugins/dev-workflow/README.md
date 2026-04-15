@@ -18,6 +18,13 @@ Everyday development commands - commit, review, test, fix, create PRs, and check
 
 - **dev-workflow**: Structured workflows for git operations, code review checklists, test runner patterns, and bug fix methodology.
 
+## Agents
+
+| Agent | Model | Description |
+|-------|-------|-------------|
+| `code-reviewer` | sonnet | Reviews changed files for bugs, security issues, performance, and code quality |
+| `debugger` | sonnet | Traces root causes from error messages and stack traces, proposes minimal fixes |
+
 ## Example
 
 ```

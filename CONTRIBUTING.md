@@ -1,6 +1,6 @@
 # Contributing
 
-Contributions are welcome. Here's how to add or improve skills.
+Contributions are welcome. Here's how to add or improve skills, agents, and hooks.
 
 ## Adding a New Plugin
 
@@ -12,8 +12,12 @@ Contributions are welcome. Here's how to add or improve skills.
    ├── README.md
    ├── skills/your-plugin/
    │   └── SKILL.md
-   └── commands/
-       └── your-command.md
+   ├── commands/           (optional)
+   │   └── your-command.md
+   ├── agents/             (optional)
+   │   └── your-agent.md
+   └── hooks/              (optional)
+       └── your-hook.sh
    ```
 
 2. Write the SKILL.md with proper frontmatter:
@@ -29,10 +33,10 @@ Contributions are welcome. Here's how to add or improve skills.
    {
      "name": "your-plugin",
      "description": "Short description.",
-     "version": "3.0.0"
+     "version": "4.0.0"
    }
    ```
-   Skills and commands are auto-discovered from `skills/` and `commands/` directories.
+   Skills, commands, agents, and hooks are auto-discovered from their conventional directories.
 
 4. Add the plugin to `.claude-plugin/marketplace.json` (source is just the directory name)
 
@@ -63,6 +67,36 @@ user_invocable: true
 ```
 
 Follow with numbered steps that the AI agent will execute.
+
+## Agent Format
+
+Agents are autonomous sub-conversations that handle complex, multi-step tasks. Place them in `plugins/{name}/agents/{agent-name}.md`.
+
+```yaml
+---
+name: agent-name
+description: "Use this agent to [purpose]. [When to use it].\n\nExamples:\n\n- User: \"...\"\n  Assistant: \"I'll launch the agent-name agent to ...\""
+model: sonnet
+---
+```
+
+Guidelines:
+- **model**: Use `sonnet` for tasks requiring deep reasoning (code review, debugging, refactoring). Use `haiku` for fast/mechanical tasks (running tests, auditing files, scanning)
+- **description**: Include examples showing user request and assistant response
+- **body**: Define a clear process with numbered steps and an output format
+- **naming**: Use kebab-case, descriptive names (e.g., `code-reviewer`, `test-runner`)
+
+## Hook Format
+
+Hooks are shell scripts that auto-execute on events. Place them in `plugins/{name}/hooks/{hook-name}.sh`.
+
+Guidelines:
+- **shebang**: Always start with `#!/usr/bin/env bash`
+- **safety**: Always include `set -euo pipefail`
+- **exit codes**: Exit 0 to allow the action, exit non-zero to block it
+- **blocking vs warning**: Only block (exit 1) for genuinely dangerous operations (committing secrets, force pushing to main). Warn (exit 0 with message) for everything else
+- **naming**: Use kebab-case, describe what the hook guards (e.g., `secret-guard`, `commit-lint`)
+- **comments**: Include a header comment explaining the hook event and purpose
 
 ## Pull Request Guidelines
 

@@ -8,7 +8,21 @@ Advanced git operations beyond basic commit/push/pull.
 
 ## Commands
 
-- `/resolve-conflict`: Analyze and resolve merge conflicts with context from both branches
+| Command | Description |
+|---------|-------------|
+| `/resolve-conflict` | Analyze and resolve merge conflicts with context from both branches |
+
+## Agents
+
+| Agent | Model | Description |
+|-------|-------|-------------|
+| `git-assistant` | sonnet | Handles complex rebases, cherry-picks, conflict resolution, and history cleanup |
+
+## Hooks
+
+| Hook | Event | Description |
+|------|-------|-------------|
+| `commit-lint` | PostToolCall (git commit) | Validates conventional commit message format and length |
 
 ## Example
 

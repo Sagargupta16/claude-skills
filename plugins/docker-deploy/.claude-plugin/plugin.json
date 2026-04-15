@@ -1,5 +1,5 @@
 {
   "name": "docker-deploy",
   "description": "Docker best practices -- multi-stage Dockerfiles, compose patterns, image optimization, health checks, signal handling, and security hardening.",
-  "version": "3.0.0"
+  "version": "4.0.0"
 }

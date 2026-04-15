@@ -8,7 +8,15 @@ Docker best practices, Dockerfile templates, and compose patterns for developmen
 
 ## Commands
 
-- `/dockerize`: Detect project type and generate Docker configuration
+| Command | Description |
+|---------|-------------|
+| `/dockerize` | Detect project type and generate Docker configuration |
+
+## Agents
+
+| Agent | Model | Description |
+|-------|-------|-------------|
+| `dockerfile-optimizer` | haiku | Analyzes Dockerfiles for image size, build speed, and security improvements |
 
 ## Example
 

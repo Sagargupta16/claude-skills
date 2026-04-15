@@ -1,5 +1,5 @@
 {
   "name": "git-advanced",
   "description": "Advanced git operations -- rebasing, cherry-picking, conflict resolution, bisect, stash management, history exploration, and undo strategies.",
-  "version": "3.1.0"
+  "version": "4.0.0"
 }

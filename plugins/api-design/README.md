@@ -8,7 +8,16 @@ REST API design patterns, HTTP conventions, error handling, pagination, and auth
 
 ## Commands
 
-- `/design-api`: Design REST API endpoints for a feature before writing code
+| Command | Description |
+|---------|-------------|
+| `/design-api` | Design REST API endpoints for a feature before writing code |
+
+## Agents
+
+| Agent | Model | Description |
+|-------|-------|-------------|
+| `api-reviewer` | sonnet | Reviews API endpoints for REST conventions, error handling, and consistency |
+| `api-scaffolder` | sonnet | Scaffolds CRUD endpoints with validation, pagination, and error handling |
 
 ## Example
 
