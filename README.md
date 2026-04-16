@@ -1,8 +1,8 @@
 # Claude Skills
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Plugins](https://img.shields.io/badge/plugins-17-green.svg)](#plugins)
-[![Version](https://img.shields.io/badge/version-4.0.0-orange.svg)](CHANGELOG.md)
+[![Plugins](https://img.shields.io/badge/plugins-18-green.svg)](#plugins)
+[![Version](https://img.shields.io/badge/version-4.1.0-orange.svg)](CHANGELOG.md)
 [![CI](https://img.shields.io/github/actions/workflow/status/Sagargupta16/claude-skills/validate.yml?label=validate)](https://github.com/Sagargupta16/claude-skills/actions)
 
 Custom Claude Code plugin marketplace with reusable skills, agents, and hooks for full-stack development, testing, API design, databases, CI/CD, Docker, security, performance, logging, refactoring, documentation, git workflows, open source contributions, and repository maintenance.
@@ -15,7 +15,7 @@ These plugins work with any project -- install the ones relevant to your stack.
 
 | Plugin | Commands | Agents | Hooks | What It Does |
 |--------|----------|--------|-------|-------------|
-| **dev-workflow** | `/commit`, `/review`, `/test`, `/fix`, `/pr`, `/status`, `/check-pr` | code-reviewer, debugger | - | Everyday dev commands -- commit, review, test, fix, PR, status |
+| **dev-workflow** | `/commit`, `/review`, `/test`, `/fix`, `/pr`, `/status`, `/check-pr` | code-reviewer, debugger | auto-format | Everyday dev commands -- commit, review, test, fix, PR, status |
 | **dev-rules** | _(auto-activates)_ | guardrail-checker | secret-guard, no-force-push, branch-guard | Guardrails: git safety, security, PR workflow, context optimization |
 
 ### Stack-Specific
@@ -48,14 +48,20 @@ These plugins work with any project -- install the ones relevant to your stack.
 | **oss-contrib** | `/sync-upstream`, `/prep-pr` | pr-analyzer | upstream-sync-check | Fork sync, upstream compliance, code style matching, PR preparation |
 | **repo-polish** | `/polish-repo` | repo-auditor | - | .gitignore, .env.example, README, LICENSE generation, secret detection |
 
+### Workflow
+
+| Plugin | Commands | Agents | Hooks | What It Does |
+|--------|----------|--------|-------|-------------|
+| **methodology** | `/methodology` | methodology-coach | - | TDD, BDD, SDD, plan-driven, and context engineering workflows |
+
 ## Component Types
 
 | Type | Count | What It Does |
 |------|-------|-------------|
-| **Skills** | 17 | Background knowledge that auto-activates based on context |
-| **Commands** | ~20 | User-invocable slash commands (`/commit`, `/test`, etc.) |
-| **Agents** | 20 | Autonomous sub-conversations for code review, debugging, scanning, etc. |
-| **Hooks** | 8 | Shell scripts that auto-execute on events (block secrets, validate commits, etc.) |
+| **Skills** | 18 | Background knowledge that auto-activates based on context |
+| **Commands** | ~21 | User-invocable slash commands (`/commit`, `/test`, etc.) |
+| **Agents** | 22 | Autonomous sub-conversations for code review, debugging, scanning, etc. |
+| **Hooks** | 9 | Shell scripts that auto-execute on events (block secrets, validate commits, etc.) |
 
 ## Installation
 

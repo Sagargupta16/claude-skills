@@ -1,5 +1,20 @@
 # Changelog
 
+## [4.1.0] - 2026-04-16
+
+### Added
+- **methodology plugin** -- new plugin with TDD, BDD, SDD, plan-driven, and context engineering workflows
+  - Skill: decision tree for choosing the right methodology
+  - Command: `/methodology` for guided workflow selection
+  - Agent: `methodology-coach` (sonnet) for step-by-step execution guidance
+- **auto-format hook** for dev-workflow -- detects project formatter (prettier, biome, black, ruff, gofmt, rustfmt, shfmt, terraform fmt) and runs it after file writes
+- **threat-db.yaml** reference for security-hardening -- structured threat database with 12 secret patterns, 6 injection patterns, 3 auth weaknesses, 4 config issues, 4 prompt injection patterns, and 3 MCP risks
+- **reference.yaml** at repo root -- AI-optimized index mapping keywords to plugin files, commands, agents, hooks, and references
+
+### Changed
+- **code-reviewer agent** now includes anti-hallucination verification protocol -- pattern verification with occurrence thresholds and confidence levels (Confirmed/Likely/Possible)
+- **security-scanner agent** now includes verification protocol -- false positive prevention for secret detection, vulnerability path tracing, and dependency CVE version checks
+
 ## [4.0.0] - 2026-04-15
 
 ### Added

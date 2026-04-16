@@ -1,0 +1,179 @@
+# Claude Skills Marketplace - AI-Optimized Reference Index
+# Structured index for fast keyword lookup and navigation.
+# Use this to find the right plugin, skill, command, agent, or hook.
+#
+# Format: keyword -> file path (relative to repo root)
+# Updated: 2026-04-16 | Version: 4.1.0
+
+stats:
+  plugins: 18
+  skills: 18
+  commands: 21
+  agents: 22
+  hooks: 9
+  total_files: 68
+
+# Plugin index: name -> directory
+plugins:
+  dev-workflow: plugins/dev-workflow
+  dev-rules: plugins/dev-rules
+  farm-stack: plugins/farm-stack
+  testing: plugins/testing
+  api-design: plugins/api-design
+  database: plugins/database
+  ci-cd: plugins/ci-cd
+  docker-deploy: plugins/docker-deploy
+  deps-audit: plugins/deps-audit
+  oss-contrib: plugins/oss-contrib
+  repo-polish: plugins/repo-polish
+  refactoring: plugins/refactoring
+  documentation: plugins/documentation
+  git-advanced: plugins/git-advanced
+  performance: plugins/performance
+  security-hardening: plugins/security-hardening
+  logging-observability: plugins/logging-observability
+  methodology: plugins/methodology
+
+# Skill files: keyword -> SKILL.md path
+skills:
+  commit: plugins/dev-workflow/skills/dev-workflow/SKILL.md
+  review: plugins/dev-workflow/skills/dev-workflow/SKILL.md
+  git_safety: plugins/dev-rules/skills/dev-rules/SKILL.md
+  guardrails: plugins/dev-rules/skills/dev-rules/SKILL.md
+  fastapi: plugins/farm-stack/skills/farm-stack/SKILL.md
+  react: plugins/farm-stack/skills/farm-stack/SKILL.md
+  mongodb: plugins/farm-stack/skills/farm-stack/SKILL.md
+  pytest: plugins/testing/skills/testing/SKILL.md
+  jest: plugins/testing/skills/testing/SKILL.md
+  vitest: plugins/testing/skills/testing/SKILL.md
+  test_coverage: plugins/testing/skills/testing/SKILL.md
+  rest_api: plugins/api-design/skills/api-design/SKILL.md
+  openapi: plugins/api-design/skills/api-design/SKILL.md
+  pagination: plugins/api-design/skills/api-design/SKILL.md
+  schema: plugins/database/skills/database/SKILL.md
+  migration: plugins/database/skills/database/SKILL.md
+  indexing: plugins/database/skills/database/SKILL.md
+  github_actions: plugins/ci-cd/skills/ci-cd/SKILL.md
+  caching_ci: plugins/ci-cd/skills/ci-cd/SKILL.md
+  dockerfile: plugins/docker-deploy/skills/docker-deploy/SKILL.md
+  compose: plugins/docker-deploy/skills/docker-deploy/SKILL.md
+  vulnerability: plugins/deps-audit/skills/deps-audit/SKILL.md
+  outdated_deps: plugins/deps-audit/skills/deps-audit/SKILL.md
+  upstream_sync: plugins/oss-contrib/skills/oss-contrib/SKILL.md
+  contributing: plugins/oss-contrib/skills/oss-contrib/SKILL.md
+  gitignore: plugins/repo-polish/skills/repo-polish/SKILL.md
+  readme: plugins/repo-polish/skills/repo-polish/SKILL.md
+  code_smell: plugins/refactoring/skills/refactoring/SKILL.md
+  extract_method: plugins/refactoring/skills/refactoring/SKILL.md
+  adr: plugins/documentation/skills/documentation/SKILL.md
+  changelog: plugins/documentation/skills/documentation/SKILL.md
+  rebase: plugins/git-advanced/skills/git-advanced/SKILL.md
+  cherry_pick: plugins/git-advanced/skills/git-advanced/SKILL.md
+  bisect: plugins/git-advanced/skills/git-advanced/SKILL.md
+  n_plus_one: plugins/performance/skills/performance/SKILL.md
+  bundle_size: plugins/performance/skills/performance/SKILL.md
+  profiling: plugins/performance/skills/performance/SKILL.md
+  owasp: plugins/security-hardening/skills/security-hardening/SKILL.md
+  xss: plugins/security-hardening/skills/security-hardening/SKILL.md
+  injection: plugins/security-hardening/skills/security-hardening/SKILL.md
+  cors: plugins/security-hardening/skills/security-hardening/SKILL.md
+  structured_logging: plugins/logging-observability/skills/logging-observability/SKILL.md
+  health_check: plugins/logging-observability/skills/logging-observability/SKILL.md
+  tdd: plugins/methodology/skills/methodology/SKILL.md
+  bdd: plugins/methodology/skills/methodology/SKILL.md
+  sdd: plugins/methodology/skills/methodology/SKILL.md
+  plan_driven: plugins/methodology/skills/methodology/SKILL.md
+  context_engineering: plugins/methodology/skills/methodology/SKILL.md
+
+# Command files: slash command -> file path
+commands:
+  /commit: plugins/dev-workflow/commands/commit.md
+  /review: plugins/dev-workflow/commands/review.md
+  /test: plugins/dev-workflow/commands/test.md
+  /fix: plugins/dev-workflow/commands/fix.md
+  /pr: plugins/dev-workflow/commands/pr.md
+  /status: plugins/dev-workflow/commands/status.md
+  /check-pr: plugins/dev-workflow/commands/check-pr.md
+  /scaffold: plugins/farm-stack/commands/scaffold.md
+  /test-gen: plugins/testing/commands/test-gen.md
+  /api-gen: plugins/api-design/commands/api-gen.md
+  /db-check: plugins/database/commands/db-check.md
+  /ci-fix: plugins/ci-cd/commands/ci-fix.md
+  /docker-gen: plugins/docker-deploy/commands/docker-gen.md
+  /deps: plugins/deps-audit/commands/deps.md
+  /sync-upstream: plugins/oss-contrib/commands/sync-upstream.md
+  /contrib-check: plugins/oss-contrib/commands/contrib-check.md
+  /polish-repo: plugins/repo-polish/commands/polish-repo.md
+  /refactor: plugins/refactoring/commands/refactor.md
+  /docs-gen: plugins/documentation/commands/docs-gen.md
+  /git-ops: plugins/git-advanced/commands/git-ops.md
+  /perf-check: plugins/performance/commands/perf-check.md
+  /security-scan: plugins/security-hardening/commands/security-scan.md
+  /log-check: plugins/logging-observability/commands/log-check.md
+  /methodology: plugins/methodology/commands/methodology.md
+
+# Agent files: agent name -> file path + model
+agents:
+  code-reviewer: {path: plugins/dev-workflow/agents/code-reviewer.md, model: sonnet}
+  debugger: {path: plugins/dev-workflow/agents/debugger.md, model: sonnet}
+  guardrail-checker: {path: plugins/dev-rules/agents/guardrail-checker.md, model: haiku}
+  farm-scaffolder: {path: plugins/farm-stack/agents/farm-scaffolder.md, model: sonnet}
+  test-runner: {path: plugins/testing/agents/test-runner.md, model: haiku}
+  test-generator: {path: plugins/testing/agents/test-generator.md, model: sonnet}
+  api-reviewer: {path: plugins/api-design/agents/api-reviewer.md, model: sonnet}
+  api-scaffolder: {path: plugins/api-design/agents/api-scaffolder.md, model: sonnet}
+  schema-reviewer: {path: plugins/database/agents/schema-reviewer.md, model: sonnet}
+  ci-fixer: {path: plugins/ci-cd/agents/ci-fixer.md, model: sonnet}
+  dockerfile-optimizer: {path: plugins/docker-deploy/agents/dockerfile-optimizer.md, model: haiku}
+  dependency-auditor: {path: plugins/deps-audit/agents/dependency-auditor.md, model: haiku}
+  pr-analyzer: {path: plugins/oss-contrib/agents/pr-analyzer.md, model: sonnet}
+  repo-auditor: {path: plugins/repo-polish/agents/repo-auditor.md, model: haiku}
+  refactorer: {path: plugins/refactoring/agents/refactorer.md, model: sonnet}
+  doc-generator: {path: plugins/documentation/agents/doc-generator.md, model: haiku}
+  git-assistant: {path: plugins/git-advanced/agents/git-assistant.md, model: sonnet}
+  performance-profiler: {path: plugins/performance/agents/performance-profiler.md, model: sonnet}
+  security-scanner: {path: plugins/security-hardening/agents/security-scanner.md, model: sonnet}
+  observability-checker: {path: plugins/logging-observability/agents/observability-checker.md, model: haiku}
+  methodology-coach: {path: plugins/methodology/agents/methodology-coach.md, model: sonnet}
+
+# Hook files: hook name -> file path + behavior
+hooks:
+  secret-guard: {path: plugins/dev-rules/hooks/secret-guard.sh, blocks: true}
+  no-force-push: {path: plugins/dev-rules/hooks/no-force-push.sh, blocks: true}
+  branch-guard: {path: plugins/dev-rules/hooks/branch-guard.sh, blocks: false}
+  secret-scanner: {path: plugins/security-hardening/hooks/secret-scanner.sh, blocks: false}
+  commit-lint: {path: plugins/git-advanced/hooks/commit-lint.sh, blocks: false}
+  upstream-sync-check: {path: plugins/oss-contrib/hooks/upstream-sync-check.sh, blocks: false}
+  migration-guard: {path: plugins/database/hooks/migration-guard.sh, blocks: false}
+  debug-log-check: {path: plugins/logging-observability/hooks/debug-log-check.sh, blocks: false}
+  auto-format: {path: plugins/dev-workflow/hooks/auto-format.sh, blocks: false}
+
+# Reference files: topic -> file path
+references:
+  threat_database: plugins/security-hardening/skills/security-hardening/references/threat-db.yaml
+  marketplace_registry: .claude-plugin/marketplace.json
+  settings_template: configs/settings.template.json
+  installation_guide: configs/recommended-plugins.md
+  contributing_guide: CONTRIBUTING.md
+  validation_script: scripts/validate-plugins.sh
+
+# Decision trees: question -> recommended plugin
+decide:
+  which_plugin_for_testing: testing
+  which_plugin_for_api: api-design
+  which_plugin_for_security: security-hardening
+  which_plugin_for_docker: docker-deploy
+  which_plugin_for_ci: ci-cd
+  which_plugin_for_database: database
+  which_plugin_for_git: git-advanced
+  which_plugin_for_deps: deps-audit
+  which_plugin_for_oss: oss-contrib
+  which_plugin_for_performance: performance
+  which_plugin_for_logging: logging-observability
+  which_plugin_for_docs: documentation
+  which_plugin_for_refactoring: refactoring
+  which_plugin_for_methodology: methodology
+  which_plugin_for_farm: farm-stack
+  which_plugin_for_everyday: dev-workflow
+  which_plugin_for_guardrails: dev-rules
+  which_plugin_for_repo_hygiene: repo-polish

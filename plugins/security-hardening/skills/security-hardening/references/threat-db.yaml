@@ -1,0 +1,252 @@
+# Threat Database for Claude Code Security Scanning
+# Structured reference for the security-scanner agent and secret-scanner hook.
+# Update this file when new CVEs or attack patterns are discovered.
+#
+# Categories: secrets, injection, auth, config, dependency, mcp, prompt-injection
+# Severity: critical, high, medium, low
+
+secret_patterns:
+  - id: SEC-001
+    name: AWS Access Key
+    pattern: 'AKIA[0-9A-Z]{16}'
+    severity: critical
+    description: AWS IAM access key ID
+    remediation: Rotate key immediately, use IAM roles or environment variables
+
+  - id: SEC-002
+    name: AWS Secret Key
+    pattern: '[0-9a-zA-Z/+=]{40}'
+    context: "aws_secret|secret_access|SECRET_KEY"
+    severity: critical
+    description: AWS secret access key (40-char base64 near AWS context)
+    remediation: Rotate key, use IAM roles or AWS Secrets Manager
+
+  - id: SEC-003
+    name: OpenAI/Anthropic API Key
+    pattern: 'sk-[a-zA-Z0-9]{20,}'
+    severity: critical
+    description: API key for OpenAI, Stripe, or Anthropic
+    remediation: Rotate key, use environment variables
+
+  - id: SEC-004
+    name: GitHub Token
+    pattern: 'gh[ps]_[a-zA-Z0-9]{36}'
+    severity: critical
+    description: GitHub personal access or app token
+    remediation: Revoke at github.com/settings/tokens, use GITHUB_TOKEN in CI
+
+  - id: SEC-005
+    name: GitLab Token
+    pattern: 'glpat-[a-zA-Z0-9\-]{20}'
+    severity: critical
+    description: GitLab personal access token
+    remediation: Revoke in GitLab settings, use CI/CD variables
+
+  - id: SEC-006
+    name: Slack Token
+    pattern: 'xox[bpors]-[a-zA-Z0-9\-]+'
+    severity: high
+    description: Slack bot, user, or app token
+    remediation: Revoke in Slack app management
+
+  - id: SEC-007
+    name: Private Key
+    pattern: '-----BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY-----'
+    severity: critical
+    description: Embedded private key (SSH, TLS, or signing)
+    remediation: Remove from repo, rotate key pair, add to .gitignore
+
+  - id: SEC-008
+    name: Database Connection String
+    pattern: '(mongodb(\+srv)?|postgres|mysql)://[^/\s]+:[^/\s]+@'
+    severity: critical
+    description: Database URI with embedded credentials
+    remediation: Use environment variables for connection strings
+
+  - id: SEC-009
+    name: Password Assignment
+    pattern: 'password\s*[:=]\s*["\x27][^"\x27]{4,}'
+    severity: high
+    description: Hardcoded password in source code
+    remediation: Use environment variables or secret manager
+    false_positives:
+      - "password = 'changeme'"
+      - "password = 'test'"
+      - "password = 'xxx'"
+      - "password: <your-password>"
+
+  - id: SEC-010
+    name: JWT Secret
+    pattern: 'jwt[_-]?secret\s*[:=]\s*["\x27][^"\x27]+'
+    severity: high
+    description: Hardcoded JWT signing secret
+    remediation: Use environment variables, rotate secret
+
+  - id: SEC-011
+    name: SendGrid API Key
+    pattern: 'SG\.[a-zA-Z0-9_\-]{22}\.[a-zA-Z0-9_\-]{43}'
+    severity: high
+    description: SendGrid API key
+    remediation: Revoke in SendGrid dashboard, use environment variables
+
+  - id: SEC-012
+    name: Google API Key
+    pattern: 'AIza[0-9A-Za-z\-_]{35}'
+    severity: high
+    description: Google Cloud or Maps API key
+    remediation: Restrict key in Google Cloud Console, use environment variables
+
+injection_patterns:
+  - id: INJ-001
+    name: SQL String Concatenation
+    pattern: '(query|execute|sql)\s*[\(=].*[fF]?["\x27].*\{.*\}'
+    severity: high
+    languages: [python, javascript, typescript]
+    description: SQL query built via string concatenation or f-strings
+    remediation: Use parameterized queries or ORM methods
+
+  - id: INJ-002
+    name: Shell Command Injection
+    pattern: '(subprocess\.call|os\.system|exec|child_process\.exec)\s*\(.*\+|`.*\$\{'
+    severity: critical
+    languages: [python, javascript, typescript]
+    description: User input passed to shell execution
+    remediation: Use subprocess with list args (Python) or execFile (Node.js)
+
+  - id: INJ-003
+    name: XSS via innerHTML
+    pattern: '(innerHTML|dangerouslySetInnerHTML|v-html)\s*='
+    severity: high
+    languages: [javascript, typescript, html]
+    description: Unsanitized HTML injection into DOM
+    remediation: Use textContent, DOMPurify, or framework auto-escaping
+
+  - id: INJ-004
+    name: NoSQL Injection
+    pattern: '\$where|\$regex.*user|\.find\(\s*\{.*req\.(body|query|params)'
+    severity: high
+    languages: [javascript, typescript]
+    description: User input passed directly to MongoDB query operators
+    remediation: Validate and sanitize input, avoid $where
+
+  - id: INJ-005
+    name: Path Traversal
+    pattern: '(path\.join|readFile|open)\s*\(.*req\.(body|query|params)'
+    severity: high
+    languages: [python, javascript, typescript]
+    description: User-controlled file path without normalization
+    remediation: Use path.resolve + startsWith check against base directory
+
+  - id: INJ-006
+    name: Eval Usage
+    pattern: '\beval\s*\('
+    severity: high
+    languages: [python, javascript, typescript]
+    description: Dynamic code execution via eval
+    remediation: Use JSON.parse, ast.literal_eval, or structured alternatives
+
+auth_weaknesses:
+  - id: AUTH-001
+    name: Weak Password Hashing
+    pattern: '(md5|sha1|sha256)\s*\(.*password'
+    severity: high
+    description: Using fast hash for passwords (brute-forceable)
+    remediation: Use bcrypt, argon2, or scrypt with proper work factors
+
+  - id: AUTH-002
+    name: Missing Rate Limiting
+    pattern: 'login|authenticate|sign.?in'
+    check: "Verify rate limiting middleware exists on auth endpoints"
+    severity: medium
+    description: Auth endpoints without rate limiting enable brute force
+    remediation: Add rate limiter (express-rate-limit, slowapi, etc.)
+
+  - id: AUTH-003
+    name: Hardcoded JWT Expiry
+    pattern: 'expiresIn.*["\x27](30d|365d|never)'
+    severity: medium
+    description: Excessively long token expiry
+    remediation: Use short-lived access tokens (15m-1h) with refresh tokens
+
+config_issues:
+  - id: CFG-001
+    name: CORS Wildcard
+    pattern: 'cors\(.*origin.*\*|Access-Control-Allow-Origin.*\*'
+    severity: high
+    description: Wildcard CORS allows any origin in production
+    remediation: Set specific allowed origins from environment variables
+
+  - id: CFG-002
+    name: Debug Mode in Production
+    pattern: 'DEBUG\s*=\s*(True|true|1)|debug:\s*true'
+    severity: medium
+    description: Debug mode enabled (may leak stack traces, credentials)
+    remediation: Set DEBUG=False in production, use environment variables
+
+  - id: CFG-003
+    name: Missing Security Headers
+    check: "Verify CSP, HSTS, X-Frame-Options, X-Content-Type-Options are set"
+    severity: medium
+    description: Missing browser security headers
+    remediation: Use helmet (Express), secure-headers (FastAPI), or web server config
+
+  - id: CFG-004
+    name: Insecure Cookie Flags
+    pattern: 'cookie.*httpOnly.*false|secure.*false|sameSite.*none'
+    severity: medium
+    description: Cookies missing security flags
+    remediation: Set httpOnly=true, secure=true, sameSite=strict
+
+prompt_injection_patterns:
+  - id: PI-001
+    name: Role Override
+    pattern: '(you are now|ignore previous|forget your instructions|new role)'
+    severity: high
+    description: Attempt to override AI system prompt via user input
+    remediation: Never pass raw user input as system prompts
+
+  - id: PI-002
+    name: Hidden Instructions
+    pattern: '(<!-- |/\*\s*)(ignore|override|forget|system:)'
+    severity: high
+    description: Instructions hidden in HTML comments or code comments
+    remediation: Strip comments from user-provided content before AI processing
+
+  - id: PI-003
+    name: Zero-Width Characters
+    pattern: '[\u200b\u200c\u200d\u2060\ufeff]'
+    severity: medium
+    description: Zero-width Unicode characters that can hide malicious content
+    remediation: Strip zero-width characters from user input
+
+  - id: PI-004
+    name: Base64 Encoded Payload
+    pattern: 'base64[_-]?decode|atob\s*\('
+    context: "user input or request body"
+    severity: medium
+    description: Base64 decoding of user-provided content may hide instructions
+    remediation: Validate decoded content before processing
+
+mcp_risks:
+  - id: MCP-001
+    name: Untrusted MCP Server
+    severity: high
+    description: MCP servers from unknown sources can execute arbitrary code
+    remediation: Only install MCP servers from trusted sources (Anthropic official, well-known repos)
+    safe_list:
+      - "@anthropic-ai/*"
+      - "@modelcontextprotocol/*"
+      - "context7"
+      - "sequential-thinking"
+
+  - id: MCP-002
+    name: Database MCP Without Read-Only
+    severity: high
+    description: Database MCP servers with write access in development
+    remediation: Always use read-only credentials for database MCP servers
+
+  - id: MCP-003
+    name: Filesystem MCP Without Restrictions
+    severity: medium
+    description: Filesystem MCP server with broad path access
+    remediation: Restrict to project directory, deny access to home/system dirs

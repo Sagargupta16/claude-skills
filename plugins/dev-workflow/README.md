@@ -22,8 +22,14 @@ Everyday development commands - commit, review, test, fix, create PRs, and check
 
 | Agent | Model | Description |
 |-------|-------|-------------|
-| `code-reviewer` | sonnet | Reviews changed files for bugs, security issues, performance, and code quality |
+| `code-reviewer` | sonnet | Reviews changed files for bugs, security issues, performance, and code quality (with anti-hallucination verification) |
 | `debugger` | sonnet | Traces root causes from error messages and stack traces, proposes minimal fixes |
+
+## Hooks
+
+| Hook | Event | Description |
+|------|-------|-------------|
+| `auto-format` | PostToolUse | Detects project formatter (prettier, biome, black, ruff, gofmt, rustfmt) and runs it after file writes |
 
 ## Example
 

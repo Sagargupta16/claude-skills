@@ -1,5 +1,5 @@
 {
   "name": "dev-workflow",
-  "description": "Everyday dev commands -- commit, review, test, fix bugs, create PRs, check repo status, and inspect PR health.",
-  "version": "4.0.0"
+  "description": "Everyday dev commands -- commit, review, test, fix bugs, create PRs, check repo status, and inspect PR health. Hook: auto-format.",
+  "version": "4.1.0"
 }

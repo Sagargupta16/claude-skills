@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What This Is
 
-A Claude Code plugin marketplace (`sagar-dev-skills`) containing 17 reusable plugins. Each plugin provides skills (background knowledge that auto-activates), commands (user-invocable slash commands), agents (autonomous sub-conversations), and/or hooks (shell scripts that auto-execute on events). This is a content-only repo -- no build system, no runtime code. All files are Markdown, JSON, and shell scripts.
+A Claude Code plugin marketplace (`sagar-dev-skills`) containing 18 reusable plugins. Each plugin provides skills (background knowledge that auto-activates), commands (user-invocable slash commands), agents (autonomous sub-conversations), and/or hooks (shell scripts that auto-execute on events). This is a content-only repo -- no build system, no runtime code. All files are Markdown, JSON, and shell scripts.
 
 ## Architecture
 
@@ -73,7 +73,7 @@ This checks: marketplace.json validity, plugin directory existence, SKILL.md fro
 
 | Plugin | Skills | Commands | Agents | Hooks |
 |--------|--------|----------|--------|-------|
-| dev-workflow | 1 | 7 | 2 (code-reviewer, debugger) | - |
+| dev-workflow | 1 | 7 | 2 (code-reviewer, debugger) | 1 (auto-format) |
 | dev-rules | 1 | - | 1 (guardrail-checker) | 3 (secret-guard, no-force-push, branch-guard) |
 | farm-stack | 1 | 1 | 1 (farm-scaffolder) | - |
 | testing | 1 | 1 | 2 (test-runner, test-generator) | - |
@@ -90,8 +90,9 @@ This checks: marketplace.json validity, plugin directory existence, SKILL.md fro
 | performance | 1 | 1 | 1 (performance-profiler) | - |
 | security-hardening | 1 | 1 | 1 (security-scanner) | 1 (secret-scanner) |
 | logging-observability | 1 | 1 | 1 (observability-checker) | 1 (debug-log-check) |
+| methodology | 1 | 1 | 1 (methodology-coach) | - |
 
-**Totals**: 17 skills, ~20 commands, 20 agents, 8 hooks
+**Totals**: 18 skills, ~21 commands, 22 agents, 9 hooks
 
 ## Key Conventions
 

@@ -1,0 +1,5 @@
+{
+  "name": "methodology",
+  "description": "Structured development methodologies -- TDD, BDD, SDD, plan-driven, and context engineering workflows for Claude Code.",
+  "version": "4.1.0"
+}

@@ -6,15 +6,15 @@
   },
   "metadata": {
     "description": "Claude Code skills for full-stack development, testing, API design, databases, CI/CD, Docker, dependency management, security, performance, logging, refactoring, documentation, git workflows, open source contributions, and repository maintenance. Includes agents for autonomous code review, debugging, test generation, security scanning, and more. Hooks for git safety, secret detection, and commit validation.",
-    "version": "4.0.0",
+    "version": "4.1.0",
     "pluginRoot": "./plugins"
   },
   "plugins": [
     {
       "name": "dev-workflow",
       "source": "dev-workflow",
-      "description": "Everyday dev commands -- commit, review, test, fix bugs, create PRs, check repo status, and inspect PR health. Agents: code-reviewer, debugger.",
-      "version": "4.0.0",
+      "description": "Everyday dev commands -- commit, review, test, fix bugs, create PRs, check repo status, and inspect PR health. Agents: code-reviewer, debugger. Hook: auto-format.",
+      "version": "4.1.0",
       "author": { "name": "Sagar Gupta" },
       "license": "MIT",
       "keywords": ["git", "commit", "review", "testing", "pr", "workflow"],
@@ -179,6 +179,16 @@
       "license": "MIT",
       "keywords": ["logging", "observability", "health-checks", "metrics", "monitoring", "hooks"],
       "category": "operations"
+    },
+    {
+      "name": "methodology",
+      "source": "methodology",
+      "description": "Structured development methodologies -- TDD red-green-refactor, BDD behavior specs, spec-driven development, plan-driven execution, and context engineering workflows. Agent: methodology-coach.",
+      "version": "4.1.0",
+      "author": { "name": "Sagar Gupta" },
+      "license": "MIT",
+      "keywords": ["tdd", "bdd", "methodology", "testing", "workflow", "plan-driven"],
+      "category": "workflow"
     }
   ]
 }
