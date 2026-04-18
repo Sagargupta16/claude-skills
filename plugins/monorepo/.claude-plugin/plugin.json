@@ -1,0 +1,5 @@
+{
+  "name": "monorepo",
+  "description": "Monorepo management -- CLAUDE.md loading rules, workspace organization, cross-package dependencies, and multi-project conventions.",
+  "version": "4.2.0"
+}

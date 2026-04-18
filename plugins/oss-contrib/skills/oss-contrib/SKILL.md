@@ -78,6 +78,36 @@ Create reference files in `references/` for projects you regularly contribute to
 - Commit message format
 - Any AI disclosure or CLA requirements
 
+## PR Template Compliance
+
+Many open source projects require specific PR template fields. Always check:
+
+### AI Disclosure
+Some projects (e.g., Apache Airflow) require an AI disclosure checkbox:
+```markdown
+- [x] This PR was generated with the help of AI tools
+```
+Always fill this honestly if the project requires it.
+
+### CLA / DCO Requirements
+| Type | How to Sign | Detection |
+|------|-------------|-----------|
+| CLA (Contributor License Agreement) | Web form, usually one-time per project | Look for CLA bot comment on PR |
+| DCO (Developer Certificate of Origin) | `git commit -s` (adds Signed-off-by trailer) | Look for DCO check in CI |
+
+### Contributor Statements
+Some projects (e.g., awslabs repos) require specific license text in contributions:
+- Read CONTRIBUTING.md carefully for exact wording
+- Include required license link text verbatim
+- Don't paraphrase legal language
+
+### PR Quality Bar
+Before submitting to any open source project:
+- Is this a real problem? (Not cosmetic, not a style preference)
+- Does the fix justify the review burden on maintainers?
+- Is the PR scoped to exactly one logical change?
+- Have you read recent merged PRs to understand their bar?
+
 ## Common Pitfalls
 
 | Mistake | Prevention |
@@ -89,6 +119,10 @@ Create reference files in `references/` for projects you regularly contribute to
 | Not running full test suite locally | Run tests before pushing |
 | Adding unnecessary refactoring | Keep changes minimal and focused |
 | Ignoring CI failures | Fix all failures before requesting review |
+| Skipping AI disclosure checkbox | Always fill honestly if required |
+| Missing CLA/DCO signing | Check CONTRIBUTING.md for requirements |
+| Bundling multiple fixes in one PR | One logical change per PR |
+| Self-promotional PRs (awesome-list adds) | Focus on real problems the project has |
 
 ## Fork Recovery
 

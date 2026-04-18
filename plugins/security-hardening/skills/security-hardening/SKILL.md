@@ -202,6 +202,40 @@ class CreateUser(BaseModel):
 | File uploads | Max size, allowlist MIME types, scan for malware |
 | Paths | Normalize, reject `..`, resolve to allowed directory |
 
+## Threat Modeling (STRIDE)
+
+| Threat | Description | Common Mitigation |
+|--------|-------------|-------------------|
+| **S**poofing | Pretending to be another user/service | Strong auth, MFA, mTLS |
+| **T**ampering | Modifying data in transit or at rest | Integrity checks, signed payloads, HMAC |
+| **R**epudiation | Denying an action occurred | Audit logs, signed commits, timestamps |
+| **I**nformation Disclosure | Unauthorized data access | Encryption, access control, data classification |
+| **D**enial of Service | Making service unavailable | Rate limiting, CDN, auto-scaling, circuit breakers |
+| **E**levation of Privilege | Gaining unauthorized access level | Least privilege, RBAC, input validation |
+
+## Supply Chain Security
+
+| Risk | Prevention |
+|------|-----------|
+| Compromised dependencies | Lock files, audit before install, Dependabot/Renovate |
+| Typosquatting packages | Verify package names carefully, check download counts |
+| Malicious post-install scripts | Review npm `postinstall` scripts, use `--ignore-scripts` for untrusted |
+| Outdated dependencies with CVEs | Regular `npm audit` / `pip audit` / `cargo audit` |
+| Unpinned versions | Always use lock files, pin in CI |
+
+## API Security Checklist
+
+| Check | Implementation |
+|-------|---------------|
+| Authentication on all endpoints | Middleware/decorator, not per-route |
+| Authorization checks | Role-based, check on every request |
+| Input validation | Pydantic/Zod schemas at API boundary |
+| Output filtering | Don't return internal fields (password hash, internal IDs) |
+| Rate limiting | Per-IP and per-user limits |
+| Request size limits | Max body size, max file upload size |
+| Timeout configuration | Don't let slow requests hold connections |
+| Error responses | Generic messages, no stack traces in production |
+
 ## Anti-Patterns
 
 | Don't | Do Instead |
@@ -214,3 +248,7 @@ class CreateUser(BaseModel):
 | Use `eval()` or `exec()` with user input | Never execute user-provided code |
 | Expose stack traces in production errors | Generic error messages, detailed logs server-side |
 | Hardcode secrets in code | Use environment variables or secret managers |
+| Install packages without auditing | Run `npm audit` / `pip audit` before and after |
+| Use wildcard IAM permissions | Least privilege -- specific actions and resources |
+| Skip CSRF protection on state-changing endpoints | SameSite cookies + CSRF tokens |
+| Trust JWT without signature verification | Always verify signature, check expiry, validate issuer |

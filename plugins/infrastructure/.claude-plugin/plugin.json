@@ -1,0 +1,5 @@
+{
+  "name": "infrastructure",
+  "description": "Infrastructure as code patterns -- Terraform, AWS CDK, CloudFormation best practices, module design, and state management.",
+  "version": "4.2.0"
+}

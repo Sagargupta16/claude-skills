@@ -3,15 +3,15 @@
 # Use this to find the right plugin, skill, command, agent, or hook.
 #
 # Format: keyword -> file path (relative to repo root)
-# Updated: 2026-04-16 | Version: 4.1.0
+# Updated: 2026-04-18 | Version: 4.2.0
 
 stats:
-  plugins: 18
-  skills: 18
-  commands: 21
-  agents: 22
+  plugins: 25
+  skills: 25
+  commands: 28
+  agents: 29
   hooks: 9
-  total_files: 68
+  total_files: 89
 
 # Plugin index: name -> directory
 plugins:
@@ -33,6 +33,13 @@ plugins:
   security-hardening: plugins/security-hardening
   logging-observability: plugins/logging-observability
   methodology: plugins/methodology
+  context-management: plugins/context-management
+  session-management: plugins/session-management
+  planning: plugins/planning
+  verification: plugins/verification
+  claude-md-generator: plugins/claude-md-generator
+  infrastructure: plugins/infrastructure
+  monorepo: plugins/monorepo
 
 # Skill files: keyword -> SKILL.md path
 skills:
@@ -40,6 +47,8 @@ skills:
   review: plugins/dev-workflow/skills/dev-workflow/SKILL.md
   git_safety: plugins/dev-rules/skills/dev-rules/SKILL.md
   guardrails: plugins/dev-rules/skills/dev-rules/SKILL.md
+  important_tags: plugins/dev-rules/skills/dev-rules/SKILL.md
+  claude_md_authoring: plugins/dev-rules/skills/dev-rules/SKILL.md
   fastapi: plugins/farm-stack/skills/farm-stack/SKILL.md
   react: plugins/farm-stack/skills/farm-stack/SKILL.md
   mongodb: plugins/farm-stack/skills/farm-stack/SKILL.md
@@ -61,8 +70,11 @@ skills:
   outdated_deps: plugins/deps-audit/skills/deps-audit/SKILL.md
   upstream_sync: plugins/oss-contrib/skills/oss-contrib/SKILL.md
   contributing: plugins/oss-contrib/skills/oss-contrib/SKILL.md
+  cla_dco: plugins/oss-contrib/skills/oss-contrib/SKILL.md
+  ai_disclosure: plugins/oss-contrib/skills/oss-contrib/SKILL.md
   gitignore: plugins/repo-polish/skills/repo-polish/SKILL.md
   readme: plugins/repo-polish/skills/repo-polish/SKILL.md
+  claude_md_audit: plugins/repo-polish/skills/repo-polish/SKILL.md
   code_smell: plugins/refactoring/skills/refactoring/SKILL.md
   extract_method: plugins/refactoring/skills/refactoring/SKILL.md
   adr: plugins/documentation/skills/documentation/SKILL.md
@@ -77,6 +89,8 @@ skills:
   xss: plugins/security-hardening/skills/security-hardening/SKILL.md
   injection: plugins/security-hardening/skills/security-hardening/SKILL.md
   cors: plugins/security-hardening/skills/security-hardening/SKILL.md
+  stride: plugins/security-hardening/skills/security-hardening/SKILL.md
+  supply_chain: plugins/security-hardening/skills/security-hardening/SKILL.md
   structured_logging: plugins/logging-observability/skills/logging-observability/SKILL.md
   health_check: plugins/logging-observability/skills/logging-observability/SKILL.md
   tdd: plugins/methodology/skills/methodology/SKILL.md
@@ -84,6 +98,32 @@ skills:
   sdd: plugins/methodology/skills/methodology/SKILL.md
   plan_driven: plugins/methodology/skills/methodology/SKILL.md
   context_engineering: plugins/methodology/skills/methodology/SKILL.md
+  prototype_over_prd: plugins/methodology/skills/methodology/SKILL.md
+  interview_then_execute: plugins/methodology/skills/methodology/SKILL.md
+  context_rot: plugins/context-management/skills/context-management/SKILL.md
+  compaction: plugins/context-management/skills/context-management/SKILL.md
+  rewind: plugins/context-management/skills/context-management/SKILL.md
+  sub_agent_isolation: plugins/context-management/skills/context-management/SKILL.md
+  session_lifecycle: plugins/session-management/skills/session-management/SKILL.md
+  handoff_summary: plugins/session-management/skills/session-management/SKILL.md
+  session_hygiene: plugins/session-management/skills/session-management/SKILL.md
+  plan_mode: plugins/planning/skills/planning/SKILL.md
+  implementation_plan: plugins/planning/skills/planning/SKILL.md
+  plan_review: plugins/planning/skills/planning/SKILL.md
+  pre_completion: plugins/verification/skills/verification/SKILL.md
+  verification_checklist: plugins/verification/skills/verification/SKILL.md
+  pre_pr: plugins/verification/skills/verification/SKILL.md
+  claude_md: plugins/claude-md-generator/skills/claude-md-generator/SKILL.md
+  claude_md_templates: plugins/claude-md-generator/skills/claude-md-generator/SKILL.md
+  important_tag: plugins/claude-md-generator/skills/claude-md-generator/SKILL.md
+  terraform: plugins/infrastructure/skills/infrastructure/SKILL.md
+  aws_cdk: plugins/infrastructure/skills/infrastructure/SKILL.md
+  cloudformation: plugins/infrastructure/skills/infrastructure/SKILL.md
+  state_management: plugins/infrastructure/skills/infrastructure/SKILL.md
+  monorepo_setup: plugins/monorepo/skills/monorepo/SKILL.md
+  workspace_organization: plugins/monorepo/skills/monorepo/SKILL.md
+  claude_md_loading: plugins/monorepo/skills/monorepo/SKILL.md
+  cross_package: plugins/monorepo/skills/monorepo/SKILL.md
 
 # Command files: slash command -> file path
 commands:
@@ -111,6 +151,13 @@ commands:
   /security-scan: plugins/security-hardening/commands/security-scan.md
   /log-check: plugins/logging-observability/commands/log-check.md
   /methodology: plugins/methodology/commands/methodology.md
+  /manage-context: plugins/context-management/commands/manage-context.md
+  /handoff: plugins/session-management/commands/handoff.md
+  /plan: plugins/planning/commands/plan.md
+  /verify: plugins/verification/commands/verify.md
+  /scaffold-claude-md: plugins/claude-md-generator/commands/scaffold-claude-md.md
+  /infra-check: plugins/infrastructure/commands/infra-check.md
+  /workspace-check: plugins/monorepo/commands/workspace-check.md
 
 # Agent files: agent name -> file path + model
 agents:
@@ -135,6 +182,13 @@ agents:
   security-scanner: {path: plugins/security-hardening/agents/security-scanner.md, model: sonnet}
   observability-checker: {path: plugins/logging-observability/agents/observability-checker.md, model: haiku}
   methodology-coach: {path: plugins/methodology/agents/methodology-coach.md, model: sonnet}
+  context-advisor: {path: plugins/context-management/agents/context-advisor.md, model: haiku}
+  session-advisor: {path: plugins/session-management/agents/session-advisor.md, model: haiku}
+  plan-reviewer: {path: plugins/planning/agents/plan-reviewer.md, model: sonnet}
+  verifier: {path: plugins/verification/agents/verifier.md, model: haiku}
+  claude-md-auditor: {path: plugins/claude-md-generator/agents/claude-md-auditor.md, model: haiku}
+  infra-reviewer: {path: plugins/infrastructure/agents/infra-reviewer.md, model: sonnet}
+  workspace-auditor: {path: plugins/monorepo/agents/workspace-auditor.md, model: haiku}
 
 # Hook files: hook name -> file path + behavior
 hooks:
@@ -177,3 +231,12 @@ decide:
   which_plugin_for_everyday: dev-workflow
   which_plugin_for_guardrails: dev-rules
   which_plugin_for_repo_hygiene: repo-polish
+  which_plugin_for_context: context-management
+  which_plugin_for_sessions: session-management
+  which_plugin_for_planning: planning
+  which_plugin_for_verification: verification
+  which_plugin_for_claude_md: claude-md-generator
+  which_plugin_for_terraform: infrastructure
+  which_plugin_for_iac: infrastructure
+  which_plugin_for_monorepo: monorepo
+  which_plugin_for_workspace: monorepo

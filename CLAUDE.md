@@ -91,8 +91,15 @@ This checks: marketplace.json validity, plugin directory existence, SKILL.md fro
 | security-hardening | 1 | 1 | 1 (security-scanner) | 1 (secret-scanner) |
 | logging-observability | 1 | 1 | 1 (observability-checker) | 1 (debug-log-check) |
 | methodology | 1 | 1 | 1 (methodology-coach) | - |
+| context-management | 1 | 1 | 1 (context-advisor) | - |
+| session-management | 1 | 1 | 1 (session-advisor) | - |
+| planning | 1 | 1 | 1 (plan-reviewer) | - |
+| verification | 1 | 1 | 1 (verifier) | - |
+| claude-md-generator | 1 | 1 | 1 (claude-md-auditor) | - |
+| infrastructure | 1 | 1 | 1 (infra-reviewer) | - |
+| monorepo | 1 | 1 | 1 (workspace-auditor) | - |
 
-**Totals**: 18 skills, ~21 commands, 22 agents, 9 hooks
+**Totals**: 25 skills, ~28 commands, 29 agents, 9 hooks
 
 ## Key Conventions
 

@@ -53,12 +53,47 @@ When working with pull requests:
 6. **When rebasing** - squash into clean commits, match project's commit style
 7. **Never force-push to someone else's branch** - only to your own fork branches
 
+## CLAUDE.md Authoring Rules
+
+When writing or reviewing CLAUDE.md files:
+
+### `<important>` Tags
+Wrap must-follow rules in `<important>` tags so they survive long contexts:
+
+```markdown
+<important>
+- Never commit .env files or API keys
+- Always run tests before pushing
+- Never force push to main/master
+</important>
+```
+
+Use `<important if="...">` for conditional rules:
+```markdown
+<important if="making git commits or pushing code">
+- Never add Co-Authored-By trailers
+- Use conventional commit format
+</important>
+```
+
+### Length and Structure
+- Keep each CLAUDE.md under 200 lines -- rules get ignored beyond this
+- Split detailed rules into `.claude/rules/*.md` files
+- Structure: Overview > Commands > Conventions > Architecture > Critical Rules
+- Loading: ancestors load at startup, descendants lazily, siblings never
+
 ## Context Optimization
 
 ### Progressive Disclosure
 - Load metadata first (names, descriptions) before full content
 - Only read files when actually needed - don't preemptively read everything
 - For long files, read specific sections rather than the entire file
+
+### Context Health
+- Manual `/compact` at ~50% context usage -- don't wait for auto-compaction
+- Use `/rewind` when an approach fails -- don't leave failures in context
+- Spawn sub-agents for research tasks to keep main context clean
+- New task = new session (avoid context pollution)
 
 ### Scripts as Black Boxes
 - Run helper scripts with `--help` first to understand their interface
@@ -74,3 +109,5 @@ When working with pull requests:
 - Don't read every file in a directory when a targeted search suffices
 - Don't duplicate work between main context and sub-agents
 - Don't re-read files that were recently read in the same session
+- Don't say "no try again" after bad output -- /rewind then re-prompt
+- Don't wait for auto-compact -- model is least intelligent during auto-compact

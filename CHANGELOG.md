@@ -1,5 +1,28 @@
 # Changelog
 
+## [4.2.0] - 2026-04-18
+
+### Added
+- **7 new plugins** bringing total from 18 to 25, adding workflow and meta-development capabilities:
+  - **context-management** -- context rot detection, compaction timing, branching strategy (Continue/Rewind/Clear/Compact/Subagent), sub-agent isolation patterns. Command: `/manage-context`. Agent: `context-advisor` (haiku).
+  - **session-management** -- session lifecycle, handoff summaries, multi-session workflows, resume patterns. Command: `/handoff`. Agent: `session-advisor` (haiku).
+  - **planning** -- plan mode usage, interview-then-execute, prototype over PRD, plan review. Command: `/plan`. Agent: `plan-reviewer` (sonnet).
+  - **verification** -- pre-completion checklists for backend, frontend, infrastructure, and general code changes. Command: `/verify`. Agent: `verifier` (haiku).
+  - **claude-md-generator** -- CLAUDE.md templates for Python, React, Terraform, MERN, Go, Rust, and monorepo. `<important>` tag patterns, loading rules. Command: `/scaffold-claude-md`. Agent: `claude-md-auditor` (haiku).
+  - **infrastructure** -- Terraform, AWS CDK, CloudFormation best practices, module design, state management, security scanning (checkov, tflint). Command: `/infra-check`. Agent: `infra-reviewer` (sonnet).
+  - **monorepo** -- CLAUDE.md loading rules (ancestor/descendant/sibling), workspace organization, cross-package dependencies, convention consistency. Command: `/workspace-check`. Agent: `workspace-auditor` (haiku).
+
+### Changed
+- **dev-rules**: Added CLAUDE.md authoring rules (`<important>` tag patterns, length/structure guidelines, conditional important tags), context health guidance (manual compact at 50%, rewind-over-correct, sub-agent isolation). Bumped to 4.2.0.
+- **oss-contrib**: Added PR template compliance section (AI disclosure checkboxes, CLA/DCO signing, contributor statements, PR quality bar). Extended common pitfalls table. Bumped to 4.2.0.
+- **methodology**: Added prototype-over-PRD workflow (when to prototype, pattern, when NOT to), interview-then-execute pattern (separate planning and execution sessions). Updated decision tree. Bumped to 4.2.0.
+- **repo-polish**: Added CLAUDE.md audit checklist (length, structure, conventions, important tags, accuracy). Added Terraform/CDK to project type detection. Bumped to 4.2.0.
+- **security-hardening**: Added STRIDE threat modeling table, supply chain security section (typosquatting, post-install scripts, CVE scanning), API security checklist. Extended anti-patterns. Bumped to 4.2.0.
+- Marketplace version bumped to 4.2.0. All enhanced plugin plugin.json versions synced.
+- README.md updated with new "Workflow and Meta" plugin category, updated counts, infrastructure in language matrix.
+- CLAUDE.md plugin inventory table updated (25 plugins, ~28 commands, 29 agents, 9 hooks).
+- reference.yaml updated with new plugins, skills, commands, agents, and decision entries.
+
 ## [4.1.0] - 2026-04-16
 
 ### Added

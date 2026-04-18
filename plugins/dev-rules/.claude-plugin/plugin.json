@@ -1,5 +1,5 @@
 {
   "name": "dev-rules",
-  "description": "Development guardrails -- git safety, security best practices, PR workflow discipline, and context optimization patterns.",
-  "version": "4.0.0"
+  "description": "Development guardrails -- git safety, security best practices, PR workflow discipline, context optimization, CLAUDE.md authoring rules, and important tag patterns.",
+  "version": "4.2.0"
 }

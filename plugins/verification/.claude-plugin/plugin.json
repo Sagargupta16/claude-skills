@@ -1,0 +1,5 @@
+{
+  "name": "verification",
+  "description": "Pre-completion verification -- backend, frontend, and infrastructure verification checklists before claiming work is done.",
+  "version": "4.2.0"
+}

@@ -1,5 +1,5 @@
 {
   "name": "methodology",
-  "description": "Structured development methodologies -- TDD, BDD, SDD, plan-driven, and context engineering workflows for Claude Code.",
-  "version": "4.1.0"
+  "description": "Structured development methodologies -- TDD, BDD, SDD, plan-driven, prototype-over-PRD, interview-then-execute, and context engineering workflows for Claude Code.",
+  "version": "4.2.0"
 }

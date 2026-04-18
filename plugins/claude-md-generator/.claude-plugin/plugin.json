@@ -1,0 +1,5 @@
+{
+  "name": "claude-md-generator",
+  "description": "CLAUDE.md file generation -- project-specific templates for Python, React, Terraform, MERN, and monorepo workspaces.",
+  "version": "4.2.0"
+}

@@ -1,0 +1,5 @@
+{
+  "name": "context-management",
+  "description": "Context window management -- compaction timing, context rot prevention, branching strategies, and sub-agent isolation patterns.",
+  "version": "4.2.0"
+}

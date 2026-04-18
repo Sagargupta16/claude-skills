@@ -5,8 +5,8 @@
     "email": "sg85207@gmail.com"
   },
   "metadata": {
-    "description": "Claude Code skills for full-stack development, testing, API design, databases, CI/CD, Docker, dependency management, security, performance, logging, refactoring, documentation, git workflows, open source contributions, and repository maintenance. Includes agents for autonomous code review, debugging, test generation, security scanning, and more. Hooks for git safety, secret detection, and commit validation.",
-    "version": "4.1.0",
+    "description": "Claude Code skills for full-stack development, testing, API design, databases, CI/CD, Docker, dependency management, security, performance, logging, refactoring, documentation, git workflows, open source contributions, repository maintenance, context management, session management, planning, verification, CLAUDE.md generation, infrastructure as code, and monorepo management. Includes agents for autonomous code review, debugging, test generation, security scanning, plan review, verification, and more. Hooks for git safety, secret detection, and commit validation.",
+    "version": "4.2.0",
     "pluginRoot": "./plugins"
   },
   "plugins": [
@@ -23,8 +23,8 @@
     {
       "name": "dev-rules",
       "source": "dev-rules",
-      "description": "Development guardrails -- git safety, security best practices, PR workflow discipline, and context optimization patterns. Hooks: secret-guard, no-force-push, branch-guard.",
-      "version": "4.0.0",
+      "description": "Development guardrails -- git safety, security best practices, PR workflow discipline, context optimization, CLAUDE.md authoring rules, and important tag patterns. Hooks: secret-guard, no-force-push, branch-guard.",
+      "version": "4.2.0",
       "author": { "name": "Sagar Gupta" },
       "license": "MIT",
       "keywords": ["git", "security", "guardrails", "best-practices", "hooks"],
@@ -103,8 +103,8 @@
     {
       "name": "oss-contrib",
       "source": "oss-contrib",
-      "description": "Open source contribution workflow -- upstream sync, CONTRIBUTING.md compliance, code style matching, PR preparation. Agent: pr-analyzer. Hook: upstream-sync-check.",
-      "version": "4.0.0",
+      "description": "Open source contribution workflow -- upstream sync, CONTRIBUTING.md compliance, code style matching, PR preparation, CLA/DCO signing, AI disclosure, and PR quality bar. Agent: pr-analyzer. Hook: upstream-sync-check.",
+      "version": "4.2.0",
       "author": { "name": "Sagar Gupta" },
       "license": "MIT",
       "keywords": ["open-source", "fork", "upstream", "contributing", "pr"],
@@ -113,8 +113,8 @@
     {
       "name": "repo-polish",
       "source": "repo-polish",
-      "description": "Repository hygiene -- .gitignore, .env.example, README, LICENSE generation, secret detection, and project type detection. Agent: repo-auditor.",
-      "version": "4.0.0",
+      "description": "Repository hygiene -- .gitignore, .env.example, README, LICENSE generation, secret detection, project type detection, and CLAUDE.md auditing. Agent: repo-auditor.",
+      "version": "4.2.0",
       "author": { "name": "Sagar Gupta" },
       "license": "MIT",
       "keywords": ["gitignore", "readme", "license", "hygiene", "secrets"],
@@ -163,8 +163,8 @@
     {
       "name": "security-hardening",
       "source": "security-hardening",
-      "description": "Security hardening -- OWASP top 10 prevention, security headers, rate limiting, input validation, CORS configuration, and vulnerability scanning. Agent: security-scanner. Hook: secret-scanner.",
-      "version": "4.0.0",
+      "description": "Security hardening -- OWASP top 10 prevention, STRIDE threat modeling, supply chain security, API security checklist, security headers, rate limiting, input validation, CORS configuration, and vulnerability scanning. Agent: security-scanner. Hook: secret-scanner.",
+      "version": "4.2.0",
       "author": { "name": "Sagar Gupta" },
       "license": "MIT",
       "keywords": ["security", "owasp", "headers", "rate-limiting", "xss", "injection", "hooks"],
@@ -189,6 +189,76 @@
       "license": "MIT",
       "keywords": ["tdd", "bdd", "methodology", "testing", "workflow", "plan-driven"],
       "category": "workflow"
+    },
+    {
+      "name": "context-management",
+      "source": "context-management",
+      "description": "Context window management -- compaction timing, context rot prevention, branching strategies, and sub-agent isolation patterns. Agent: context-advisor.",
+      "version": "4.2.0",
+      "author": { "name": "Sagar Gupta" },
+      "license": "MIT",
+      "keywords": ["context", "compaction", "rewind", "sub-agent", "context-rot"],
+      "category": "workflow"
+    },
+    {
+      "name": "session-management",
+      "source": "session-management",
+      "description": "Session lifecycle management -- when to start new sessions, rewind vs correct, handoff summaries, and multi-session workflow patterns. Agent: session-advisor.",
+      "version": "4.2.0",
+      "author": { "name": "Sagar Gupta" },
+      "license": "MIT",
+      "keywords": ["session", "handoff", "resume", "lifecycle", "workflow"],
+      "category": "workflow"
+    },
+    {
+      "name": "planning",
+      "source": "planning",
+      "description": "Implementation planning -- plan mode usage, interview-then-execute, prototype over PRD, and plan review patterns for multi-file features. Agent: plan-reviewer.",
+      "version": "4.2.0",
+      "author": { "name": "Sagar Gupta" },
+      "license": "MIT",
+      "keywords": ["planning", "plan-mode", "prototype", "interview", "architecture"],
+      "category": "workflow"
+    },
+    {
+      "name": "verification",
+      "source": "verification",
+      "description": "Pre-completion verification -- backend, frontend, infrastructure, and general code change checklists before claiming work is done. Agent: verifier.",
+      "version": "4.2.0",
+      "author": { "name": "Sagar Gupta" },
+      "license": "MIT",
+      "keywords": ["verification", "testing", "checklist", "pre-pr", "quality"],
+      "category": "workflow"
+    },
+    {
+      "name": "claude-md-generator",
+      "source": "claude-md-generator",
+      "description": "CLAUDE.md file generation and auditing -- project-specific templates for Python, React, Terraform, MERN, and monorepo workspaces. Agent: claude-md-auditor.",
+      "version": "4.2.0",
+      "author": { "name": "Sagar Gupta" },
+      "license": "MIT",
+      "keywords": ["claude-md", "scaffolding", "templates", "configuration", "setup"],
+      "category": "maintenance"
+    },
+    {
+      "name": "infrastructure",
+      "source": "infrastructure",
+      "description": "Infrastructure as code patterns -- Terraform, AWS CDK, CloudFormation best practices, module design, state management, and security scanning. Agent: infra-reviewer.",
+      "version": "4.2.0",
+      "author": { "name": "Sagar Gupta" },
+      "license": "MIT",
+      "keywords": ["terraform", "cdk", "cloudformation", "iac", "aws", "infrastructure"],
+      "category": "devops"
+    },
+    {
+      "name": "monorepo",
+      "source": "monorepo",
+      "description": "Monorepo management -- CLAUDE.md loading rules, workspace organization, cross-package dependencies, and multi-project convention patterns. Agent: workspace-auditor.",
+      "version": "4.2.0",
+      "author": { "name": "Sagar Gupta" },
+      "license": "MIT",
+      "keywords": ["monorepo", "workspace", "pnpm", "npm", "cross-package", "claude-md"],
+      "category": "maintenance"
     }
   ]
 }

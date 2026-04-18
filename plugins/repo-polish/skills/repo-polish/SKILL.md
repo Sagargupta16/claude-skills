@@ -214,6 +214,35 @@ Before pushing, verify:
 
 If real credentials are found in git history, they must be rotated immediately - removing from future commits does not invalidate exposed secrets.
 
+## CLAUDE.md Audit
+
+When auditing repos, also check CLAUDE.md quality:
+
+| Check | Standard | How to Fix |
+|-------|----------|-----------|
+| Exists | Every repo should have one | Generate with `/scaffold-claude-md` |
+| Length | Under 200 lines | Split into `.claude/rules/` files |
+| Structure | Overview > Commands > Conventions > Architecture | Reorganize to match standard |
+| Commands | Lists actual project commands | Scan package.json/Makefile for real commands |
+| Conventions | Specific to tech stack in use | Check linter/formatter config for details |
+| Important tags | Critical rules wrapped in `<important>` | Wrap git safety and security rules |
+| No secrets | No API keys, tokens, credentials | Remove and rotate if found |
+| Up to date | Matches current project structure | Compare against actual repo state |
+| Actionable | Rules specific enough to follow | Remove vague platitudes |
+
+### Quick CLAUDE.md Audit Command
+
+```bash
+# Check length
+wc -l CLAUDE.md
+
+# Check for important tags
+grep -c "<important" CLAUDE.md
+
+# Check for common sections
+grep -c "^## " CLAUDE.md
+```
+
 ## Project Type Detection
 
 Detect the project type by checking for these files:
@@ -226,5 +255,8 @@ Detect the project type by checking for these files:
 | `go.mod` | Go |
 | `*.csproj` / `*.sln` | C# / Unity |
 | `Makefile` only | C / C++ |
+| `*.tf` / `main.tf` | Terraform |
+| `cdk.json` | AWS CDK |
+| `Dockerfile` | Containerized app |
 
 Use the appropriate .gitignore template based on detected type. For multi-language projects, combine relevant templates.

@@ -1,5 +1,5 @@
 {
   "name": "security-hardening",
-  "description": "Security hardening -- OWASP top 10 prevention, security headers, rate limiting, input validation, CORS configuration, and vulnerability scanning.",
-  "version": "4.0.0"
+  "description": "Security hardening -- OWASP top 10 prevention, STRIDE threat modeling, supply chain security, API security checklist, security headers, rate limiting, input validation, CORS configuration, and vulnerability scanning.",
+  "version": "4.2.0"
 }

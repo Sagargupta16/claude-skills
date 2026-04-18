@@ -1,5 +1,5 @@
 {
   "name": "repo-polish",
-  "description": "Repository hygiene -- .gitignore, .env.example, README, LICENSE generation, secret detection, and project type detection.",
-  "version": "4.0.0"
+  "description": "Repository hygiene -- .gitignore, .env.example, README, LICENSE generation, secret detection, project type detection, and CLAUDE.md auditing.",
+  "version": "4.2.0"
 }

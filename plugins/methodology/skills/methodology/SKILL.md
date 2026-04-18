@@ -205,6 +205,63 @@ Before creating new patterns, grep for existing ones.
 Follow the established pattern if >3 occurrences exist.
 ```
 
+## Prototype Over PRD
+
+When requirements are uncertain, build instead of specifying:
+
+### When to Prototype
+- New product ideas where you don't know what you want yet
+- UI/UX exploration -- seeing beats describing
+- API design -- try using the API before specifying it
+- Algorithm selection -- benchmark, don't theorize
+
+### Pattern
+```
+Instead of: Write a 10-page PRD → review → implement → discover it's wrong
+Do: Build rough prototype → iterate 5-10 times → extract the spec from what works
+```
+
+### Prototype Workflow with Claude Code
+```bash
+# Session 1: Quick prototype
+"Build a rough prototype of [feature]. Don't worry about edge cases or production quality."
+
+# Sessions 2-5: Iterate
+"Here's what works and doesn't work about the prototype: [feedback]. Iterate."
+
+# Session 6: Extract spec
+"The prototype is solid. Extract a clean spec from what we built, then reimplement properly."
+```
+
+### When NOT to Prototype
+- Well-defined bug fixes (just fix it)
+- API contracts between teams (spec first, SDD approach)
+- Database migrations (plan carefully, prototyping is dangerous)
+- Security-critical code (spec and review first)
+
+## Interview-Then-Execute
+
+For unclear requirements, have Claude interview you before coding:
+
+### Pattern
+```
+Session 1 (Planning):
+1. "I need [vague feature]. Interview me to understand the requirements."
+2. Claude asks 5-10 targeted clarifying questions
+3. You answer, refining scope and constraints
+4. Claude produces a plan based on answers
+5. Review and adjust the plan
+
+Session 2 (Execution):
+1. Start fresh with the finalized plan
+2. Execute step by step with verification
+```
+
+### Why Separate Sessions
+- Planning session fills context with requirements discussion
+- Execution session gets clean context with only the finalized plan
+- Produces better code than doing both in one session
+
 ## Choosing a Methodology
 
 ```
@@ -216,5 +273,7 @@ Is the change well-defined with clear acceptance criteria?
 │       └── No → TDD (write test first)
 └── No: Is the change large (5+ files)?
     ├── Yes → Plan-Driven (plan first, execute step by step)
-    └── No → Context Engineering (progressive disclosure, focused scope)
+    ├── Requirements unclear? → Interview-Then-Execute
+    ├── Feasibility unknown? → Prototype First
+    └── Small and exploratory → Context Engineering
 ```

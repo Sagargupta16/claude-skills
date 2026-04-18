@@ -1,0 +1,5 @@
+{
+  "name": "session-management",
+  "description": "Session lifecycle management -- when to start new sessions, rewind vs correct, handoff summaries, and branching decisions.",
+  "version": "4.2.0"
+}
