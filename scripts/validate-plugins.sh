@@ -59,9 +59,12 @@ while IFS='|' read -r name source; do
   echo ""
   echo "--- Plugin: $name ---"
 
-  # Resolve plugin directory from pluginRoot + source
+  # Resolve plugin directory: if source is a path (contains /), use as-is;
+  # otherwise treat as a name relative to pluginRoot (backwards compat).
   source="${source#./}"
-  if [[ "$PLUGIN_ROOT" == "." ]]; then
+  if [[ "$source" == */* ]]; then
+    plugin_dir="$source"
+  elif [[ "$PLUGIN_ROOT" == "." ]]; then
     plugin_dir="$source"
   else
     plugin_dir="$PLUGIN_ROOT/$source"

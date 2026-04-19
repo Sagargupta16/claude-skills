@@ -1,5 +1,11 @@
 # Changelog
 
+## [4.2.1] - 2026-04-19
+
+### Fixed
+- **marketplace.json**: Changed plugin `source` fields from bare names (e.g. `"farm-stack"`) to full relative paths (e.g. `"./plugins/farm-stack"`). The bare-name format relied on `metadata.pluginRoot` resolution, which isn't honored by `claude plugin update` / `claude plugin install` commands in Claude Code CLI 2.1.110, causing "Plugin not found" errors.
+- **scripts/validate-plugins.sh**: Updated directory resolution to accept both full-path and bare-name source formats (backwards compatible).
+
 ## [4.2.0] - 2026-04-18
 
 ### Added
