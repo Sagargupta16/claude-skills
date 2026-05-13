@@ -104,3 +104,27 @@ Guidelines:
 - Include a description of what the skill covers and who it's for
 - Test the skill by installing it locally before submitting
 - Follow conventional commit format: `feat: add docker-deploy plugin`
+- Fill in the PR template (`.github/pull_request_template.md`) -- especially the validator checkbox and the version-bump selection
+
+## Versioning
+
+The marketplace follows [semver](https://semver.org/) via the `metadata.version` field in `.claude-plugin/marketplace.json`. Per-plugin versions in each `plugin.json` also follow semver.
+
+**When to bump:**
+
+| Change | Marketplace version | Per-plugin version |
+| --- | --- | --- |
+| Typo / doc polish / CI fix | patch (`x.y.Z`) | patch |
+| Validator improvement | patch | -- |
+| New plugin | minor (`x.Y.0`) | new plugin: `x.0.0` or aligned with marketplace minor |
+| New skill / command / agent / hook in existing plugin | minor | plugin: minor (`x.Y.0`) |
+| Enhancement (expanded content, new anti-patterns, better examples) | minor | plugin: minor |
+| Breaking change (plugin removed, renamed, frontmatter field removed, CLI compatibility break) | major (`X.0.0`) | affected plugin: major |
+
+**Rules:**
+
+- Always bump the marketplace version in the same PR that ships the change.
+- Bump the affected plugin's version in its `plugin.json` when that plugin's content changes. Leave other plugins' versions alone.
+- Never re-use a published version number.
+- New plugins enter at `4.0.0` (or whatever marketplace minor they debut in) -- keep versions aligned so readers can see which marketplace release introduced a plugin.
+- CHANGELOG.md gets one entry per marketplace version under a heading like `## [4.3.0] - 2026-05-13`, grouped by Added / Changed / Fixed / Removed.

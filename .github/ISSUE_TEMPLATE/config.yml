@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Questions and discussion
+    url: https://github.com/Sagargupta16/claude-skills/discussions
+    about: For general questions, usage help, or design discussion, open a Discussion instead of an Issue.
