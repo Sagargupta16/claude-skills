@@ -1,5 +1,5 @@
 {
   "name": "oss-contrib",
   "description": "Open source contribution workflow -- upstream sync, CONTRIBUTING.md compliance, code style matching, PR preparation, CLA/DCO signing, AI disclosure, and PR quality bar.",
-  "version": "4.2.0"
+  "version": "4.3.0"
 }

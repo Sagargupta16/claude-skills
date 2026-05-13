@@ -3,23 +3,34 @@ description: Review the current branch's changes for quality, bugs, and best pra
 user_invocable: true
 ---
 
-Review the current branch's changes for quality, bugs, and best practices.
+## Live state
 
-Steps:
-1. Run `git diff main...HEAD` (or appropriate base branch) to see all changes
-2. For each changed file, analyze:
-   - Logic errors or bugs
-   - Security vulnerabilities (injection, XSS, secrets exposure)
-   - Performance issues
-   - Error handling gaps
-   - Code style consistency
-3. Check test coverage - are new functions tested?
-4. Check for:
-   - Hardcoded values that should be configurable
-   - Missing input validation at boundaries
-   - Race conditions or async issues
-   - Breaking changes to public APIs
-5. Provide a summary with:
-   - Overall assessment (ship it / needs changes / major issues)
-   - Specific issues with file:line references
-   - Suggested fixes for each issue
+- Branch: !`git rev-parse --abbrev-ref HEAD`
+- Base detection: !`git merge-base HEAD origin/main 2>/dev/null || git merge-base HEAD main 2>/dev/null || echo "no main base found"`
+- Changed files: !`git diff $(git merge-base HEAD origin/main 2>/dev/null || git merge-base HEAD main 2>/dev/null)...HEAD --stat`
+- Full diff: !`git diff $(git merge-base HEAD origin/main 2>/dev/null || git merge-base HEAD main 2>/dev/null)...HEAD`
+
+## Task
+
+Review the diff above for quality, bugs, and best practices.
+
+Per changed file, look for:
+- Logic errors, off-by-one, null handling, race conditions
+- Security: injection (SQL/XSS/command), hardcoded secrets, missing input validation, insecure deserialization
+- Performance: N+1 queries, unbounded loops, missing indexes, memory leaks
+- Error handling at boundaries; silent exception swallowing
+- Hardcoded values that should be configurable
+- Breaking changes to public APIs
+
+Check test coverage: are new functions or branches tested?
+
+## Output
+
+```text
+SUMMARY: <ship-it | needs-changes | major-issues>
+
+[SEVERITY] file:line -- description
+  Fix: <one-line suggestion>
+```
+
+Severity: `CRITICAL | HIGH | MEDIUM | LOW | STYLE`. Report only real findings; say "no issues" if the diff is clean.

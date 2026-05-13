@@ -3,15 +3,29 @@ description: Sync current fork with upstream remote and prepare for contribution
 user_invocable: true
 ---
 
-Sync the current forked repository with its upstream remote.
+## Live state
 
-Steps:
-1. Verify we're in a git repo with an `upstream` remote configured
-2. If no upstream remote exists, detect the fork parent via `gh repo view --json parent` and add it
-3. Fetch upstream: `git fetch upstream`
-4. Check current branch -- if on main/master, merge upstream changes
-5. If on a feature branch, show status relative to upstream
-6. Push synced main to origin: `git push origin main`
-7. Show summary: commits behind/ahead, any conflicts
+- Remotes: !`git remote -v`
+- Current branch: !`git rev-parse --abbrev-ref HEAD`
+- Fork parent: !`gh repo view --json parent -q '.parent | "\(.owner.login)/\(.name)"' 2>/dev/null || echo "not a fork or gh unavailable"`
 
-If conflicts are found, list the conflicting files and suggest resolution approach.
+## Task
+
+Sync the current forked repository with its upstream.
+
+1. If no `upstream` remote is listed above, add it: `git remote add upstream <parent-repo-url>` using the fork parent from the live state.
+2. Fetch: `git fetch upstream`.
+3. If on `main` or `master`:
+   - Merge fast-forward: `git merge --ff-only upstream/main` (or `upstream/master`).
+   - If not fast-forward-able, stop and report divergence. Do not auto-rebase `main`.
+   - Push synced main to origin: `git push origin main`.
+4. If on a feature branch:
+   - Show status relative to `upstream/main`: commits behind, commits ahead.
+   - Recommend `git rebase upstream/main` -- but do not run it without explicit confirmation.
+5. Report: commits behind/ahead, any conflicts, any push needed.
+
+## Rules
+
+- Never force push to `main` or `master`.
+- Never rebase a feature branch without explicit user confirmation -- rebasing rewrites history.
+- If conflicts exist, list the conflicting files and suggest resolution approach. Do not auto-resolve.

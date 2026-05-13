@@ -3,24 +3,36 @@ description: Analyze and fix a bug from error messages or unexpected behavior
 user_invocable: true
 ---
 
-Analyze and fix the bug described by the user or found in recent error output.
+## Live state
 
-Steps:
-1. Understand the bug:
-   - Read any error messages or stack traces provided
-   - Identify the failing file and line number
-   - Read the relevant source code
-2. Find root cause:
-   - Trace the execution path
-   - Check recent git changes that might have introduced it (`git log --oneline -10`)
-   - Look for related tests
-3. Implement the fix:
-   - Make the minimal change needed
-   - Don't refactor surrounding code
-   - Don't add unrelated improvements
-4. Verify:
-   - Run relevant tests if they exist
-   - Check that the fix doesn't break other things
-5. Show what was changed and why
+- Branch: !`git rev-parse --abbrev-ref HEAD`
+- Recent changes: !`git log --oneline -10`
+- Uncommitted diff: !`git diff`
+
+## Task
+
+Fix the bug described in `$ARGUMENTS` (or the most recent error output in the conversation).
+
+Process:
+1. **Parse the symptom.** Read any stack trace bottom-up. Identify the exact file and line of the crash.
+2. **Root-cause, not symptom.** The crash site is often downstream of the real bug. Trace backwards:
+   - Where did the bad data originate?
+   - What contract was violated?
+   - Does a recent commit in the log above correlate?
+3. **Minimal fix.** Change only what's needed at the true root cause. Do not refactor adjacent code. Do not add unrelated improvements.
+4. **Verify.** Run the narrowest test that covers this behavior. If no test exists, write one that would have caught the bug.
+5. **Report.**
+
+## Output
+
+```text
+SYMPTOM: <what breaks>
+ROOT CAUSE: <file:line -- why>
+FIX: <diff or summary>
+VERIFICATION: <test run, pass/fail>
+CONFIDENCE: <high | medium | low>
+```
+
+If confidence is low, list alternative hypotheses before applying.
 
 $ARGUMENTS

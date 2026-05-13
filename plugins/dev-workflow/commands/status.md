@@ -3,16 +3,22 @@ description: Give a comprehensive status overview of the current repository
 user_invocable: true
 ---
 
-Give a comprehensive status overview of the current repository.
+## Live state
 
-Steps:
-1. `git status` - working tree state
-2. `git log --oneline -5` - recent commits
-3. `git branch -a` - all branches
-4. `git stash list` - any stashed changes
-5. Check for open PRs: `gh pr list --state open`
-6. Check for CI status on current branch
-7. Check if behind/ahead of remote
-8. Check for any merge conflicts with main
+- Branch: !`git rev-parse --abbrev-ref HEAD`
+- Working tree: !`git status --short`
+- Recent commits: !`git log --oneline -5`
+- Stashes: !`git stash list`
+- Ahead/behind main: !`git rev-list --left-right --count origin/main...HEAD 2>/dev/null || git rev-list --left-right --count main...HEAD 2>/dev/null || echo "no upstream"`
+- Open PRs from this branch: !`gh pr list --head $(git rev-parse --abbrev-ref HEAD) --json number,title,state 2>/dev/null || echo "gh not available or not a GitHub repo"`
 
-Provide a clean summary of where things stand.
+## Task
+
+Using the live state above, produce a concise status overview:
+
+- **Where we are**: branch, commits ahead/behind, working tree state
+- **Open PRs**: any associated with this branch
+- **Hazards**: unpushed work, stashes, conflicts-with-main risk
+- **Recommended next action**: one line
+
+Do not re-fetch what is already inlined above.
