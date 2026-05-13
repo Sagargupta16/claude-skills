@@ -1,5 +1,0 @@
-{
-  "name": "api-design",
-  "description": "REST and GraphQL API design -- URL structure, HTTP conventions, error formats, pagination, authentication, versioning, and OpenAPI.",
-  "version": "4.0.0"
-}

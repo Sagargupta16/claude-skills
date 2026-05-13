@@ -1,0 +1,5 @@
+{
+  "name": "renovate-triage",
+  "description": "Triage open Renovate PRs across your repos into merge / close / defer. Inlines live GitHub state via dynamic context injection.",
+  "version": "1.0.0"
+}

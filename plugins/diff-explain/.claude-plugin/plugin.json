@@ -1,0 +1,5 @@
+{
+  "name": "diff-explain",
+  "description": "One-paragraph plain-English summary of what a diff does. Groups changes by concern, not by file. Flags risks.",
+  "version": "1.0.0"
+}

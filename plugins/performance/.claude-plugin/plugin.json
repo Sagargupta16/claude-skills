@@ -1,5 +1,0 @@
-{
-  "name": "performance",
-  "description": "Performance optimization -- profiling, caching strategies, N+1 detection, bundle analysis, connection pooling, and benchmarking.",
-  "version": "4.0.0"
-}

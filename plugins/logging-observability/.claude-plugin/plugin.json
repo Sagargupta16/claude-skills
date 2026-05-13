@@ -1,5 +1,0 @@
-{
-  "name": "logging-observability",
-  "description": "Logging and observability -- structured logging, health checks, error tracking, request correlation, metrics, and monitoring patterns.",
-  "version": "4.0.0"
-}

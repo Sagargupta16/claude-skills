@@ -1,0 +1,5 @@
+{
+  "name": "debug-triage",
+  "description": "Tight cause-fix-test triage from a pasted error or stack trace. No lectures, no bullet-point philosophy -- just cause, fix, regression test, sibling files to update.",
+  "version": "1.0.0"
+}
