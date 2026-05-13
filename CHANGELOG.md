@@ -1,5 +1,60 @@
 # Changelog
 
+## [5.0.0] - 2026-05-13
+
+**BREAKING CHANGE.** Marketplace reduced from 25 to 14 plugins. Anyone who installed a removed plugin via `/plugin install <name>@sagar-dev-skills` will need to uninstall or switch to an Anthropic-official alternative. See the `superpowers`, `claude-md-management`, and `agent-skills` marketplaces for drop-in replacements on most removed plugins.
+
+### Removed
+
+Fifteen plugins removed as part of a focus pass. Three reasons:
+
+- **Duplicated Anthropic-official skills** (low unique value):
+  - `planning` -- superseded by `superpowers:writing-plans` + `superpowers:brainstorming`
+  - `methodology` -- superseded by `superpowers:test-driven-development`
+  - `verification` -- superseded by `superpowers:verification-before-completion`
+  - `claude-md-generator` -- superseded by `claude-md-management:claude-md-improver`
+
+- **Sat unused** (no adoption signal in 4 weeks after launch):
+  - `api-design`, `testing`, `database`, `ci-cd`, `infrastructure`
+  - `performance`, `security-hardening`, `logging-observability`
+
+- **Overlapped other marketplace plugins**:
+  - `documentation` -- overlapped `repo-polish`
+  - `session-management` -- overlapped `context-management`
+  - `monorepo` -- narrow CLAUDE.md-loading detail now in `context-management`
+
+Git history preserves all removed content. Reinstall by checking out tag `v4.3.0` if needed.
+
+### Added
+
+Four plugins promoted from personal workspace (all generic, de-personalized, version `1.0.0`):
+
+- **diff-explain** -- one-paragraph plain-English summary of what a diff does. Groups by concern, flags risks.
+- **debug-triage** -- cause-fix-test triage from a pasted stack trace. No lectures, four-line output.
+- **renovate-triage** -- batch-triage open Renovate PRs across all your repos. Uses `!` dynamic context injection.
+- **starter-session-audit** -- end-of-session audit scanning for uncaptured corrections, preferences, decisions. Never writes without approval. Adapted from a community template.
+
+### Changed
+
+- **Marketplace version**: 4.3.0 -> 5.0.0 (major bump due to plugin removal).
+- **README.md**: restructured categories (Development Essentials / Stack-Specific / Security & Dependencies / Open Source and Maintenance / Claude Code Meta), updated Philosophy section with cull rationale, language matrix reduced to relevant plugins.
+- **CLAUDE.md**: updated plugin count to 14 and regenerated inventory table.
+- **reference.yaml**: regenerated with 14 plugins, 14 commands, 10 agents, 8 hooks.
+
+### Stats
+
+| Metric | 4.3.0 | 5.0.0 | Delta |
+|---|---|---|---|
+| Plugins | 25 | 14 | -11 |
+| Skills | 25 | 14 | -11 |
+| Commands | 31 | 14 | -17 |
+| Agents | 28 | 10 | -18 |
+| Hooks | 9 | 8 | -1 |
+
+Net: ~65% reduction in content surface area. Higher uniqueness per plugin. Every remaining plugin is either in active local use or a hard-to-find capability (`renovate-triage`, `starter-session-audit`).
+
+---
+
 ## [4.3.0] - 2026-05-13
 
 ### Added

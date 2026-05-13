@@ -13,7 +13,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What This Is
 
-A Claude Code plugin marketplace (`sagar-dev-skills`) containing 25 reusable plugins. Each plugin provides skills (background knowledge that auto-activates), commands (user-invocable slash commands), agents (autonomous sub-conversations), and/or hooks (shell scripts that auto-execute on events). This is a content-only repo -- no build system, no runtime code. All files are Markdown, JSON, and shell scripts.
+A Claude Code plugin marketplace (`sagar-dev-skills`) containing 14 focused plugins. Each plugin provides skills (background knowledge that auto-activates), commands (user-invocable slash commands), agents (autonomous sub-conversations), and/or hooks (shell scripts that auto-execute on events). This is a content-only repo -- no build system, no runtime code. All files are Markdown, JSON, and shell scripts.
+
+**5.0.0 cull (2026-05-13):** marketplace reduced from 25 -> 14 plugins. Removed plugins that duplicated Anthropic-official skills, sat unused, or overlapped each other. Added 4 promoted from local workspace: diff-explain, debug-triage, renovate-triage, starter-session-audit.
 
 ## Architecture
 
@@ -85,30 +87,19 @@ This checks: marketplace.json validity, plugin directory existence, SKILL.md fro
 | dev-workflow | 1 | 7 | 2 (code-reviewer, debugger) | 1 (auto-format) |
 | dev-rules | 1 | - | 1 (guardrail-checker) | 3 (secret-guard, no-force-push, branch-guard) |
 | farm-stack | 1 | 1 | 1 (farm-scaffolder) | - |
-| testing | 1 | 1 | 2 (test-runner, test-generator) | - |
-| api-design | 1 | 1 | 2 (api-reviewer, api-scaffolder) | - |
-| database | 1 | 1 | 1 (schema-reviewer) | 1 (migration-guard) |
-| ci-cd | 1 | 1 | 1 (ci-fixer) | - |
 | docker-deploy | 1 | 1 | 1 (dockerfile-optimizer) | - |
 | deps-audit | 1 | 1 | 1 (dependency-auditor) | - |
 | oss-contrib | 1 | 2 | 1 (pr-analyzer) | 1 (upstream-sync-check) |
 | repo-polish | 1 | 1 | 1 (repo-auditor) | - |
 | refactoring | 1 | 1 | 1 (refactorer) | - |
-| documentation | 1 | 1 | 1 (doc-generator) | - |
 | git-advanced | 1 | 1 | 1 (git-assistant) | 1 (commit-lint) |
-| performance | 1 | 1 | 1 (performance-profiler) | - |
-| security-hardening | 1 | 1 | 1 (security-scanner) | 1 (secret-scanner) |
-| logging-observability | 1 | 1 | 1 (observability-checker) | 1 (debug-log-check) |
-| methodology | 1 | 1 | 1 (methodology-coach) | - |
 | context-management | 1 | 1 | 1 (context-advisor) | - |
-| session-management | 1 | 1 | 1 (session-advisor) | - |
-| planning | 1 | 1 | 1 (plan-reviewer) | - |
-| verification | 1 | 1 | 1 (verifier) | - |
-| claude-md-generator | 1 | 1 | 1 (claude-md-auditor) | - |
-| infrastructure | 1 | 1 | 1 (infra-reviewer) | - |
-| monorepo | 1 | 1 | 1 (workspace-auditor) | - |
+| diff-explain | 1 | - | - | - |
+| debug-triage | 1 | - | - | - |
+| renovate-triage | 1 | - | - | - |
+| starter-session-audit | 1 | - | - | - |
 
-**Totals**: 25 skills, 31 commands, 28 agents, 9 hooks
+**Totals**: 14 skills, 14 commands, 10 agents, 8 hooks
 
 ## Key Conventions
 
