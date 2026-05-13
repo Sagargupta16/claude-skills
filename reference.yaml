@@ -3,48 +3,38 @@
 # Use this to find the right plugin, skill, command, agent, or hook.
 #
 # Format: keyword -> file path (relative to repo root)
-# Updated: 2026-05-13 | Version: 4.3.0
+# Updated: 2026-05-13 | Version: 5.0.0
 
 stats:
-  plugins: 25
-  skills: 25
-  commands: 31
-  agents: 28
-  hooks: 9
-  total_files: 93
+  plugins: 14
+  skills: 14
+  commands: 14
+  agents: 10
+  hooks: 8
+  total_files: 62
 
 # Plugin index: name -> directory
 plugins:
   dev-workflow: plugins/dev-workflow
   dev-rules: plugins/dev-rules
   farm-stack: plugins/farm-stack
-  testing: plugins/testing
-  api-design: plugins/api-design
-  database: plugins/database
-  ci-cd: plugins/ci-cd
   docker-deploy: plugins/docker-deploy
   deps-audit: plugins/deps-audit
   oss-contrib: plugins/oss-contrib
   repo-polish: plugins/repo-polish
   refactoring: plugins/refactoring
-  documentation: plugins/documentation
   git-advanced: plugins/git-advanced
-  performance: plugins/performance
-  security-hardening: plugins/security-hardening
-  logging-observability: plugins/logging-observability
-  methodology: plugins/methodology
   context-management: plugins/context-management
-  session-management: plugins/session-management
-  planning: plugins/planning
-  verification: plugins/verification
-  claude-md-generator: plugins/claude-md-generator
-  infrastructure: plugins/infrastructure
-  monorepo: plugins/monorepo
+  diff-explain: plugins/diff-explain
+  debug-triage: plugins/debug-triage
+  renovate-triage: plugins/renovate-triage
+  starter-session-audit: plugins/starter-session-audit
 
 # Skill files: keyword -> SKILL.md path
 skills:
   commit: plugins/dev-workflow/skills/dev-workflow/SKILL.md
   review: plugins/dev-workflow/skills/dev-workflow/SKILL.md
+  pr: plugins/dev-workflow/skills/dev-workflow/SKILL.md
   git_safety: plugins/dev-rules/skills/dev-rules/SKILL.md
   guardrails: plugins/dev-rules/skills/dev-rules/SKILL.md
   important_tags: plugins/dev-rules/skills/dev-rules/SKILL.md
@@ -52,18 +42,6 @@ skills:
   fastapi: plugins/farm-stack/skills/farm-stack/SKILL.md
   react: plugins/farm-stack/skills/farm-stack/SKILL.md
   mongodb: plugins/farm-stack/skills/farm-stack/SKILL.md
-  pytest: plugins/testing/skills/testing/SKILL.md
-  jest: plugins/testing/skills/testing/SKILL.md
-  vitest: plugins/testing/skills/testing/SKILL.md
-  test_coverage: plugins/testing/skills/testing/SKILL.md
-  rest_api: plugins/api-design/skills/api-design/SKILL.md
-  openapi: plugins/api-design/skills/api-design/SKILL.md
-  pagination: plugins/api-design/skills/api-design/SKILL.md
-  schema: plugins/database/skills/database/SKILL.md
-  migration: plugins/database/skills/database/SKILL.md
-  indexing: plugins/database/skills/database/SKILL.md
-  github_actions: plugins/ci-cd/skills/ci-cd/SKILL.md
-  caching_ci: plugins/ci-cd/skills/ci-cd/SKILL.md
   dockerfile: plugins/docker-deploy/skills/docker-deploy/SKILL.md
   compose: plugins/docker-deploy/skills/docker-deploy/SKILL.md
   vulnerability: plugins/deps-audit/skills/deps-audit/SKILL.md
@@ -77,166 +55,69 @@ skills:
   claude_md_audit: plugins/repo-polish/skills/repo-polish/SKILL.md
   code_smell: plugins/refactoring/skills/refactoring/SKILL.md
   extract_method: plugins/refactoring/skills/refactoring/SKILL.md
-  adr: plugins/documentation/skills/documentation/SKILL.md
-  changelog: plugins/documentation/skills/documentation/SKILL.md
   rebase: plugins/git-advanced/skills/git-advanced/SKILL.md
   cherry_pick: plugins/git-advanced/skills/git-advanced/SKILL.md
+  conflict: plugins/git-advanced/skills/git-advanced/SKILL.md
   bisect: plugins/git-advanced/skills/git-advanced/SKILL.md
-  n_plus_one: plugins/performance/skills/performance/SKILL.md
-  bundle_size: plugins/performance/skills/performance/SKILL.md
-  profiling: plugins/performance/skills/performance/SKILL.md
-  owasp: plugins/security-hardening/skills/security-hardening/SKILL.md
-  xss: plugins/security-hardening/skills/security-hardening/SKILL.md
-  injection: plugins/security-hardening/skills/security-hardening/SKILL.md
-  cors: plugins/security-hardening/skills/security-hardening/SKILL.md
-  stride: plugins/security-hardening/skills/security-hardening/SKILL.md
-  supply_chain: plugins/security-hardening/skills/security-hardening/SKILL.md
-  structured_logging: plugins/logging-observability/skills/logging-observability/SKILL.md
-  health_check: plugins/logging-observability/skills/logging-observability/SKILL.md
-  tdd: plugins/methodology/skills/methodology/SKILL.md
-  bdd: plugins/methodology/skills/methodology/SKILL.md
-  sdd: plugins/methodology/skills/methodology/SKILL.md
-  plan_driven: plugins/methodology/skills/methodology/SKILL.md
-  context_engineering: plugins/methodology/skills/methodology/SKILL.md
-  prototype_over_prd: plugins/methodology/skills/methodology/SKILL.md
-  interview_then_execute: plugins/methodology/skills/methodology/SKILL.md
-  context_rot: plugins/context-management/skills/context-management/SKILL.md
+  stash: plugins/git-advanced/skills/git-advanced/SKILL.md
   compaction: plugins/context-management/skills/context-management/SKILL.md
-  rewind: plugins/context-management/skills/context-management/SKILL.md
-  sub_agent_isolation: plugins/context-management/skills/context-management/SKILL.md
-  session_lifecycle: plugins/session-management/skills/session-management/SKILL.md
-  handoff_summary: plugins/session-management/skills/session-management/SKILL.md
-  session_hygiene: plugins/session-management/skills/session-management/SKILL.md
-  plan_mode: plugins/planning/skills/planning/SKILL.md
-  implementation_plan: plugins/planning/skills/planning/SKILL.md
-  plan_review: plugins/planning/skills/planning/SKILL.md
-  pre_completion: plugins/verification/skills/verification/SKILL.md
-  verification_checklist: plugins/verification/skills/verification/SKILL.md
-  pre_pr: plugins/verification/skills/verification/SKILL.md
-  claude_md: plugins/claude-md-generator/skills/claude-md-generator/SKILL.md
-  claude_md_templates: plugins/claude-md-generator/skills/claude-md-generator/SKILL.md
-  important_tag: plugins/claude-md-generator/skills/claude-md-generator/SKILL.md
-  terraform: plugins/infrastructure/skills/infrastructure/SKILL.md
-  aws_cdk: plugins/infrastructure/skills/infrastructure/SKILL.md
-  cloudformation: plugins/infrastructure/skills/infrastructure/SKILL.md
-  state_management: plugins/infrastructure/skills/infrastructure/SKILL.md
-  monorepo_setup: plugins/monorepo/skills/monorepo/SKILL.md
-  workspace_organization: plugins/monorepo/skills/monorepo/SKILL.md
-  claude_md_loading: plugins/monorepo/skills/monorepo/SKILL.md
-  cross_package: plugins/monorepo/skills/monorepo/SKILL.md
+  context_rot: plugins/context-management/skills/context-management/SKILL.md
+  diff_summary: plugins/diff-explain/skills/diff-explain/SKILL.md
+  pr_summary: plugins/diff-explain/skills/diff-explain/SKILL.md
+  debug: plugins/debug-triage/skills/debug-triage/SKILL.md
+  stacktrace: plugins/debug-triage/skills/debug-triage/SKILL.md
+  renovate: plugins/renovate-triage/skills/renovate-triage/SKILL.md
+  dep_pr_triage: plugins/renovate-triage/skills/renovate-triage/SKILL.md
+  session_audit: plugins/starter-session-audit/skills/starter-session-audit/SKILL.md
+  end_of_session: plugins/starter-session-audit/skills/starter-session-audit/SKILL.md
 
-# Command files: slash command -> file path
+# Command files (user-invocable /<command>)
 commands:
   /commit: plugins/dev-workflow/commands/commit.md
   /review: plugins/dev-workflow/commands/review.md
   /test: plugins/dev-workflow/commands/test.md
   /fix: plugins/dev-workflow/commands/fix.md
   /pr: plugins/dev-workflow/commands/pr.md
-  /status: plugins/dev-workflow/commands/status.md
   /check-pr: plugins/dev-workflow/commands/check-pr.md
-  /scaffold: plugins/farm-stack/commands/scaffold.md
-  /test-gen: plugins/testing/commands/test-gen.md
-  /api-gen: plugins/api-design/commands/api-gen.md
-  /db-check: plugins/database/commands/db-check.md
-  /ci-fix: plugins/ci-cd/commands/ci-fix.md
-  /docker-gen: plugins/docker-deploy/commands/docker-gen.md
-  /deps: plugins/deps-audit/commands/deps.md
+  /status: plugins/dev-workflow/commands/status.md
+  /scaffold-farm: plugins/farm-stack/commands/scaffold-farm.md
+  /dockerize: plugins/docker-deploy/commands/dockerize.md
+  /audit-deps: plugins/deps-audit/commands/audit-deps.md
   /sync-upstream: plugins/oss-contrib/commands/sync-upstream.md
-  /contrib-check: plugins/oss-contrib/commands/contrib-check.md
+  /prep-pr: plugins/oss-contrib/commands/prep-pr.md
   /polish-repo: plugins/repo-polish/commands/polish-repo.md
   /refactor: plugins/refactoring/commands/refactor.md
-  /docs-gen: plugins/documentation/commands/docs-gen.md
-  /git-ops: plugins/git-advanced/commands/git-ops.md
-  /perf-check: plugins/performance/commands/perf-check.md
-  /security-scan: plugins/security-hardening/commands/security-scan.md
-  /log-check: plugins/logging-observability/commands/log-check.md
-  /methodology: plugins/methodology/commands/methodology.md
+  /resolve-conflict: plugins/git-advanced/commands/resolve-conflict.md
   /manage-context: plugins/context-management/commands/manage-context.md
-  /handoff: plugins/session-management/commands/handoff.md
-  /plan: plugins/planning/commands/plan.md
-  /verify: plugins/verification/commands/verify.md
-  /scaffold-claude-md: plugins/claude-md-generator/commands/scaffold-claude-md.md
-  /infra-check: plugins/infrastructure/commands/infra-check.md
-  /workspace-check: plugins/monorepo/commands/workspace-check.md
 
-# Agent files: agent name -> file path + model
+# Agents (autonomous sub-conversations)
 agents:
-  code-reviewer: {path: plugins/dev-workflow/agents/code-reviewer.md, model: sonnet}
-  debugger: {path: plugins/dev-workflow/agents/debugger.md, model: sonnet}
-  guardrail-checker: {path: plugins/dev-rules/agents/guardrail-checker.md, model: haiku}
-  farm-scaffolder: {path: plugins/farm-stack/agents/farm-scaffolder.md, model: sonnet}
-  test-runner: {path: plugins/testing/agents/test-runner.md, model: haiku}
-  test-generator: {path: plugins/testing/agents/test-generator.md, model: sonnet}
-  api-reviewer: {path: plugins/api-design/agents/api-reviewer.md, model: sonnet}
-  api-scaffolder: {path: plugins/api-design/agents/api-scaffolder.md, model: sonnet}
-  schema-reviewer: {path: plugins/database/agents/schema-reviewer.md, model: sonnet}
-  ci-fixer: {path: plugins/ci-cd/agents/ci-fixer.md, model: sonnet}
-  dockerfile-optimizer: {path: plugins/docker-deploy/agents/dockerfile-optimizer.md, model: haiku}
-  dependency-auditor: {path: plugins/deps-audit/agents/dependency-auditor.md, model: haiku}
-  pr-analyzer: {path: plugins/oss-contrib/agents/pr-analyzer.md, model: sonnet}
-  repo-auditor: {path: plugins/repo-polish/agents/repo-auditor.md, model: haiku}
-  refactorer: {path: plugins/refactoring/agents/refactorer.md, model: sonnet}
-  doc-generator: {path: plugins/documentation/agents/doc-generator.md, model: haiku}
-  git-assistant: {path: plugins/git-advanced/agents/git-assistant.md, model: sonnet}
-  performance-profiler: {path: plugins/performance/agents/performance-profiler.md, model: sonnet}
-  security-scanner: {path: plugins/security-hardening/agents/security-scanner.md, model: sonnet}
-  observability-checker: {path: plugins/logging-observability/agents/observability-checker.md, model: haiku}
-  methodology-coach: {path: plugins/methodology/agents/methodology-coach.md, model: sonnet}
-  context-advisor: {path: plugins/context-management/agents/context-advisor.md, model: haiku}
-  session-advisor: {path: plugins/session-management/agents/session-advisor.md, model: haiku}
-  plan-reviewer: {path: plugins/planning/agents/plan-reviewer.md, model: sonnet}
-  verifier: {path: plugins/verification/agents/verifier.md, model: haiku}
-  claude-md-auditor: {path: plugins/claude-md-generator/agents/claude-md-auditor.md, model: haiku}
-  infra-reviewer: {path: plugins/infrastructure/agents/infra-reviewer.md, model: sonnet}
-  workspace-auditor: {path: plugins/monorepo/agents/workspace-auditor.md, model: haiku}
+  code-reviewer: plugins/dev-workflow/agents/code-reviewer.md
+  debugger: plugins/dev-workflow/agents/debugger.md
+  guardrail-checker: plugins/dev-rules/agents/guardrail-checker.md
+  farm-scaffolder: plugins/farm-stack/agents/farm-scaffolder.md
+  dockerfile-optimizer: plugins/docker-deploy/agents/dockerfile-optimizer.md
+  dependency-auditor: plugins/deps-audit/agents/dependency-auditor.md
+  pr-analyzer: plugins/oss-contrib/agents/pr-analyzer.md
+  repo-auditor: plugins/repo-polish/agents/repo-auditor.md
+  refactorer: plugins/refactoring/agents/refactorer.md
+  git-assistant: plugins/git-advanced/agents/git-assistant.md
+  context-advisor: plugins/context-management/agents/context-advisor.md
 
-# Hook files: hook name -> file path + behavior
+# Hooks (auto-execute on events)
 hooks:
-  secret-guard: {path: plugins/dev-rules/hooks/secret-guard.sh, blocks: true}
-  no-force-push: {path: plugins/dev-rules/hooks/no-force-push.sh, blocks: true}
-  branch-guard: {path: plugins/dev-rules/hooks/branch-guard.sh, blocks: false}
-  secret-scanner: {path: plugins/security-hardening/hooks/secret-scanner.sh, blocks: false}
-  commit-lint: {path: plugins/git-advanced/hooks/commit-lint.sh, blocks: false}
-  upstream-sync-check: {path: plugins/oss-contrib/hooks/upstream-sync-check.sh, blocks: false}
-  migration-guard: {path: plugins/database/hooks/migration-guard.sh, blocks: false}
-  debug-log-check: {path: plugins/logging-observability/hooks/debug-log-check.sh, blocks: false}
-  auto-format: {path: plugins/dev-workflow/hooks/auto-format.sh, blocks: false}
+  auto-format: plugins/dev-workflow/hooks/auto-format.sh
+  secret-guard: plugins/dev-rules/hooks/secret-guard.sh
+  no-force-push: plugins/dev-rules/hooks/no-force-push.sh
+  branch-guard: plugins/dev-rules/hooks/branch-guard.sh
+  upstream-sync-check: plugins/oss-contrib/hooks/upstream-sync-check.sh
+  commit-lint: plugins/git-advanced/hooks/commit-lint.sh
 
-# Reference files: topic -> file path
-references:
-  threat_database: plugins/security-hardening/skills/security-hardening/references/threat-db.yaml
-  marketplace_registry: .claude-plugin/marketplace.json
-  settings_template: configs/settings.template.json
-  installation_guide: configs/recommended-plugins.md
-  contributing_guide: CONTRIBUTING.md
-  validation_script: scripts/validate-plugins.sh
-
-# Decision trees: question -> recommended plugin
-decide:
-  which_plugin_for_testing: testing
-  which_plugin_for_api: api-design
-  which_plugin_for_security: security-hardening
-  which_plugin_for_docker: docker-deploy
-  which_plugin_for_ci: ci-cd
-  which_plugin_for_database: database
-  which_plugin_for_git: git-advanced
-  which_plugin_for_deps: deps-audit
-  which_plugin_for_oss: oss-contrib
-  which_plugin_for_performance: performance
-  which_plugin_for_logging: logging-observability
-  which_plugin_for_docs: documentation
-  which_plugin_for_refactoring: refactoring
-  which_plugin_for_methodology: methodology
-  which_plugin_for_farm: farm-stack
-  which_plugin_for_everyday: dev-workflow
-  which_plugin_for_guardrails: dev-rules
-  which_plugin_for_repo_hygiene: repo-polish
-  which_plugin_for_context: context-management
-  which_plugin_for_sessions: session-management
-  which_plugin_for_planning: planning
-  which_plugin_for_verification: verification
-  which_plugin_for_claude_md: claude-md-generator
-  which_plugin_for_terraform: infrastructure
-  which_plugin_for_iac: infrastructure
-  which_plugin_for_monorepo: monorepo
-  which_plugin_for_workspace: monorepo
+# Categories for navigation
+categories:
+  development: [dev-workflow, dev-rules, refactoring, git-advanced, diff-explain, debug-triage]
+  devops: [docker-deploy]
+  security: [deps-audit]
+  framework: [farm-stack]
+  workflow: [oss-contrib, context-management, starter-session-audit]
+  maintenance: [repo-polish, renovate-triage]
