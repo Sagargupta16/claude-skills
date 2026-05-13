@@ -9,6 +9,20 @@ Custom Claude Code plugin marketplace with reusable skills, agents, and hooks fo
 
 These plugins work with any project -- install the ones relevant to your stack.
 
+## Philosophy
+
+This marketplace encodes an opinionated workflow developed across 60+ repos and active open-source contributions: terse commits, scoped PRs, no force-pushes to main, no `git add .`, no `Co-Authored-By` trailers, real feature verification over "type-check passes," and a 7+/10 quality bar before opening upstream PRs.
+
+Most plugins are language-agnostic and adapt to your stack (Python, Node, Go, Rust, etc.). A few are intentionally narrow:
+
+- **`farm-stack`** -- FastAPI + React + MongoDB only. Skip if you're not on that stack.
+- **`ci-cd`** -- GitHub Actions. Not GitLab CI, CircleCI, or Jenkins.
+- **`oss-contrib`** -- assumes GitHub + `gh` CLI.
+- **`infrastructure`** -- Terraform, AWS CDK, CloudFormation. No Pulumi or Bicep.
+- **`context-management`, `session-management`, `planning`, `claude-md-generator`, `monorepo`** -- about Claude Code itself. Useful if you use Claude Code. Not portable to other AI coding tools.
+
+Plugins are individually installable. If a specific opinion doesn't fit your team, skip that plugin -- the others stand on their own.
+
 ## Plugins
 
 ### Development Essentials
