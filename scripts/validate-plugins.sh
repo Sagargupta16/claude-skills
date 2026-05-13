@@ -25,28 +25,30 @@ if ! python3 -c "import json; json.load(open('$MARKETPLACE'))" 2>/dev/null && \
 fi
 info "$MARKETPLACE is valid JSON"
 
-# Extract plugin names and pluginRoot from marketplace.json
+# Extract plugin names and pluginRoot from marketplace.json.
+# Pipe through `tr -d '\r'` so the script works on Windows (Git Bash / MSYS)
+# where python3/node may emit CRLF line endings.
 if command -v python3 &>/dev/null; then
   PLUGIN_ROOT=$(python3 -c "
 import json
 data = json.load(open('$MARKETPLACE'))
 print(data.get('metadata', {}).get('pluginRoot', '.'))
-")
+" | tr -d '\r')
   PLUGIN_NAMES=$(python3 -c "
 import json
 data = json.load(open('$MARKETPLACE'))
 for p in data['plugins']:
     print(p['name'] + '|' + p.get('source', p['name']))
-")
+" | tr -d '\r')
 elif command -v node &>/dev/null; then
   PLUGIN_ROOT=$(node -e "
 const data = JSON.parse(require('fs').readFileSync('$MARKETPLACE','utf8'));
 console.log((data.metadata || {}).pluginRoot || '.');
-")
+" | tr -d '\r')
   PLUGIN_NAMES=$(node -e "
 const data = JSON.parse(require('fs').readFileSync('$MARKETPLACE','utf8'));
 data.plugins.forEach(p => console.log(p.name + '|' + (p.source || p.name)));
-")
+" | tr -d '\r')
 else
   error "Neither python3 nor node available for JSON parsing"
   exit 1
