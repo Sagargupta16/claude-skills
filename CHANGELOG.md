@@ -1,5 +1,29 @@
 # Changelog
 
+## [4.3.0] - 2026-05-13
+
+### Added
+
+- **Dynamic context injection** in `dev-workflow` and `oss-contrib` commands. Each command now inlines live repo state (git status, diffs, PR template, recent commits, etc.) via the `` !`command` `` pattern from [Anthropic's skill spec](https://code.claude.com/docs/en/skills#inject-dynamic-context). Claude reads grounded data on invocation rather than guessing or re-fetching mid-response. Affects: `/commit`, `/status`, `/review`, `/test`, `/fix`, `/pr`, `/check-pr`, `/sync-upstream`, `/prep-pr`.
+- **Governance files** for contributor clarity:
+  - `.github/pull_request_template.md` -- change-type picker, validator checkbox, version-bump picker.
+  - `.github/ISSUE_TEMPLATE/bug.md` and `plugin-request.md` with `config.yml` redirecting general questions to Discussions.
+  - `SECURITY.md` -- scope, reporting address, coordinated-disclosure timeline.
+- **Versioning policy** section in `CONTRIBUTING.md` explaining when to bump patch / minor / major at both marketplace and per-plugin scope.
+
+### Changed
+
+- **dev-workflow** bumped to 4.3.0. Commands rewritten to pull live state into the prompt instead of telling Claude to run the commands itself. Tighter checklists on `/commit` (never `git add .`), `/pr` (mandatory Testing section), `/fix` (root-cause-not-symptom structure).
+- **oss-contrib** bumped to 4.3.0. `/sync-upstream` now auto-detects fork parent and refuses to auto-rebase feature branches. `/prep-pr` now inlines CONTRIBUTING.md and recent merged PRs for style matching, and enforces the "never comment on upstream PRs without permission" hard rule.
+- **CLAUDE.md**: fixed stale "18 plugins" -> 25. Synced component totals to ground truth (31 commands, 28 agents). Clarified that `opus` is accepted by the validator but unused.
+- **README.md**: expanded language matrix into two tables -- stack-specific and generic -- so all 25 plugins appear. Synced component counts.
+- **reference.yaml**: updated stats to 31 commands / 28 agents / 9 hooks and bumped date.
+
+### Fixed
+
+- **scripts/validate-plugins.sh**: stripped `\r` from python3/node JSON output. On Windows (Git Bash / MSYS), CRLF line endings in the subshell output caused bash `[[ -d ]]` checks to fail for every plugin except the last. Validator now passes cleanly on Windows.
+- Added workspace-stacking preamble to `CLAUDE.md` pointing at the multi-repo workspace's root `CLAUDE.md`, `MEMORY.md`, `STATUS.md`, and `.claude/resources/`.
+
 ## [4.2.1] - 2026-04-19
 
 ### Fixed

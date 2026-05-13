@@ -13,7 +13,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What This Is
 
-A Claude Code plugin marketplace (`sagar-dev-skills`) containing 18 reusable plugins. Each plugin provides skills (background knowledge that auto-activates), commands (user-invocable slash commands), agents (autonomous sub-conversations), and/or hooks (shell scripts that auto-execute on events). This is a content-only repo -- no build system, no runtime code. All files are Markdown, JSON, and shell scripts.
+A Claude Code plugin marketplace (`sagar-dev-skills`) containing 25 reusable plugins. Each plugin provides skills (background knowledge that auto-activates), commands (user-invocable slash commands), agents (autonomous sub-conversations), and/or hooks (shell scripts that auto-execute on events). This is a content-only repo -- no build system, no runtime code. All files are Markdown, JSON, and shell scripts.
 
 ## Architecture
 
@@ -66,7 +66,7 @@ description: "Use this agent to [purpose].\n\nExamples:\n\n- User: \"...\"\n  As
 model: sonnet
 ---
 ```
-Model options: `haiku` (fast/mechanical tasks), `sonnet` (deep reasoning), `opus` (most capable).
+Model options: `haiku` (fast/mechanical tasks), `sonnet` (deep reasoning). `opus` is accepted by the validator but unused in this marketplace -- prefer `sonnet` for reasoning-heavy work.
 
 **Hook scripts**: Must start with `#!/usr/bin/env bash` and `set -euo pipefail`. Exit 0 to allow, non-zero to block.
 
@@ -108,7 +108,7 @@ This checks: marketplace.json validity, plugin directory existence, SKILL.md fro
 | infrastructure | 1 | 1 | 1 (infra-reviewer) | - |
 | monorepo | 1 | 1 | 1 (workspace-auditor) | - |
 
-**Totals**: 25 skills, ~28 commands, 29 agents, 9 hooks
+**Totals**: 25 skills, 31 commands, 28 agents, 9 hooks
 
 ## Key Conventions
 

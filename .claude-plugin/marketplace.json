@@ -13,8 +13,8 @@
     {
       "name": "dev-workflow",
       "source": "./plugins/dev-workflow",
-      "description": "Everyday dev commands -- commit, review, test, fix bugs, create PRs, check repo status, and inspect PR health. Agents: code-reviewer, debugger. Hook: auto-format.",
-      "version": "4.1.0",
+      "description": "Everyday dev commands -- commit, review, test, fix bugs, create PRs, check repo status, and inspect PR health. Agents: code-reviewer, debugger. Hook: auto-format. Commands use dynamic context injection for grounded, first-attempt responses.",
+      "version": "4.3.0",
       "author": { "name": "Sagar Gupta" },
       "license": "MIT",
       "keywords": ["git", "commit", "review", "testing", "pr", "workflow"],
@@ -103,8 +103,8 @@
     {
       "name": "oss-contrib",
       "source": "./plugins/oss-contrib",
-      "description": "Open source contribution workflow -- upstream sync, CONTRIBUTING.md compliance, code style matching, PR preparation, CLA/DCO signing, AI disclosure, and PR quality bar. Agent: pr-analyzer. Hook: upstream-sync-check.",
-      "version": "4.2.0",
+      "description": "Open source contribution workflow -- upstream sync, CONTRIBUTING.md compliance, code style matching, PR preparation, CLA/DCO signing, AI disclosure, and PR quality bar. Agent: pr-analyzer. Hook: upstream-sync-check. Commands use dynamic context injection.",
+      "version": "4.3.0",
       "author": { "name": "Sagar Gupta" },
       "license": "MIT",
       "keywords": ["open-source", "fork", "upstream", "contributing", "pr"],

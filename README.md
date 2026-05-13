@@ -2,7 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Plugins](https://img.shields.io/badge/plugins-25-green.svg)](#plugins)
-[![Version](https://img.shields.io/badge/version-4.2.0-orange.svg)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-4.3.0-orange.svg)](CHANGELOG.md)
 [![CI](https://img.shields.io/github/actions/workflow/status/Sagargupta16/claude-skills/validate.yml?label=validate)](https://github.com/Sagargupta16/claude-skills/actions)
 
 Custom Claude Code plugin marketplace with reusable skills, agents, and hooks for full-stack development, testing, API design, databases, CI/CD, Docker, security, performance, logging, refactoring, documentation, git workflows, open source contributions, repository maintenance, context management, session management, planning, verification, CLAUDE.md generation, infrastructure as code, and monorepo management.
@@ -66,8 +66,8 @@ These plugins work with any project -- install the ones relevant to your stack.
 | Type | Count | What It Does |
 |------|-------|-------------|
 | **Skills** | 25 | Background knowledge that auto-activates based on context |
-| **Commands** | ~28 | User-invocable slash commands (`/commit`, `/test`, `/verify`, etc.) |
-| **Agents** | 29 | Autonomous sub-conversations for code review, debugging, scanning, etc. |
+| **Commands** | 31 | User-invocable slash commands (`/commit`, `/test`, `/verify`, etc.) |
+| **Agents** | 28 | Autonomous sub-conversations for code review, debugging, scanning, etc. |
 | **Hooks** | 9 | Shell scripts that auto-execute on events (block secrets, validate commits, etc.) |
 
 ## Installation
@@ -152,6 +152,10 @@ claude-skills/
 
 ## Language Support
 
+Plugins marked **Generic** are language-agnostic -- they work the same way in any stack.
+
+### Stack-specific plugins
+
 | Language | dev-workflow | testing | farm-stack | api-design | database | ci-cd | docker-deploy | deps-audit | infrastructure | repo-polish |
 |----------|-------------|---------|-----------|------------|----------|-------|---------------|------------|---------------|-------------|
 | Python | Yes | Yes | Primary | Yes | Yes | Yes | Yes | Yes | Yes | Yes |
@@ -160,6 +164,26 @@ claude-skills/
 | Rust | Yes | Yes | - | - | Yes | Yes | Yes | Yes | - | Yes |
 | C# / Unity | Yes | - | - | - | - | - | - | - | - | Yes |
 | HCL/Terraform | - | - | - | - | - | - | - | - | Primary | Yes |
+
+### Generic plugins (any language or no language)
+
+| Plugin | Scope |
+|---|---|
+| **dev-rules** | Generic -- git safety, secrets, PR workflow, CLAUDE.md authoring |
+| **refactoring** | Generic -- code smells, extract/rename/move across any language |
+| **documentation** | Generic -- README, ADR, changelog, API docs |
+| **git-advanced** | Generic -- rebase, cherry-pick, bisect, conflict resolution |
+| **performance** | Generic -- profiling strategy, caching, N+1, bundle analysis |
+| **security-hardening** | Generic -- OWASP, STRIDE, supply chain, prompt injection, MCP risks |
+| **logging-observability** | Generic -- structured logging, health checks, metrics |
+| **oss-contrib** | Generic -- fork sync, upstream compliance, PR quality bar |
+| **methodology** | Generic -- TDD / BDD / SDD / plan-driven / prototype-over-PRD |
+| **context-management** | Claude Code only -- context rot, compaction, sub-agent isolation |
+| **session-management** | Claude Code only -- session lifecycle, handoffs, multi-session workflows |
+| **planning** | Claude Code only -- plan mode, interview-then-execute |
+| **verification** | Generic -- pre-completion checklists per change type |
+| **claude-md-generator** | Claude Code only -- CLAUDE.md templates for 7 stacks |
+| **monorepo** | Claude Code only -- CLAUDE.md loading rules in monorepos |
 
 ## Companion Plugins
 

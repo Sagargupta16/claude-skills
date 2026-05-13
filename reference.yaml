@@ -3,15 +3,15 @@
 # Use this to find the right plugin, skill, command, agent, or hook.
 #
 # Format: keyword -> file path (relative to repo root)
-# Updated: 2026-04-18 | Version: 4.2.0
+# Updated: 2026-05-13 | Version: 4.3.0
 
 stats:
   plugins: 25
   skills: 25
-  commands: 28
-  agents: 29
+  commands: 31
+  agents: 28
   hooks: 9
-  total_files: 89
+  total_files: 93
 
 # Plugin index: name -> directory
 plugins:
