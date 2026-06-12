@@ -22,24 +22,15 @@ Pick the plugins that match your tech stack.
 # Full-stack web (FastAPI + React + MongoDB)
 /plugin install farm-stack@sagar-dev-skills
 
-# Testing (pytest, jest/vitest, go test, cargo test)
-/plugin install testing@sagar-dev-skills
-
-# API design (REST conventions, error formats, pagination)
-/plugin install api-design@sagar-dev-skills
-
-# Database (schema design, migrations, indexing)
-/plugin install database@sagar-dev-skills
-
-# CI/CD (GitHub Actions)
-/plugin install ci-cd@sagar-dev-skills
-
 # Docker
 /plugin install docker-deploy@sagar-dev-skills
 
-# Dependency management
+# Dependency management (vulnerabilities, outdated packages, Renovate)
 /plugin install deps-audit@sagar-dev-skills
+/plugin install renovate-triage@sagar-dev-skills
 ```
+
+For testing, API design, database, CI/CD, documentation, performance, security, and observability needs, use the official Anthropic plugins and skills -- the overlapping plugins were removed from this marketplace in 5.0.0 to avoid duplication.
 
 ## Tier 3: General Purpose
 
@@ -49,20 +40,20 @@ Apply to any project regardless of stack.
 # Code refactoring (smell detection, safe rename, migrations)
 /plugin install refactoring@sagar-dev-skills
 
-# Documentation (README, ADR, changelog, API docs)
-/plugin install documentation@sagar-dev-skills
-
 # Advanced git (rebase, cherry-pick, bisect, conflict resolution)
 /plugin install git-advanced@sagar-dev-skills
 
-# Performance (profiling, caching, N+1, bundle analysis)
-/plugin install performance@sagar-dev-skills
+# Context window health (compaction strategy, session management)
+/plugin install context-management@sagar-dev-skills
 
-# Security (OWASP, headers, rate limiting, input validation)
-/plugin install security-hardening@sagar-dev-skills
+# Plain-English diff summaries
+/plugin install diff-explain@sagar-dev-skills
 
-# Logging (structured logging, health checks, metrics)
-/plugin install logging-observability@sagar-dev-skills
+# Structured debugging from errors and stack traces
+/plugin install debug-triage@sagar-dev-skills
+
+# End-of-session review (capture corrections, preferences, decisions)
+/plugin install starter-session-audit@sagar-dev-skills
 ```
 
 ## Tier 4: Open Source and Maintenance

@@ -8,10 +8,10 @@
 stats:
   plugins: 14
   skills: 14
-  commands: 14
-  agents: 10
-  hooks: 8
-  total_files: 62
+  commands: 16
+  agents: 11
+  hooks: 6
+  total_files: 75
 
 # Plugin index: name -> directory
 plugins:

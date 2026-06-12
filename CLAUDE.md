@@ -99,7 +99,7 @@ This checks: marketplace.json validity, plugin directory existence, SKILL.md fro
 | renovate-triage | 1 | - | - | - |
 | starter-session-audit | 1 | - | - | - |
 
-**Totals**: 14 skills, 14 commands, 10 agents, 8 hooks
+**Totals**: 14 skills, 16 commands, 11 agents, 6 hooks
 
 ## Key Conventions
 
