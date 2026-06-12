@@ -1,11 +1,11 @@
 # Claude Skills
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Plugins](https://img.shields.io/badge/plugins-14-green.svg)](#plugins)
-[![Version](https://img.shields.io/badge/version-5.0.0-orange.svg)](CHANGELOG.md)
+[![Plugins](https://img.shields.io/badge/plugins-16-green.svg)](#plugins)
+[![Version](https://img.shields.io/badge/version-5.1.0-orange.svg)](CHANGELOG.md)
 [![CI](https://github.com/Sagargupta16/claude-skills/actions/workflows/validate.yml/badge.svg)](https://github.com/Sagargupta16/claude-skills/actions)
 
-Focused Claude Code plugin marketplace. 14 plugins covering everyday dev workflow, git, open-source contributions, Docker, dependency audits, repo hygiene, refactoring, FARM stack, context management, diff explanation, debug triage, Renovate triage, and end-of-session audit.
+Focused Claude Code plugin marketplace. 16 plugins covering everyday dev workflow, git, open-source contributions, Docker, dependency audits, repo hygiene, refactoring, FARM stack, context management, diff explanation, debug triage, Renovate triage, end-of-session audit, Python clean code, and animation/motion.
 
 Plugins are individually installable. Pick the ones relevant to your stack.
 
@@ -33,6 +33,7 @@ Most plugins are language-agnostic and adapt to your stack (Python, Node, Go, Ru
 | **git-advanced** | `/resolve-conflict` | git-assistant | commit-lint | Rebase, cherry-pick, bisect, stash, conflict resolution, undo |
 | **diff-explain** | _(skill only)_ | - | - | One-paragraph plain-English summary of a diff. Groups by concern, flags risks. |
 | **debug-triage** | _(skill only)_ | - | - | Cause-fix-test triage from a pasted stack trace. No lectures. |
+| **clean-code** | _(skill only)_ | - | - | Boy Scout Rule + Robert Martin's full Clean Code catalog for Python. Violations flagged by rule ID. |
 
 ### Stack-Specific
 
@@ -40,6 +41,7 @@ Most plugins are language-agnostic and adapt to your stack (Python, Node, Go, Ru
 |--------|----------|--------|-------|-------------|
 | **farm-stack** | `/scaffold-farm` | farm-scaffolder | - | FastAPI + React + MongoDB patterns, project scaffolding, config, Docker |
 | **docker-deploy** | `/dockerize` | dockerfile-optimizer | - | Multi-stage Dockerfiles, compose patterns, image optimization, security |
+| **motion** | `/motion audit\|add\|fix` | - | - | Animation in three modes: 12-principles audit, add micro-interactions, fix jank |
 
 ### Security & Dependencies
 
@@ -66,7 +68,7 @@ Most plugins are language-agnostic and adapt to your stack (Python, Node, Go, Ru
 
 | Type | Count | What It Does |
 |------|-------|-------------|
-| **Skills** | 14 | Background knowledge that auto-activates based on context |
+| **Skills** | 16 | Background knowledge that auto-activates based on context |
 | **Commands** | 16 | User-invocable slash commands (`/commit`, `/test`, etc.) |
 | **Agents** | 11 | Autonomous sub-conversations for code review, debugging, scanning |
 | **Hooks** | 6 | Shell scripts that auto-execute on events (block secrets, validate commits, etc.) |
@@ -96,6 +98,8 @@ Most plugins are language-agnostic and adapt to your stack (Python, Node, Go, Ru
 /plugin install debug-triage@sagar-dev-skills
 /plugin install renovate-triage@sagar-dev-skills
 /plugin install starter-session-audit@sagar-dev-skills
+/plugin install clean-code@sagar-dev-skills
+/plugin install motion@sagar-dev-skills
 ```
 
 ## Structure

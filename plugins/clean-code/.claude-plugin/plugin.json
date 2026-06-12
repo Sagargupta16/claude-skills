@@ -1,0 +1,5 @@
+{
+  "name": "clean-code",
+  "description": "Boy Scout Rule plus Robert Martin's complete Clean Code catalog for Python -- naming, comments, functions, DRY, boundaries, and tests. Rule chapters load on demand.",
+  "version": "1.0.0"
+}

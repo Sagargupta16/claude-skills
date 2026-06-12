@@ -13,7 +13,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What This Is
 
-A Claude Code plugin marketplace (`sagar-dev-skills`) containing 14 focused plugins. Each plugin provides skills (background knowledge that auto-activates), commands (user-invocable slash commands), agents (autonomous sub-conversations), and/or hooks (shell scripts that auto-execute on events). This is a content-only repo -- no build system, no runtime code. All files are Markdown, JSON, and shell scripts.
+A Claude Code plugin marketplace (`sagar-dev-skills`) containing 16 focused plugins. Each plugin provides skills (background knowledge that auto-activates), commands (user-invocable slash commands), agents (autonomous sub-conversations), and/or hooks (shell scripts that auto-execute on events). This is a content-only repo -- no build system, no runtime code. All files are Markdown, JSON, and shell scripts.
 
 **5.0.0 cull (2026-05-13):** marketplace reduced from 25 -> 14 plugins. Removed plugins that duplicated Anthropic-official skills, sat unused, or overlapped each other. Added 4 promoted from local workspace: diff-explain, debug-triage, renovate-triage, starter-session-audit.
 
@@ -98,8 +98,10 @@ This checks: marketplace.json validity, plugin directory existence, SKILL.md fro
 | debug-triage | 1 | - | - | - |
 | renovate-triage | 1 | - | - | - |
 | starter-session-audit | 1 | - | - | - |
+| clean-code | 1 | - | - | - |
+| motion | 1 | - | - | - |
 
-**Totals**: 14 skills, 14 commands, 10 agents, 8 hooks
+**Totals**: 16 skills, 16 commands, 11 agents, 6 hooks
 
 ## Key Conventions
 
