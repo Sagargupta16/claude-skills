@@ -23,7 +23,7 @@ Fifteen plugins removed as part of a focus pass. Three reasons:
   - `session-management` -- overlapped `context-management`
   - `monorepo` -- narrow CLAUDE.md-loading detail now in `context-management`
 
-Git history preserves all removed content. Reinstall by checking out tag `v4.3.0` if needed.
+Git history preserves all removed content. Reinstall by checking out commit `402d202` (the last pre-cull commit) if needed.
 
 ### Added
 

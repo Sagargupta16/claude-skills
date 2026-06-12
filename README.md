@@ -3,7 +3,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Plugins](https://img.shields.io/badge/plugins-14-green.svg)](#plugins)
 [![Version](https://img.shields.io/badge/version-5.0.0-orange.svg)](CHANGELOG.md)
-[![CI](https://img.shields.io/github/actions/workflow/status/Sagargupta16/claude-skills/validate.yml?label=validate)](https://github.com/Sagargupta16/claude-skills/actions)
+[![CI](https://github.com/Sagargupta16/claude-skills/actions/workflows/validate.yml/badge.svg)](https://github.com/Sagargupta16/claude-skills/actions)
 
 Focused Claude Code plugin marketplace. 14 plugins covering everyday dev workflow, git, open-source contributions, Docker, dependency audits, repo hygiene, refactoring, FARM stack, context management, diff explanation, debug triage, Renovate triage, and end-of-session audit.
 
@@ -67,9 +67,9 @@ Most plugins are language-agnostic and adapt to your stack (Python, Node, Go, Ru
 | Type | Count | What It Does |
 |------|-------|-------------|
 | **Skills** | 14 | Background knowledge that auto-activates based on context |
-| **Commands** | 14 | User-invocable slash commands (`/commit`, `/test`, etc.) |
-| **Agents** | 10 | Autonomous sub-conversations for code review, debugging, scanning |
-| **Hooks** | 8 | Shell scripts that auto-execute on events (block secrets, validate commits, etc.) |
+| **Commands** | 16 | User-invocable slash commands (`/commit`, `/test`, etc.) |
+| **Agents** | 11 | Autonomous sub-conversations for code review, debugging, scanning |
+| **Hooks** | 6 | Shell scripts that auto-execute on events (block secrets, validate commits, etc.) |
 
 ## Installation
 
