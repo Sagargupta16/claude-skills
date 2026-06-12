@@ -1,5 +1,17 @@
 # Changelog
 
+## [5.1.0] - 2026-06-12
+
+### Added
+
+- **clean-code plugin** (skill only). Boy Scout Rule plus Robert C. Martin's complete Clean Code catalog for Python -- naming (N), comments (C), functions (F), general/DRY (G), and tests (T) rule chapters that load on demand, with violations flagged by rule ID. Promoted from a local user-level skill; content is fully generic.
+- **motion plugin** (skill only, user-invocable as `/motion audit|add|fix`). Animation work in three modes: audit motion code against Disney's 12 principles with file:line findings, add purposeful micro-interactions, or fix animation performance (compositor-only properties, layout thrashing, scroll-linked motion). Adapted under MIT from raphael-salaja's 12-principles-of-animation and pbakaus/impeccable. Promoted from a local user-level skill; the one user-specific rule (a personal never-reduce-motion preference) was generalized to "respect the project's stated motion policy."
+
+### Fixed
+
+- `configs/recommended-plugins.md` and `configs/settings.template.json` still referenced 8 plugins removed in the 5.0.0 cull -- every one of those `/plugin install` commands failed. Both configs now match the current roster.
+- `reference.yaml` stats and the CLAUDE.md totals line undercounted components (actual at 5.1.0: 16 plugins, 16 skills, 16 commands, 11 agents, 6 hooks, 90 files).
+
 ## [5.0.0] - 2026-05-13
 
 **BREAKING CHANGE.** Marketplace reduced from 25 to 14 plugins. Anyone who installed a removed plugin via `/plugin install <name>@sagar-dev-skills` will need to uninstall or switch to an Anthropic-official alternative. See the `superpowers`, `claude-md-management`, and `agent-skills` marketplaces for drop-in replacements on most removed plugins.

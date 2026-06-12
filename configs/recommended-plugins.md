@@ -54,6 +54,12 @@ Apply to any project regardless of stack.
 
 # End-of-session review (capture corrections, preferences, decisions)
 /plugin install starter-session-audit@sagar-dev-skills
+
+# Python clean code (Boy Scout Rule + Robert Martin's rule catalog)
+/plugin install clean-code@sagar-dev-skills
+
+# Animation: audit, add, or fix motion (web UI)
+/plugin install motion@sagar-dev-skills
 ```
 
 ## Tier 4: Open Source and Maintenance

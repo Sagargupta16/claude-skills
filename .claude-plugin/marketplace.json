@@ -5,8 +5,8 @@
     "email": "sg85207@gmail.com"
   },
   "metadata": {
-    "description": "Focused Claude Code plugins covering everyday dev workflow, git, OSS contributions, Docker, dependency audits, repo hygiene, refactoring, FARM stack, context management, diff explanation, debug triage, Renovate triage, and session audit. Opinionated, battle-tested across 60+ repos.",
-    "version": "5.0.0",
+    "description": "Focused Claude Code plugins covering everyday dev workflow, git, OSS contributions, Docker, dependency audits, repo hygiene, refactoring, FARM stack, context management, diff explanation, debug triage, Renovate triage, session audit, Python clean code, and animation/motion. Opinionated, battle-tested across 60+ repos.",
+    "version": "5.1.0",
     "pluginRoot": "./plugins"
   },
   "plugins": [
@@ -15,9 +15,18 @@
       "source": "./plugins/dev-workflow",
       "description": "Everyday dev commands -- commit, review, test, fix bugs, create PRs, check repo status, and inspect PR health. Agents: code-reviewer, debugger. Hook: auto-format. Commands use dynamic context injection for grounded, first-attempt responses.",
       "version": "4.3.0",
-      "author": { "name": "Sagar Gupta" },
+      "author": {
+        "name": "Sagar Gupta"
+      },
       "license": "MIT",
-      "keywords": ["git", "commit", "review", "testing", "pr", "workflow"],
+      "keywords": [
+        "git",
+        "commit",
+        "review",
+        "testing",
+        "pr",
+        "workflow"
+      ],
       "category": "development"
     },
     {
@@ -25,9 +34,17 @@
       "source": "./plugins/dev-rules",
       "description": "Development guardrails -- git safety, security best practices, PR workflow discipline, context optimization, CLAUDE.md authoring rules, and important tag patterns. Hooks: secret-guard, no-force-push, branch-guard.",
       "version": "4.2.0",
-      "author": { "name": "Sagar Gupta" },
+      "author": {
+        "name": "Sagar Gupta"
+      },
       "license": "MIT",
-      "keywords": ["git", "security", "guardrails", "best-practices", "hooks"],
+      "keywords": [
+        "git",
+        "security",
+        "guardrails",
+        "best-practices",
+        "hooks"
+      ],
       "category": "development"
     },
     {
@@ -35,9 +52,18 @@
       "source": "./plugins/farm-stack",
       "description": "FARM stack (FastAPI + React + MongoDB) development patterns, scaffolding, and best practices. Agent: farm-scaffolder.",
       "version": "4.0.0",
-      "author": { "name": "Sagar Gupta" },
+      "author": {
+        "name": "Sagar Gupta"
+      },
       "license": "MIT",
-      "keywords": ["fastapi", "react", "mongodb", "farm", "python", "fullstack"],
+      "keywords": [
+        "fastapi",
+        "react",
+        "mongodb",
+        "farm",
+        "python",
+        "fullstack"
+      ],
       "category": "framework"
     },
     {
@@ -45,9 +71,17 @@
       "source": "./plugins/docker-deploy",
       "description": "Docker best practices -- multi-stage Dockerfiles, compose patterns, image optimization, health checks, signal handling, and security hardening. Agent: dockerfile-optimizer.",
       "version": "4.0.0",
-      "author": { "name": "Sagar Gupta" },
+      "author": {
+        "name": "Sagar Gupta"
+      },
       "license": "MIT",
-      "keywords": ["docker", "dockerfile", "compose", "containers", "deployment"],
+      "keywords": [
+        "docker",
+        "dockerfile",
+        "compose",
+        "containers",
+        "deployment"
+      ],
       "category": "devops"
     },
     {
@@ -55,9 +89,18 @@
       "source": "./plugins/deps-audit",
       "description": "Dependency auditing -- vulnerability scanning, outdated package detection, unused dependency identification, and safe update strategies. Agent: dependency-auditor.",
       "version": "4.0.0",
-      "author": { "name": "Sagar Gupta" },
+      "author": {
+        "name": "Sagar Gupta"
+      },
       "license": "MIT",
-      "keywords": ["dependencies", "security", "vulnerabilities", "npm", "pip", "cargo"],
+      "keywords": [
+        "dependencies",
+        "security",
+        "vulnerabilities",
+        "npm",
+        "pip",
+        "cargo"
+      ],
       "category": "security"
     },
     {
@@ -65,9 +108,17 @@
       "source": "./plugins/oss-contrib",
       "description": "Open source contribution workflow -- upstream sync, CONTRIBUTING.md compliance, code style matching, PR preparation, CLA/DCO signing, AI disclosure, and PR quality bar. Agent: pr-analyzer. Hook: upstream-sync-check. Commands use dynamic context injection.",
       "version": "4.3.0",
-      "author": { "name": "Sagar Gupta" },
+      "author": {
+        "name": "Sagar Gupta"
+      },
       "license": "MIT",
-      "keywords": ["open-source", "fork", "upstream", "contributing", "pr"],
+      "keywords": [
+        "open-source",
+        "fork",
+        "upstream",
+        "contributing",
+        "pr"
+      ],
       "category": "workflow"
     },
     {
@@ -75,9 +126,17 @@
       "source": "./plugins/repo-polish",
       "description": "Repository hygiene -- .gitignore, .env.example, README, LICENSE generation, secret detection, project type detection, and CLAUDE.md auditing. Agent: repo-auditor.",
       "version": "4.2.0",
-      "author": { "name": "Sagar Gupta" },
+      "author": {
+        "name": "Sagar Gupta"
+      },
       "license": "MIT",
-      "keywords": ["gitignore", "readme", "license", "hygiene", "secrets"],
+      "keywords": [
+        "gitignore",
+        "readme",
+        "license",
+        "hygiene",
+        "secrets"
+      ],
       "category": "maintenance"
     },
     {
@@ -85,9 +144,17 @@
       "source": "./plugins/refactoring",
       "description": "Safe refactoring workflows -- code smell detection, extract/rename/move patterns, migration strategies (JS to TS, CJS to ESM), and structured refactoring process. Agent: refactorer.",
       "version": "4.0.0",
-      "author": { "name": "Sagar Gupta" },
+      "author": {
+        "name": "Sagar Gupta"
+      },
       "license": "MIT",
-      "keywords": ["refactoring", "code-smells", "extract", "rename", "migration"],
+      "keywords": [
+        "refactoring",
+        "code-smells",
+        "extract",
+        "rename",
+        "migration"
+      ],
       "category": "development"
     },
     {
@@ -95,9 +162,18 @@
       "source": "./plugins/git-advanced",
       "description": "Advanced git operations -- rebasing, cherry-picking, conflict resolution, bisect, stash management, history exploration, and undo strategies. Agent: git-assistant. Hook: commit-lint.",
       "version": "4.0.0",
-      "author": { "name": "Sagar Gupta" },
+      "author": {
+        "name": "Sagar Gupta"
+      },
       "license": "MIT",
-      "keywords": ["git", "rebase", "cherry-pick", "bisect", "conflict", "stash"],
+      "keywords": [
+        "git",
+        "rebase",
+        "cherry-pick",
+        "bisect",
+        "conflict",
+        "stash"
+      ],
       "category": "development"
     },
     {
@@ -105,9 +181,17 @@
       "source": "./plugins/context-management",
       "description": "Context window management -- compaction timing, context rot prevention, branching strategies, and sub-agent isolation patterns. Agent: context-advisor.",
       "version": "4.2.0",
-      "author": { "name": "Sagar Gupta" },
+      "author": {
+        "name": "Sagar Gupta"
+      },
       "license": "MIT",
-      "keywords": ["context", "compaction", "rewind", "sub-agent", "context-rot"],
+      "keywords": [
+        "context",
+        "compaction",
+        "rewind",
+        "sub-agent",
+        "context-rot"
+      ],
       "category": "workflow"
     },
     {
@@ -115,9 +199,17 @@
       "source": "./plugins/diff-explain",
       "description": "One-paragraph plain-English summary of what a diff does. Groups changes by concern, not by file. Flags risks and missing tests.",
       "version": "1.0.0",
-      "author": { "name": "Sagar Gupta" },
+      "author": {
+        "name": "Sagar Gupta"
+      },
       "license": "MIT",
-      "keywords": ["diff", "pr", "review", "summary", "git"],
+      "keywords": [
+        "diff",
+        "pr",
+        "review",
+        "summary",
+        "git"
+      ],
       "category": "development"
     },
     {
@@ -125,9 +217,17 @@
       "source": "./plugins/debug-triage",
       "description": "Cause-fix-test triage from a pasted error or stack trace. No lectures -- just cause, fix, regression test, and sibling files to update.",
       "version": "1.0.0",
-      "author": { "name": "Sagar Gupta" },
+      "author": {
+        "name": "Sagar Gupta"
+      },
       "license": "MIT",
-      "keywords": ["debug", "error", "stacktrace", "triage", "fix"],
+      "keywords": [
+        "debug",
+        "error",
+        "stacktrace",
+        "triage",
+        "fix"
+      ],
       "category": "development"
     },
     {
@@ -135,9 +235,17 @@
       "source": "./plugins/renovate-triage",
       "description": "Batch-triage open Renovate PRs across all your repos into merge / close / defer. Groups by repo, checks CI, proposes merge order.",
       "version": "1.0.0",
-      "author": { "name": "Sagar Gupta" },
+      "author": {
+        "name": "Sagar Gupta"
+      },
       "license": "MIT",
-      "keywords": ["renovate", "dependencies", "pr", "triage", "batch"],
+      "keywords": [
+        "renovate",
+        "dependencies",
+        "pr",
+        "triage",
+        "batch"
+      ],
       "category": "maintenance"
     },
     {
@@ -145,10 +253,56 @@
       "source": "./plugins/starter-session-audit",
       "description": "End-of-session audit. Scans the conversation for uncaptured corrections, preferences, decisions, and new context, then proposes where to save each. Never writes without approval.",
       "version": "1.0.0",
-      "author": { "name": "Sagar Gupta" },
+      "author": {
+        "name": "Sagar Gupta"
+      },
       "license": "MIT",
-      "keywords": ["session", "memory", "audit", "retrospective", "claude-md"],
+      "keywords": [
+        "session",
+        "memory",
+        "audit",
+        "retrospective",
+        "claude-md"
+      ],
       "category": "workflow"
+    },
+    {
+      "name": "clean-code",
+      "source": "./plugins/clean-code",
+      "description": "Boy Scout Rule plus Robert Martin's complete Clean Code catalog for Python -- naming, comments, functions, DRY, boundaries, and tests. Rule chapters load on demand, violations flagged by rule ID.",
+      "version": "1.0.0",
+      "author": {
+        "name": "Sagar Gupta"
+      },
+      "license": "MIT",
+      "keywords": [
+        "python",
+        "clean-code",
+        "refactoring",
+        "naming",
+        "tests",
+        "code-quality"
+      ],
+      "category": "development"
+    },
+    {
+      "name": "motion",
+      "source": "./plugins/motion",
+      "description": "Animation work in three modes -- audit motion against Disney's 12 principles with file:line findings, add purposeful micro-interactions, or fix animation performance (compositor-only properties, layout thrashing).",
+      "version": "1.0.0",
+      "author": {
+        "name": "Sagar Gupta"
+      },
+      "license": "MIT",
+      "keywords": [
+        "animation",
+        "css",
+        "motion",
+        "performance",
+        "frontend",
+        "ui"
+      ],
+      "category": "frontend"
     }
   ]
 }
