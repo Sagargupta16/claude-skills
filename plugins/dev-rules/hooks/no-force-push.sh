@@ -10,8 +10,10 @@ set -euo pipefail
 # Read the command from stdin or arguments
 CMD="$*"
 
-# Check if this is a force push
-if echo "$CMD" | grep -qE '(--force|-f|--force-with-lease)'; then
+# Check if this is a force push.
+# Match --force (also covers --force-with-lease / --force-if-includes) and the
+# short flag -f as a standalone token, so flags like --follow-tags don't match.
+if echo "$CMD" | grep -qE '(--force|(^|[[:space:]])-f([[:space:]]|$))'; then
   # Check if pushing to a protected branch
   BRANCH=$(git branch --show-current 2>/dev/null || echo "")
   if echo "$BRANCH" | grep -qE '^(main|master|production|release)$'; then
