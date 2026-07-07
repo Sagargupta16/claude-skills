@@ -21,6 +21,12 @@ jobs:
       - name: Validate plugin structure and skill quality
         run: bash scripts/validate-plugins.sh
 
+      - name: Lint skills against the Agent Skills spec (skillcheck)
+        uses: Sagargupta16/skillcheck@8f5c5dd77ee09828e69cb36bc79a961451291f4e # v0.2.2
+        with:
+          path: plugins/
+          fail-on: error
+
       - name: Check for broken internal links in README
         run: |
           errors=0
