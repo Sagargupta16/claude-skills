@@ -1,5 +1,5 @@
 {
   "name": "starter-session-audit",
   "description": "End-of-session audit. Scans the conversation for uncaptured corrections, preferences, decisions, and new context, then proposes where to save each. Never writes without approval.",
-  "version": "1.0.0"
+  "version": "1.1.0"
 }

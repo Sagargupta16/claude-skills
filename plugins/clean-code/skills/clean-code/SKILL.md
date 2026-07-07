@@ -1,6 +1,6 @@
 ---
 name: clean-code
-description: Use when writing, fixing, editing, reviewing, refactoring, or debugging any Python code, names, comments/docstrings, functions, or tests. Applies the Boy Scout Rule plus Robert Martin's complete Clean Code catalog -- naming, functions, comments, DRY, boundary conditions, and tests.
+description: Use when the user writes new Python, or asks for review, refactor, or cleanup of Python code, names, comments/docstrings, functions, or tests. Applies Robert Martin's complete Clean Code catalog -- naming, functions, comments, DRY, boundary conditions, and tests -- to the code being changed.
 when_to_use: |
   Also trigger on: "while you're at it", "any quick wins", "improve this a bit", "anything else obviously wrong"; single-letter or cryptic identifiers (`d`, `x`, `proc`), Hungarian notation (`str_name`, `lst_users`), `I`-prefixed classes, names hiding side effects, or asks like "rename this", "clearer name"; commented-out code blocks, TODO/FIXME banners, metadata in comments, redundant comments (`i += 1  # increment i`), stale docstrings; functions with 4+ parameters, boolean flag parameters, argument mutation, dead helpers, "too many arguments", "split this function"; duplicated logic (G5), magic numbers (G25), long if/elif chains (G23), train wrecks like `a.b.c.d` (G36), clever one-liners (G16); slow or flaky tests, skip-marked tests, happy-path-only tests, missing boundary cases, "coverage gap", "edge case", "did we test".
 ---
@@ -96,18 +96,13 @@ def process_positive_values(
 - Make massive changes unrelated to your task
 
 **Do:**
-- Make one small improvement with every commit
-- Fix what you see, even if you didn't break it
 - Keep changes proportional to your task
-- Leave a trail of quality improvements
+- Improve the code you are already changing
+- Leave a trail of quality improvements over time
 
 ## AI Behavior
 
-When working on code:
-1. Complete the requested task first
-2. Identify at least one small cleanup opportunity
-3. Apply the appropriate rule chapter from the table above
-4. Note the improvement made (e.g., "Also cleaned up: renamed `x` to `results` for clarity")
+Apply cleanup only when the task IS cleanup (review, refactor, "clean this up" asks). When writing or fixing code, follow these rules for the NEW code you write; do not expand the diff with drive-by improvements to adjacent code the user didn't ask about.
 
 When reviewing code:
 1. Load [references/full-catalog.md](references/full-catalog.md) for comprehensive rule checking

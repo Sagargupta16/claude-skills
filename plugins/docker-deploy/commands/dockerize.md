@@ -23,6 +23,6 @@ Steps:
    - MongoDB, PostgreSQL, MySQL, Redis
    - Include health checks and persistent volumes
 5. Show generated files for review before writing
-6. Verify with `docker compose config` if Docker is available
+6. Verify: if Docker is available, run `docker compose build` (or `docker build .`) and report the result -- `docker compose config` only validates YAML syntax. If Docker is unavailable, state explicitly that only config-level validation was performed
 
 Use the docker-deploy skill for all patterns and best practices.

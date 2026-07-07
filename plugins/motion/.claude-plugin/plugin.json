@@ -1,5 +1,5 @@
 {
   "name": "motion",
   "description": "Animation work in three modes: audit motion against Disney's 12 principles, add purposeful micro-interactions, or fix animation performance (compositor properties, layout thrashing).",
-  "version": "1.0.0"
+  "version": "1.1.0"
 }
