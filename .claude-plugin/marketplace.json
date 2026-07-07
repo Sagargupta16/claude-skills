@@ -6,7 +6,7 @@
   },
   "metadata": {
     "description": "Focused Claude Code plugins covering everyday dev workflow, git, OSS contributions, Docker, dependency audits, repo hygiene, refactoring, FARM stack, context management, diff explanation, debug triage, Renovate triage, session audit, Python clean code, and animation/motion. Opinionated, battle-tested across 60+ repos.",
-    "version": "5.1.0",
+    "version": "5.2.0",
     "pluginRoot": "./plugins"
   },
   "plugins": [
@@ -33,7 +33,7 @@
       "name": "dev-rules",
       "source": "./plugins/dev-rules",
       "description": "Development guardrails -- git safety, security best practices, PR workflow discipline, context optimization, CLAUDE.md authoring rules, and important tag patterns. Hooks: secret-guard, no-force-push, branch-guard.",
-      "version": "4.2.0",
+      "version": "4.3.0",
       "author": {
         "name": "Sagar Gupta"
       },
@@ -51,7 +51,7 @@
       "name": "farm-stack",
       "source": "./plugins/farm-stack",
       "description": "FARM stack (FastAPI + React + MongoDB) development patterns, scaffolding, and best practices. Agent: farm-scaffolder.",
-      "version": "4.0.0",
+      "version": "4.1.0",
       "author": {
         "name": "Sagar Gupta"
       },
@@ -70,7 +70,7 @@
       "name": "docker-deploy",
       "source": "./plugins/docker-deploy",
       "description": "Docker best practices -- multi-stage Dockerfiles, compose patterns, image optimization, health checks, signal handling, and security hardening. Agent: dockerfile-optimizer.",
-      "version": "4.0.0",
+      "version": "4.1.0",
       "author": {
         "name": "Sagar Gupta"
       },
@@ -125,7 +125,7 @@
       "name": "repo-polish",
       "source": "./plugins/repo-polish",
       "description": "Repository hygiene -- .gitignore, .env.example, README, LICENSE generation, secret detection, project type detection, and CLAUDE.md auditing. Agent: repo-auditor.",
-      "version": "4.2.0",
+      "version": "4.3.0",
       "author": {
         "name": "Sagar Gupta"
       },
@@ -252,7 +252,7 @@
       "name": "starter-session-audit",
       "source": "./plugins/starter-session-audit",
       "description": "End-of-session audit. Scans the conversation for uncaptured corrections, preferences, decisions, and new context, then proposes where to save each. Never writes without approval.",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": {
         "name": "Sagar Gupta"
       },
@@ -270,7 +270,7 @@
       "name": "clean-code",
       "source": "./plugins/clean-code",
       "description": "Boy Scout Rule plus Robert Martin's complete Clean Code catalog for Python -- naming, comments, functions, DRY, boundaries, and tests. Rule chapters load on demand, violations flagged by rule ID.",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": {
         "name": "Sagar Gupta"
       },
@@ -289,7 +289,7 @@
       "name": "motion",
       "source": "./plugins/motion",
       "description": "Animation work in three modes -- audit motion against Disney's 12 principles with file:line findings, add purposeful micro-interactions, or fix animation performance (compositor-only properties, layout thrashing).",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": {
         "name": "Sagar Gupta"
       },

@@ -48,7 +48,7 @@ When working with pull requests:
    - `gh api repos/{owner}/{repo}/pulls/{num} --jq '{mergeable, mergeable_state, draft}'`
 3. **Check how far behind** the base branch
    - `gh api repos/{owner}/{repo}/compare/{base}...{head} --jq '{behind_by, ahead_by}'`
-4. **After fixing/rebasing** - comment back on the PR summarizing what was done
+4. **After fixing/rebasing your own repo's PR** - comment a summary of what was done. On upstream or fork PRs, never comment without the user's or maintainer's explicit go-ahead
 5. **Before deleting a fork** - verify zero open PRs from that fork
 6. **When rebasing** - squash into clean commits, match project's commit style
 7. **Never force-push to someone else's branch** - only to your own fork branches
@@ -57,24 +57,10 @@ When working with pull requests:
 
 When writing or reviewing CLAUDE.md files:
 
-### `<important>` Tags
-Wrap must-follow rules in `<important>` tags so they survive long contexts:
+### Rule Statement
+State each rule once, plainly, with the reason when it isn't obvious. Current Claude models follow brief plain instructions reliably; repetition, ALL-CAPS, and emphasis markup cause overtriggering rather than better compliance.
 
-```markdown
-<important>
-- Never commit .env files or API keys
-- Always run tests before pushing
-- Never force push to main/master
-</important>
-```
-
-Use `<important if="...">` for conditional rules:
-```markdown
-<important if="making git commits or pushing code">
-- Never add Co-Authored-By trailers
-- Use conventional commit format
-</important>
-```
+For rules that must never slip (secrets, force-push, destructive commands), enforce them mechanically with PreToolUse hooks instead of prompt emphasis -- a hook cannot be ignored in a long context.
 
 ### Length and Structure
 - Keep each CLAUDE.md under 200 lines -- rules get ignored beyond this

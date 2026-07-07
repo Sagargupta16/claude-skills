@@ -1,5 +1,19 @@
 # Changelog
 
+## [5.2.0] - 2026-07-07
+
+Prompt rework for current Claude models (Fable 5 / Opus 4.8 / Sonnet 5 generation), following Anthropic's updated prompting guidance: strong instruction-following means pressure framing (ALL-CAPS MUST/NEVER walls, `<important>` tags) now causes overtriggering, and verification steps should prove behavior, not syntax. Rewording only -- no plugins removed, no behavior redefined beyond the notes below.
+
+### Changed
+
+- **clean-code** (1.1.0): removed the mandatory drive-by-cleanup steps ("identify at least one small cleanup opportunity" on every task). Cleanup now applies when the task is cleanup (review/refactor asks) or to new code being written -- it no longer expands diffs with unrequested adjacent-code edits. Frontmatter trigger narrowed to match.
+- **motion** (1.1.0): `references/add-motion.md` no longer hard-requires the external `/impeccable` command (not shipped by this marketplace); preparation is now conditional on the toolkit being installed. The CRITICAL-framed `prefers-reduced-motion` mandate now defers to the project's stated motion policy, consistent with the policy gate already in SKILL.md.
+- **dev-rules** (4.3.0): replaced the `<important>`-tag authoring guidance with current-model advice (state rules once plainly; enforce mechanical rules via hooks). PR workflow step 4 now scopes "comment back on the PR" to your own repos -- commenting on upstream/fork PRs requires explicit go-ahead.
+- **repo-polish** (4.3.0): CLAUDE.md audit table no longer references the nonexistent `/scaffold-claude-md` command (points at built-in `/init` instead) and the `<important>`-tags row was replaced with plain-statement + hooks guidance.
+- **docker-deploy** (4.1.0): `/dockerize` verification now attempts a real `docker compose build` instead of stopping at `docker compose config` (YAML-syntax-only), and reports config-only validation explicitly when Docker is unavailable.
+- **farm-stack** (4.1.0): `/scaffold-farm` gained a smoke-test step (uvicorn boots, `/health` returns 200, pytest collects) with an explicit "unverified" report when the environment can't run it.
+- **starter-session-audit** (1.1.0): routing examples updated -- always-on rules may live at user-level `~/.claude/rules/`, and the stale SESSIONS.md example was dropped.
+
 ## [5.1.0] - 2026-06-12
 
 ### Added

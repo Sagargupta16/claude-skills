@@ -220,12 +220,12 @@ When auditing repos, also check CLAUDE.md quality:
 
 | Check | Standard | How to Fix |
 |-------|----------|-----------|
-| Exists | Every repo should have one | Generate with `/scaffold-claude-md` |
+| Exists | Every repo should have one | Run Claude Code's built-in `/init`, or write one using this audit as the outline |
 | Length | Under 200 lines | Split into `.claude/rules/` files |
 | Structure | Overview > Commands > Conventions > Architecture | Reorganize to match standard |
 | Commands | Lists actual project commands | Scan package.json/Makefile for real commands |
 | Conventions | Specific to tech stack in use | Check linter/formatter config for details |
-| Important tags | Critical rules wrapped in `<important>` | Wrap git safety and security rules |
+| Rule statement | Critical rules stated once, plainly | Enforce mechanical rules (secrets, force-push) via hooks, not emphasis markup |
 | No secrets | No API keys, tokens, credentials | Remove and rotate if found |
 | Up to date | Matches current project structure | Compare against actual repo state |
 | Actionable | Rules specific enough to follow | Remove vague platitudes |

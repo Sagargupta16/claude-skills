@@ -24,6 +24,7 @@ Steps:
    - Empty `models/__init__.py`, `routes/__init__.py`, `services/__init__.py`, `utils/__init__.py`, `tests/__init__.py`
    - `client/` directory with Vite + React scaffold (package.json, vite.config.js, src/main.jsx, src/App.jsx)
 4. Initialize git repo if not already in one
-5. Show summary of created files
+5. Smoke-test if the environment allows: install deps, verify uvicorn boots and `GET /health` returns 200, and pytest collects. If the environment does not allow a live check, state explicitly that the scaffold is unverified
+6. Show summary of created files and the smoke-test result
 
 Use the farm-stack skill for all patterns and conventions.

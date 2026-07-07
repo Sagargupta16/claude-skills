@@ -25,7 +25,7 @@ Claude Code sessions can use several layers of persistence. Load whichever files
 - **Project CLAUDE.md** -- at repo root or workspace root (standing instructions for this project).
 - **User-global CLAUDE.md** -- typically `~/.claude/CLAUDE.md` (preferences that apply everywhere).
 - **Memory / MEMORY.md** -- any workspace-level memory index file plus any topical files it points at.
-- **Live-state files** -- STATUS.md, TODO.md, SESSIONS.md, or similar workspace files if the project uses them.
+- **Live-state files** -- STATUS.md, TODO.md, or similar workspace files if the project uses them.
 - **Local-only override** -- `CLAUDE.local.md` (git-ignored, machine-specific).
 - **Rules** -- `.claude/rules/*.md` if the project uses path-scoped rule files.
 - **Resources** -- `.claude/resources/*.md` if the project keeps task-triggered reference docs.
@@ -79,7 +79,7 @@ Finer routing:
 | Finding kind | Target file |
 | --- | --- |
 | Global preference (applies to every project) | `~/.claude/CLAUDE.md` |
-| Project-wide rule (always-on) | `.claude/rules/always-on.md` or project CLAUDE.md |
+| Project-wide rule (always-on) | user-level `~/.claude/rules/` (if global rules live there), project `.claude/rules/`, or project CLAUDE.md |
 | Path-scoped rule | new or existing file in `.claude/rules/` with `paths:` frontmatter |
 | Cross-session fact about the user | new or existing memory topic file + index entry |
 | Live repo state | `STATUS.md` |

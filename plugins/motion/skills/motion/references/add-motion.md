@@ -4,9 +4,9 @@
 
 Analyze a feature and strategically add animations and micro-interactions that enhance understanding, provide feedback, and create delight.
 
-## MANDATORY PREPARATION
+## Preparation
 
-Invoke /impeccable — it contains design principles, anti-patterns, and the **Context Gathering Protocol**. Follow the protocol before proceeding — if no design context exists yet, you MUST run /impeccable teach first. Additionally gather: performance constraints.
+If the impeccable toolkit is installed, run /impeccable first for design principles and its Context Gathering Protocol. Otherwise gather the design context directly from the codebase and the user: personality, performance constraints, audience, and what matters most.
 
 ---
 
@@ -29,7 +29,7 @@ Analyze where motion would improve the experience:
 
 If any of these are unclear from the codebase, ask the user directly to clarify what you cannot infer.
 
-**CRITICAL**: Respect `prefers-reduced-motion`. Always provide non-animated alternatives for users who need them.
+Follow the project's stated motion policy (see SKILL.md hard rules): provide `prefers-reduced-motion` alternatives when the policy is accessibility-first; skip the guards when the policy says motion stays bold.
 
 ## Plan Animation Strategy
 
@@ -138,6 +138,9 @@ Use appropriate techniques for each animation:
 - **Monitor FPS**: Ensure 60fps on target devices
 
 ### Accessibility
+
+When the project's motion policy is accessibility-first, gate animations:
+
 ```css
 @media (prefers-reduced-motion: reduce) {
   * {
@@ -153,7 +156,6 @@ Use appropriate techniques for each animation:
 - Animate layout properties (width, height, top, left)—use transform instead
 - Use durations over 500ms for feedback—it feels laggy
 - Animate without purpose—every animation needs a reason
-- Ignore `prefers-reduced-motion`—this is an accessibility violation
 - Animate everything—animation fatigue makes interfaces feel exhausting
 - Block interaction during animations unless intentional
 
