@@ -42,7 +42,7 @@ plugins/{name}/
 
 ### Key Format Details
 
-**marketplace.json** is the entry point. Uses `metadata.pluginRoot: "./plugins"` so each plugin's `source` is just its directory name. Each entry has `name`, `source`, `description`, `version`, `author`, `license`, `keywords`, and `category`.
+**marketplace.json** is the entry point. Each plugin's `source` is a full relative path (`./plugins/{name}`) -- the CLI does not resolve `metadata.pluginRoot` on `plugin install`/`plugin update`, so bare directory names break. Each entry has `name`, `source`, `description`, `version`, `author`, `license`, `keywords`, and `category`.
 
 **SKILL.md frontmatter**:
 ```yaml
@@ -106,7 +106,7 @@ This checks: marketplace.json validity, plugin directory existence, SKILL.md fro
 ## Key Conventions
 
 - **Skill descriptions** always start with "Use when..." to define activation triggers
-- **Quick Reference tables** go at the top of every SKILL.md for fast scanning
+- **Quick Reference tables** go at the top of SKILL.md for fast scanning (convention per CONTRIBUTING.md; about half the skills have one, short promoted skills skip it)
 - **Anti-Patterns tables** show what NOT to do with a "Do Instead" column
 - **SKILL.md target**: under 500 lines; split excess into `references/` subdirectory
 - **No hardcoded usernames or paths** -- skills must be generic and work for any user
@@ -120,7 +120,7 @@ This checks: marketplace.json validity, plugin directory existence, SKILL.md fro
 
 When adding a new plugin:
 1. Create `plugins/{name}/` with `.claude-plugin/plugin.json`, README.md, skills, and optional commands/agents/hooks
-2. Add the plugin entry to `.claude-plugin/marketplace.json` (source is just the directory name thanks to `pluginRoot`)
+2. Add the plugin entry to `.claude-plugin/marketplace.json` (source is the full relative path `./plugins/{name}`)
 3. Update the README.md plugin tables and install commands
 4. Add a CHANGELOG.md entry
 5. Run `bash scripts/validate-plugins.sh` to verify
