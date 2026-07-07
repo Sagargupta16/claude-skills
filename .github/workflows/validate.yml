@@ -22,7 +22,7 @@ jobs:
         run: bash scripts/validate-plugins.sh
 
       - name: Lint skills against the Agent Skills spec (skillcheck)
-        uses: Sagargupta16/skillcheck@v0.2.2
+        uses: Sagargupta16/skillcheck@8f5c5dd77ee09828e69cb36bc79a961451291f4e # v0.2.2
         with:
           path: plugins/
           fail-on: error
