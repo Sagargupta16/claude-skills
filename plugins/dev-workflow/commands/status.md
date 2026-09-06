@@ -1,6 +1,6 @@
 ---
 description: Give a comprehensive status overview of the current repository
-user_invocable: true
+user-invocable: true
 ---
 
 ## Live state

@@ -1,7 +1,6 @@
 ---
 name: motion
 description: Use when reviewing motion quality, adding animation, transitions, hover effects, making the UI feel more alive, or when animations stutter and transitions jank. Covers three modes -- audit motion code against Disney's 12 principles (file:line findings), add purposeful animations and micro-interactions to a feature, or fix animation performance (layout thrashing, compositor properties, scroll-linked motion, blur).
-version: 2.1.1
 user-invocable: true
 argument-hint: "[audit|add|fix] [target]"
 license: MIT

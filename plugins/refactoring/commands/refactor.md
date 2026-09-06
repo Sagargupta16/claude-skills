@@ -1,6 +1,6 @@
 ---
 description: Identify code smells and apply safe refactoring with tests verification
-user_invocable: true
+user-invocable: true
 ---
 
 Analyze code for refactoring opportunities and apply safe transformations.

@@ -1,6 +1,6 @@
 ---
 description: Check a PR's CI status, reviews, comments, and merge readiness
-user_invocable: true
+user-invocable: true
 argument-hint: [pr-number-or-url]
 ---
 

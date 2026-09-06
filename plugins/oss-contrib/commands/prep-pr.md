@@ -1,6 +1,6 @@
 ---
 description: Prepare a PR for an upstream open source project with proper template compliance
-user_invocable: true
+user-invocable: true
 ---
 
 ## Live state

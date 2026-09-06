@@ -1,6 +1,6 @@
 ---
 description: Create a Dockerfile and docker-compose.yml for the current project
-user_invocable: true
+user-invocable: true
 ---
 
 Create Docker configuration for the current project.

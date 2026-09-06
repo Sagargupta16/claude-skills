@@ -1,6 +1,6 @@
 ---
 description: Detect the project's test framework and run the test suite
-user_invocable: true
+user-invocable: true
 ---
 
 ## Live state

@@ -1,6 +1,6 @@
 ---
 description: Analyze and resolve git merge conflicts with context from both branches
-user_invocable: true
+user-invocable: true
 ---
 
 Resolve merge conflicts in the current branch.

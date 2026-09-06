@@ -1,6 +1,6 @@
 ---
 description: Sync current fork with upstream remote and prepare for contribution
-user_invocable: true
+user-invocable: true
 ---
 
 ## Live state

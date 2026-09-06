@@ -155,8 +155,8 @@ while IFS='|' read -r name source; do
       if ! grep -q "^description:" "$cmd_file"; then
         error "$cmd_file missing 'description' in frontmatter"
       fi
-      if ! grep -q "^user_invocable:" "$cmd_file"; then
-        warn "$cmd_file missing 'user_invocable' field"
+      if grep -q "^user_invocable:" "$cmd_file"; then
+        error "$cmd_file uses 'user_invocable' -- the frontmatter field is 'user-invocable'"
       fi
     done
   fi
@@ -199,6 +199,8 @@ while IFS='|' read -r name source; do
   # Validate hook files if hooks/ directory exists
   if [[ -d "$plugin_dir/hooks" ]]; then
     hook_count=0
+    hooks_json="$plugin_dir/hooks/hooks.json"
+
     for hook_file in "$plugin_dir/hooks"/*.sh; do
       [[ -f "$hook_file" ]] || continue
       hook_count=$((hook_count + 1))
@@ -213,8 +215,25 @@ while IFS='|' read -r name source; do
       if ! grep -q "set -euo pipefail" "$hook_file"; then
         warn "$hook_file missing 'set -euo pipefail' (recommended for safety)"
       fi
+
+      # A hook script only runs if hooks.json registers it. Shell scripts are
+      # never auto-discovered.
+      if [[ -f "$hooks_json" ]] && ! grep -q "$(basename "$hook_file")" "$hooks_json"; then
+        error "$hook_file is not referenced in $hooks_json, so it will never run"
+      fi
     done
+
     if (( hook_count > 0 )); then
+      if [[ -f "$hooks_json" ]]; then
+        if ! python3 -c "import json; json.load(open('$hooks_json'))" 2>/dev/null && \
+           ! node -e "JSON.parse(require('fs').readFileSync('$hooks_json','utf8'))" 2>/dev/null; then
+          error "$hooks_json is not valid JSON"
+        else
+          info "hooks/hooks.json registers the hook scripts"
+        fi
+      else
+        error "$plugin_dir/hooks has $hook_count script(s) but no hooks/hooks.json -- none of them will run"
+      fi
       info "$hook_count hook(s) validated"
     fi
   fi

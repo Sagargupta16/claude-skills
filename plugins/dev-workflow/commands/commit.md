@@ -1,6 +1,6 @@
 ---
 description: Review all changes and create a well-crafted conventional commit
-user_invocable: true
+user-invocable: true
 ---
 
 ## Live state

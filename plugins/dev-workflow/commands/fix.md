@@ -1,6 +1,6 @@
 ---
 description: Analyze and fix a bug from error messages or unexpected behavior
-user_invocable: true
+user-invocable: true
 ---
 
 ## Live state
