@@ -1,5 +1,46 @@
 # Changelog
 
+## [5.3.0] - 2026-09-06
+
+All six hooks this marketplace ships were inert. None of them were registered, so Claude Code never ran any of them -- including the `dev-rules` guardrails advertised as blocking secrets and force pushes. Two more defects sat underneath: the scripts read their input from positional arguments (Claude Code passes JSON on stdin) and used `exit 1` to block (only `exit 2` blocks). Anyone who installed `dev-rules` for `secret-guard` or `no-force-push` had zero protection while believing they were covered. This release makes them work and corrects the guidance that taught the wrong contract.
+
+### Added
+
+- **`hooks/hooks.json` in `dev-rules`, `dev-workflow`, `git-advanced`, and `oss-contrib`.** Registers each shipped script against a real event and matcher through `${CLAUDE_PLUGIN_ROOT}`. Hook scripts are never auto-discovered; without this file they do nothing.
+- **`scripts/check-links.sh`.** Resolves every relative markdown link across all tracked `*.md`, skipping external URLs, bare anchors, and targets outside the repo. Replaces the inline CI step.
+- **README: "Update, inspect, or remove" section.** Documents `/plugin marketplace update`, `/plugin update`, `/plugin uninstall`, `/plugin marketplace remove`, and how to check the installed version. Previously only `add` and `install` were documented, despite one breaking major already having shipped.
+- **README: "Related tools" table.** Links the sibling repos built for the same workflow, including `skillcheck`, which this repo's own CI has been running uncredited.
+- **CONTRIBUTING: rewritten "Hook Format" section.** Registration format, the real event names, reading the JSON payload from stdin, matcher gating, and the exit-code table.
+
+### Fixed
+
+- **All six hooks now read the tool call as JSON on stdin.** `auto-format` took the file path from `$1` and `no-force-push` took the command from `$*`; both are always empty under the real contract, so `auto-format` formatted nothing and `no-force-push` allowed every push.
+- **`secret-guard` and `no-force-push` block with `exit 2`, reason on stderr.** `exit 1` is a non-blocking error, so both guardrails failed open even once registered.
+- **`secret-guard` scans the staged blobs instead of the working tree.** A secret that was staged and then edited out of the working copy was missed, and one present only in the unstaged copy was blocked in error. Filenames are read NUL-separated, so paths containing spaces work. Dropped the dead `-n` from `grep -lEn`.
+- **`auto-format` no longer exits 1 when the formatter is absent.** `format_with` returned 1 on a missing tool, which tripped `set -e` and surfaced a hook error on every `.go`, `.rs`, `.sh`, or `.tf` edit on a machine without that formatter.
+- **Hooks matched on `Bash` now gate on the command.** `branch-guard`, `commit-lint`, and `upstream-sync-check` see every Bash call; each now returns immediately unless the command is the git or gh operation it guards. `upstream-sync-check` no longer fetches from upstream on unrelated shell calls.
+- **Hook header comments name real events.** Five scripts documented `PreToolCall` / `PostToolCall`, which do not exist. The plugin READMEs carried the same names.
+- **CI "broken internal links" step could never fail.** Its counter incremented inside a subshell, so `exit $errors` always exited 0, and its second `grep` re-extracted badge URLs that the first pass had excluded -- 4 false positives on the current README. Now a real check across 77 markdown files, verified to fail on a broken link.
+- **All 16 command files use `user-invocable`, not `user_invocable`.** The underscore form is not a recognised frontmatter key and hard-errors on the Skills API and `claude.ai` upload paths. The validator now errors on it instead of requiring it.
+- **README version badge** read 5.1.0 while the marketplace was at 5.2.0.
+- **README structure diagram** said "13 more plugins", left over from the 14-plugin era.
+- **`reference.yaml`** was never updated for 5.1.0 or 5.2.0: `clean-code` was missing from the `development` category and the `frontend` category (motion) was absent entirely.
+- **`motion` SKILL.md** declared a top-level `version: 2.1.1` -- not a valid frontmatter key, and inherited from the upstream skill rather than describing this plugin. The upstream provenance stays in `metadata.authors`.
+- **CONTRIBUTING step 4** told contributors to use a bare directory name as the marketplace `source`, the exact format removed in 4.2.1 for breaking `plugin install`.
+- **CONTRIBUTING versioning** said new plugins enter at `4.0.0`; the six added since all entered at `1.0.0`.
+- **`context-management` README** used a `claude plugin add sagar-dev-skills/context-management` form that matches nothing else in the repo.
+- **Issue template contact link** pointed at Discussions, which is disabled on the repo. Now points at the installation docs and the contributing guide.
+- **`configs/recommended-plugins.md`** said Rust had no official LSP plugin. `rust-analyzer-lsp` exists, along with nine other language servers now listed.
+
+### Changed
+
+- **`scripts/validate-plugins.sh`** errors when a plugin ships hook scripts with no `hooks/hooks.json`, when a script is not referenced by that file, or when the manifest is not valid JSON. This is the check that would have caught the bug this release fixes.
+- **Version bumps**: `dev-rules` 4.4.0, `dev-workflow` 4.4.0, `oss-contrib` 4.4.0, `git-advanced` 4.1.0 (hooks now execute -- a behavior change, not a doc fix); `context-management` 4.2.1, `deps-audit` 4.0.1, `docker-deploy` 4.1.1, `farm-stack` 4.1.1, `refactoring` 4.0.1, `repo-polish` 4.3.1, `motion` 1.1.1 (frontmatter and doc fixes).
+
+### Note for existing users
+
+Run `/plugin marketplace update sagar-dev-skills` and restart Claude Code. Hooks load at session start, so a refreshed `hooks.json` does not apply to the session you update from. The hooks need `jq` on your PATH to read their input; without it the two guards print a one-line notice and stand down rather than blocking.
+
 ## [5.2.0] - 2026-07-07
 
 Prompt rework for current Claude models (Fable 5 / Opus 4.8 / Sonnet 5 generation), following Anthropic's updated prompting guidance: strong instruction-following means pressure framing (ALL-CAPS MUST/NEVER walls, `<important>` tags) now causes overtriggering, and verification steps should prove behavior, not syntax. Rewording only -- no plugins removed, no behavior redefined beyond the notes below.

@@ -1,5 +1,8 @@
 blank_issues_enabled: false
 contact_links:
-  - name: Questions and discussion
-    url: https://github.com/Sagargupta16/claude-skills/discussions
-    about: For general questions, usage help, or design discussion, open a Discussion instead of an Issue.
+  - name: Installation and usage docs
+    url: https://github.com/Sagargupta16/claude-skills#installation
+    about: How to add the marketplace, install a plugin, update it, and remove it. Check here before filing an Issue.
+  - name: Contributing guide
+    url: https://github.com/Sagargupta16/claude-skills/blob/main/CONTRIBUTING.md
+    about: Skill, command, agent, and hook formats, quality standards, and the versioning rules for a PR.

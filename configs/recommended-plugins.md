@@ -87,6 +87,8 @@ Recommended official plugins that pair well with this marketplace:
 | `feature-dev` | Guided feature development workflow |
 | `code-simplifier` | Code clarity and maintainability review |
 | `playground` | Interactive HTML/JS prototyping |
+| `plugin-dev` | Plugin authoring: structure, commands, agents, skills, hooks, MCP integration |
+| `skill-creator` | Create, edit, and eval skills |
 
 ### LSP Plugins (pick your languages)
 
@@ -95,7 +97,15 @@ Recommended official plugins that pair well with this marketplace:
 | Python | `pyright-lsp` |
 | TypeScript/JavaScript | `typescript-lsp` |
 | Go | `gopls-lsp` |
-| Rust | (no official LSP plugin yet) |
+| Rust | `rust-analyzer-lsp` |
+| C/C++ | `clangd-lsp` |
+| C# | `csharp-lsp` |
+| Java | `jdtls-lsp` |
+| Kotlin | `kotlin-lsp` |
+| Lua | `lua-lsp` |
+| PHP | `php-lsp` |
+| Ruby | `ruby-lsp` |
+| Swift | `swift-lsp` |
 
 ### Output Styles (optional)
 

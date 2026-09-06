@@ -2,7 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Plugins](https://img.shields.io/badge/plugins-16-green.svg)](#plugins)
-[![Version](https://img.shields.io/badge/version-5.1.0-orange.svg)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-5.3.0-orange.svg)](CHANGELOG.md)
 [![CI](https://github.com/Sagargupta16/claude-skills/actions/workflows/validate.yml/badge.svg)](https://github.com/Sagargupta16/claude-skills/actions)
 
 Focused Claude Code plugin marketplace. 16 plugins covering everyday dev workflow, git, open-source contributions, Docker, dependency audits, repo hygiene, refactoring, FARM stack, context management, diff explanation, debug triage, Renovate triage, end-of-session audit, Python clean code, and animation/motion.
@@ -71,7 +71,7 @@ Most plugins are language-agnostic and adapt to your stack (Python, Node, Go, Ru
 | **Skills** | 16 | Background knowledge that auto-activates based on context |
 | **Commands** | 16 | User-invocable slash commands (`/commit`, `/test`, etc.) |
 | **Agents** | 11 | Autonomous sub-conversations for code review, debugging, scanning |
-| **Hooks** | 6 | Shell scripts that auto-execute on events (block secrets, validate commits, etc.) |
+| **Hooks** | 6 | Shell scripts registered in the plugin's `hooks/hooks.json` and run by Claude Code on tool events (block secrets, validate commits, etc.) |
 
 ## Installation
 
@@ -102,6 +102,19 @@ Most plugins are language-agnostic and adapt to your stack (Python, Node, Go, Ru
 /plugin install motion@sagar-dev-skills
 ```
 
+### Update, inspect, or remove
+
+```text
+/plugin marketplace update sagar-dev-skills     # pull the latest marketplace and plugin content
+/plugin update dev-rules@sagar-dev-skills       # update one installed plugin
+/plugin uninstall dev-rules@sagar-dev-skills    # remove one plugin, keep the marketplace
+/plugin marketplace remove sagar-dev-skills     # remove the marketplace entirely
+```
+
+Restart Claude Code after an update. Plugin hooks are loaded when a session starts, so a refreshed `hooks/hooks.json` does not apply to the session you updated from.
+
+To see what you have installed and at which version, run `claude plugin list` from a shell, or `claude plugin details <name>@sagar-dev-skills` for a plugin's component inventory and token cost.
+
 ## Structure
 
 ```text
@@ -113,14 +126,16 @@ claude-skills/
 │   ├── ISSUE_TEMPLATE/
 │   └── pull_request_template.md
 ├── scripts/
-│   └── validate-plugins.sh
+│   ├── validate-plugins.sh
+│   └── check-links.sh
 ├── plugins/
 │   ├── dev-workflow/
 │   │   ├── .claude-plugin/plugin.json
 │   │   ├── skills/dev-workflow/SKILL.md
 │   │   ├── commands/{commit,review,test,fix,pr,status,check-pr}.md
-│   │   └── agents/{code-reviewer,debugger}.md
-│   └── ... (13 more plugins with same structure)
+│   │   ├── agents/{code-reviewer,debugger}.md
+│   │   └── hooks/{hooks.json,auto-format.sh}
+│   └── ... (15 more plugins with same structure)
 ├── configs/
 │   ├── settings.template.json
 │   └── recommended-plugins.md
@@ -166,6 +181,20 @@ These standalone plugin marketplaces complement this collection:
 | Plugin | Install | What It Does |
 |--------|---------|-------------|
 | [claude-cost-optimizer](https://github.com/Sagargupta16/claude-cost-optimizer) | `/plugin marketplace add Sagargupta16/claude-cost-optimizer` | Cost-mode skill that saves 30-60% through concise responses, model routing, and budget hooks |
+
+### Related tools
+
+Not plugin marketplaces, but built for the same workflow. Each row is the repo's own description.
+
+| Repo | What It Does |
+|---|---|
+| [skillcheck](https://github.com/Sagargupta16/skillcheck) | Conformance suite for Agent Skills: lint SKILL.md against the spec, run against real agent runtimes, publish a compatibility matrix. This marketplace's CI runs it on every PR. |
+| [claude-code-recipes](https://github.com/Sagargupta16/claude-code-recipes) | 47 copy-paste recipes for Claude Code - commands, subagents, hooks, skills, MCP integration, and workflow patterns |
+| [craftsmanship](https://github.com/Sagargupta16/craftsmanship) | Skills that encode engineering discipline -- plan, guard, verify, review, audit, ship. Compatible with 45+ AI agents via skills.sh. Overlaps this marketplace on review and verification, so pick one rather than loading both. |
+| [agent-recipes](https://github.com/Sagargupta16/agent-recipes) | Copy-paste AI agent workflows for real-world dev tasks - code review, testing, security scanning, DevOps automation |
+| [ai-git-hooks](https://github.com/Sagargupta16/ai-git-hooks) | AI-powered git hooks - auto-review diffs, generate commit messages, scan for secrets. Supports Claude, OpenAI, and Ollama |
+| [mcp-toolkit](https://github.com/Sagargupta16/mcp-toolkit) | TypeScript middleware toolkit for MCP servers - authentication, caching, rate limiting, CORS, logging (beta) |
+| [awesome-mcp-servers](https://github.com/Sagargupta16/awesome-mcp-servers) | A curated list of MCP (Model Context Protocol) servers, tools, frameworks, and resources |
 
 ## Full Setup Guide
 

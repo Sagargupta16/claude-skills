@@ -28,7 +28,8 @@ plugins/{name}/
   ├── skills/{name}/references/       # Optional supplementary reference files
   ├── commands/{cmd}.md               # Slash command definitions (YAML frontmatter + steps)
   ├── agents/{agent}.md               # Agent definitions (YAML frontmatter + process)
-  └── hooks/{hook}.sh                 # Hook scripts (bash, auto-execute on events)
+  ├── hooks/hooks.json                # Hook registration (event -> matcher -> script). Required for hooks to run
+  └── hooks/{hook}.sh                 # Hook scripts (bash, read the tool call as JSON on stdin)
 ```
 
 ### Component Types
@@ -36,9 +37,9 @@ plugins/{name}/
 | Type | Format | Required Fields | Purpose |
 |------|--------|-----------------|---------|
 | **Skill** | Markdown | name, description (must start with "Use when") | Background knowledge, auto-activates |
-| **Command** | Markdown | description, user_invocable: true | User-invocable via `/command-name` |
+| **Command** | Markdown | description, user-invocable: true | User-invocable via `/command-name` |
 | **Agent** | Markdown | name, description, model (haiku/sonnet) | Autonomous sub-conversation |
-| **Hook** | Shell script | shebang, set -euo pipefail | Auto-executes on events |
+| **Hook** | Shell script + `hooks/hooks.json` | shebang, set -euo pipefail, an entry in hooks.json | Runs on tool events. Unregistered scripts never run |
 
 ### Key Format Details
 
@@ -56,9 +57,10 @@ description: Use when [triggering conditions]. Covers [capabilities].
 ```yaml
 ---
 description: Short description of what the command does
-user_invocable: true
+user-invocable: true
 ---
 ```
+The field is hyphenated. `user_invocable` is not a recognised key; the validator errors on it.
 
 **Agent frontmatter**:
 ```yaml
@@ -70,15 +72,28 @@ model: sonnet
 ```
 Model options: `haiku` (fast/mechanical tasks), `sonnet` (deep reasoning). `opus` is accepted by the validator but unused in this marketplace -- prefer `sonnet` for reasoning-heavy work.
 
-**Hook scripts**: Must start with `#!/usr/bin/env bash` and `set -euo pipefail`. Exit 0 to allow, non-zero to block.
+**Hook registration** (`hooks/hooks.json`, plugin wrapper format -- events nested under a `hooks` key):
+```json
+{
+  "hooks": {
+    "PreToolUse": [
+      { "matcher": "Bash", "hooks": [{ "type": "command", "command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/secret-guard.sh\"" }] }
+    ]
+  }
+}
+```
+Real events are `PreToolUse` / `PostToolUse` (there is no `PreToolCall`). Scripts are never auto-discovered -- an unregistered script is dead weight.
+
+**Hook scripts**: Must start with `#!/usr/bin/env bash` and `set -euo pipefail`. The tool call arrives as JSON on **stdin** (`.tool_input.command`, `.tool_input.file_path`), not as arguments. A `Bash` matcher fires on every Bash call, so gate on the command first. Exit 0 = no decision (stdout goes to the transcript), exit 2 = block (stderr is the reason), any other code = non-blocking error.
 
 ## Validation
 
 ```bash
 bash scripts/validate-plugins.sh
+bash scripts/check-links.sh
 ```
 
-This checks: marketplace.json validity, plugin directory existence, SKILL.md frontmatter format, "Use when..." descriptions, file length limits, command frontmatter, agent frontmatter (name/description/model), and hook structure (shebang, safety flags). Also runs in CI via `.github/workflows/validate.yml`.
+`validate-plugins.sh` checks: marketplace.json validity, plugin directory existence, SKILL.md frontmatter format, "Use when..." descriptions, file length limits, command frontmatter (`user-invocable`, not `user_invocable`), agent frontmatter (name/description/model), and hook structure (shebang, safety flags, and that every hook script is registered in a valid `hooks/hooks.json`). `check-links.sh` resolves every relative markdown link across tracked `*.md`. Both run in CI via `.github/workflows/validate.yml`, alongside skillcheck.
 
 ## Plugin Inventory
 
@@ -113,7 +128,7 @@ This checks: marketplace.json validity, plugin directory existence, SKILL.md fro
 - **Language-agnostic where possible** -- most plugins support Python, Node.js, Go, Rust
 - **Version numbers in code examples** include comments linking to upstream for freshness checks
 - **Agent model selection**: `sonnet` for reasoning-heavy tasks, `haiku` for fast/mechanical tasks
-- **Hook exit codes**: exit 0 = allow (or warn only), exit non-zero = block the action
+- **Hook exit codes**: exit 0 = allow (or warn only), exit 2 = block. `exit 1` is a non-blocking error, not a block
 - **One plugin per PR** when contributing
 
 ## Making Changes

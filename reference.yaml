@@ -3,7 +3,7 @@
 # Use this to find the right plugin, skill, command, agent, or hook.
 #
 # Format: keyword -> file path (relative to repo root)
-# Updated: 2026-06-12 | Version: 5.1.0
+# Updated: 2026-09-06 | Version: 5.3.0
 
 stats:
   plugins: 16
@@ -11,7 +11,8 @@ stats:
   commands: 16
   agents: 11
   hooks: 6
-  total_files: 90
+  hook_manifests: 4
+  total_files: 94   # files under plugins/
 
 # Plugin index: name -> directory
 plugins:
@@ -113,7 +114,7 @@ agents:
   git-assistant: plugins/git-advanced/agents/git-assistant.md
   context-advisor: plugins/context-management/agents/context-advisor.md
 
-# Hooks (auto-execute on events)
+# Hooks (run on tool events; each script is registered in its plugin's hooks/hooks.json)
 hooks:
   auto-format: plugins/dev-workflow/hooks/auto-format.sh
   secret-guard: plugins/dev-rules/hooks/secret-guard.sh
@@ -122,11 +123,19 @@ hooks:
   upstream-sync-check: plugins/oss-contrib/hooks/upstream-sync-check.sh
   commit-lint: plugins/git-advanced/hooks/commit-lint.sh
 
-# Categories for navigation
+# Hook registration manifests
+hook_manifests:
+  dev-workflow: plugins/dev-workflow/hooks/hooks.json
+  dev-rules: plugins/dev-rules/hooks/hooks.json
+  git-advanced: plugins/git-advanced/hooks/hooks.json
+  oss-contrib: plugins/oss-contrib/hooks/hooks.json
+
+# Categories for navigation (mirrors marketplace.json `category` per plugin)
 categories:
-  development: [dev-workflow, dev-rules, refactoring, git-advanced, diff-explain, debug-triage]
+  development: [dev-workflow, dev-rules, refactoring, git-advanced, diff-explain, debug-triage, clean-code]
   devops: [docker-deploy]
   security: [deps-audit]
   framework: [farm-stack]
+  frontend: [motion]
   workflow: [oss-contrib, context-management, starter-session-audit]
   maintenance: [repo-polish, renovate-triage]
