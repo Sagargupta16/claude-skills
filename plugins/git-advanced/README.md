@@ -20,9 +20,11 @@ Advanced git operations beyond basic commit/push/pull.
 
 ## Hooks
 
-| Hook | Event | Description |
-|------|-------|-------------|
-| `commit-lint` | PostToolCall (git commit) | Validates conventional commit message format and length |
+Registered in [`hooks/hooks.json`](hooks/hooks.json). Needs `jq` on your PATH to read the tool call.
+
+| Hook | Event / matcher | Description |
+|------|-----------------|-------------|
+| `commit-lint` | PostToolUse / `Bash`, on `git commit` | Checks the new commit's conventional-commit format and subject length. Warns only, never blocks |
 
 ## Example
 

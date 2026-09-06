@@ -1,0 +1,17 @@
+{
+  "description": "Runs the project's formatter on any file Claude writes or edits. Never blocks.",
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/auto-format.sh\"",
+            "timeout": 30
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -21,9 +21,11 @@ Open source contribution workflow - upstream sync, compliance, code style matchi
 
 ## Hooks
 
-| Hook | Event | Description |
-|------|-------|-------------|
-| `upstream-sync-check` | PreToolCall (gh pr create) | Warns if fork is behind upstream before creating a PR |
+Registered in [`hooks/hooks.json`](hooks/hooks.json). Needs `jq` on your PATH to read the tool call.
+
+| Hook | Event / matcher | Description |
+|------|-----------------|-------------|
+| `upstream-sync-check` | PreToolUse / `Bash`, on `gh pr create` | Warns when the branch is behind the upstream default branch. Skips repos with no `upstream` remote, and never blocks |
 
 ## Example
 

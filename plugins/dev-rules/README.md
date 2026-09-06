@@ -14,11 +14,15 @@ Development guardrails - git safety, security best practices, PR workflow discip
 
 ## Hooks
 
-| Hook | Event | Description |
-|------|-------|-------------|
-| `secret-guard` | PreToolCall (git commit) | Blocks commits containing hardcoded secrets |
-| `no-force-push` | PreToolCall (git push) | Blocks force pushes to main/master |
-| `branch-guard` | PreToolCall (git commit) | Warns when committing directly to main |
+Registered in [`hooks/hooks.json`](hooks/hooks.json). All three match the `Bash` tool and then gate on the git subcommand, so they stay out of the way of unrelated shell calls.
+
+| Hook | Event / matcher | Description |
+|------|-----------------|-------------|
+| `secret-guard` | PreToolUse / `Bash`, on `git commit` | Blocks the commit (exit 2) when the staged content matches a secret pattern |
+| `no-force-push` | PreToolUse / `Bash`, on `git push` | Blocks (exit 2) a force push while main, master, production, or release is checked out |
+| `branch-guard` | PreToolUse / `Bash`, on `git commit` | Warns when committing directly to main or master. Never blocks |
+
+These hooks need `jq` on your PATH to read the tool call. Without it the two guards print a one-line notice and stand down rather than blocking.
 
 ## What It Covers
 

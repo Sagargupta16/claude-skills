@@ -1,12 +1,26 @@
 #!/usr/bin/env bash
 # secret-guard.sh - Blocks commits containing potential secrets
-# Hook event: PreToolCall (git commit)
+# Hook event: PreToolUse, matcher Bash (registered in hooks/hooks.json)
 #
-# Scans staged files for patterns that indicate hardcoded secrets:
+# Scans the staged content for patterns that indicate hardcoded secrets:
 # API keys, tokens, passwords, connection strings, private keys.
-# Exits non-zero to block the commit if secrets are found.
+# Exits 2 to block the commit if secrets are found (exit 1 would not block).
 
 set -euo pipefail
+
+# Claude Code passes the tool call as JSON on stdin, not as arguments.
+if ! command -v jq &>/dev/null; then
+  echo "secret-guard: jq is not on PATH, so this hook cannot read its input. Install jq to enable the guard."
+  exit 0
+fi
+
+INPUT=$(cat || true)
+CMD=$(jq -r '.tool_input.command // empty' <<<"$INPUT" 2>/dev/null || true)
+
+# Only inspect git commits -- this hook sees every Bash call.
+if ! grep -qE '\bgit\b.*\bcommit\b' <<<"$CMD"; then
+  exit 0
+fi
 
 # Patterns that indicate hardcoded secrets
 PATTERNS=(
@@ -23,34 +37,32 @@ PATTERNS=(
   'postgres://[^/\s]+:[^/\s]+@'         # Postgres connection string with creds
 )
 
-# Get staged files (skip deleted files and binary files)
-STAGED_FILES=$(git diff --cached --name-only --diff-filter=d 2>/dev/null || true)
-
-if [ -z "$STAGED_FILES" ]; then
-  exit 0
-fi
-
 FOUND=0
 
-for pattern in "${PATTERNS[@]}"; do
-  # Search staged file contents for secret patterns
-  MATCHES=$(echo "$STAGED_FILES" | xargs grep -lEn "$pattern" 2>/dev/null || true)
-  if [ -n "$MATCHES" ]; then
-    if [ "$FOUND" -eq 0 ]; then
-      echo "BLOCKED: Potential secrets detected in staged files:"
-      echo ""
+# Scan the staged blobs, not the working tree: a secret that was staged and then
+# edited out of the working copy still lands in the commit. Filenames arrive
+# NUL-separated so paths containing spaces survive.
+while IFS= read -r -d '' file; do
+  blob=$(git show ":$file" 2>/dev/null || true)
+  [ -n "$blob" ] || continue
+  for pattern in "${PATTERNS[@]}"; do
+    if grep -qE "$pattern" <<<"$blob"; then
+      if [ "$FOUND" -eq 0 ]; then
+        echo "BLOCKED: Potential secrets detected in staged content:" >&2
+        echo "" >&2
+        FOUND=1
+      fi
+      echo "  $file matches: $pattern" >&2
     fi
-    echo "  Pattern: $pattern"
-    echo "  Files: $MATCHES"
-    echo ""
-    FOUND=1
-  fi
-done
+  done
+done < <(git diff --cached -z --name-only --diff-filter=d 2>/dev/null)
 
 if [ "$FOUND" -eq 1 ]; then
-  echo "Remove secrets from these files before committing."
-  echo "Use environment variables or .env files (gitignored) instead."
-  exit 1
+  # stderr is what Claude Code surfaces as the reason a call was blocked.
+  echo "" >&2
+  echo "Remove secrets from these files before committing." >&2
+  echo "Use environment variables or .env files (gitignored) instead." >&2
+  exit 2
 fi
 
 exit 0

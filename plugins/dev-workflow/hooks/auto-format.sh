@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # auto-format.sh - Runs project formatter after file writes
-# Hook event: PostToolUse (Write, Edit)
+# Hook event: PostToolUse, matcher Write|Edit (registered in hooks/hooks.json)
 #
 # Detects the project's formatter (prettier, biome, black, ruff, gofmt,
 # rustfmt, shfmt) and runs it on the changed file. Warns if formatting
@@ -8,8 +8,12 @@
 
 set -euo pipefail
 
-# Get the file path from the tool result (passed via stdin or args)
-FILE="${1:-}"
+# Claude Code passes the tool call as JSON on stdin, not as arguments.
+# Best-effort hook, so stay silent rather than nag when jq is unavailable.
+command -v jq &>/dev/null || exit 0
+
+INPUT=$(cat || true)
+FILE=$(jq -r '.tool_input.file_path // empty' <<<"$INPUT" 2>/dev/null || true)
 
 if [ -z "$FILE" ] || [ ! -f "$FILE" ]; then
   exit 0
@@ -23,9 +27,10 @@ format_with() {
   shift
   if command -v "$cmd" &>/dev/null; then
     "$cmd" "$@" 2>/dev/null && echo "FORMATTED: $FILE (via $cmd)" || true
-    return 0
   fi
-  return 1
+  # A missing formatter is not an error. Returning non-zero here would trip
+  # `set -e` and surface a spurious hook failure on every edit.
+  return 0
 }
 
 case "$EXT" in
