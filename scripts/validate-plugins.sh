@@ -57,6 +57,71 @@ fi
 # Normalize pluginRoot (strip leading ./)
 PLUGIN_ROOT="${PLUGIN_ROOT#./}"
 
+# The 33 hook events Claude Code dispatches, per
+# https://code.claude.com/docs/en/hooks#hook-events. A manifest keyed on
+# anything else (`PreToolCall`, say) is silently never dispatched.
+HOOK_EVENTS="SessionStart Setup UserPromptSubmit UserPromptExpansion PreToolUse \
+PermissionRequest PermissionDenied PostToolUse PostToolUseFailure PostToolBatch \
+Notification MessageDisplay SubagentStart SubagentStop TaskCreated TaskCompleted \
+Stop StopFailure TeammateIdle InstructionsLoaded ConfigChange CwdChanged \
+DirectoryAdded FileChanged WorktreeCreate WorktreeRemove PreCompact PostCompact \
+PreModelSwitch PostModelSwitch Elicitation ElicitationResult SessionEnd"
+
+# Audits a hooks.json for unknown event names and for commands that reference a
+# script which does not exist. Prints one finding per line; the caller counts
+# them. Registration is only half the contract: a manifest can point at a ghost.
+# Quoted heredocs below, so the shell substitutes nothing and the scripts get
+# their arguments through argv.
+audit_hooks_manifest() {
+  local manifest="$1" plugin_dir="$2"
+  if command -v python3 &>/dev/null; then
+    python3 - "$manifest" "$plugin_dir" "$HOOK_EVENTS" <<'PY' | tr -d '\r'
+import json, os, re, sys
+
+manifest, plugin_dir, events = sys.argv[1], sys.argv[2], set(sys.argv[3].split())
+ROOT = "${CLAUDE_PLUGIN_ROOT}"
+data = json.load(open(manifest, encoding="utf-8"))
+
+for event, matchers in (data.get("hooks") or {}).items():
+    if event not in events:
+        print("%s declares unknown event '%s' -- nothing dispatches it" % (manifest, event))
+    for matcher in matchers or []:
+        for entry in matcher.get("hooks") or []:
+            for ref in re.findall(re.escape(ROOT) + r"[^\s\"']*", entry.get("command", "")):
+                target = os.path.join(plugin_dir, ref[len(ROOT):].lstrip("/"))
+                if not os.path.isfile(target):
+                    print("%s references %s, which does not exist" % (manifest, ref))
+PY
+  else
+    node - "$manifest" "$plugin_dir" "$HOOK_EVENTS" <<'JS' | tr -d '\r'
+const fs = require("fs");
+const path = require("path");
+
+const [manifest, pluginDir, eventList] = process.argv.slice(2);
+const events = new Set(eventList.split(/\s+/).filter(Boolean));
+const ROOT = "${CLAUDE_PLUGIN_ROOT}";
+const data = JSON.parse(fs.readFileSync(manifest, "utf8"));
+
+for (const [event, matchers] of Object.entries(data.hooks || {})) {
+  if (!events.has(event)) {
+    console.log(`${manifest} declares unknown event '${event}' -- nothing dispatches it`);
+  }
+  for (const matcher of matchers || []) {
+    for (const entry of matcher.hooks || []) {
+      const refs = (entry.command || "").match(/\$\{CLAUDE_PLUGIN_ROOT\}[^\s"']*/g) || [];
+      for (const ref of refs) {
+        const target = path.join(pluginDir, ref.slice(ROOT.length).replace(/^\//, ""));
+        if (!fs.existsSync(target) || !fs.statSync(target).isFile()) {
+          console.log(`${manifest} references ${ref}, which does not exist`);
+        }
+      }
+    }
+  }
+}
+JS
+  fi
+}
+
 while IFS='|' read -r name source; do
   echo ""
   echo "--- Plugin: $name ---"
@@ -218,7 +283,7 @@ while IFS='|' read -r name source; do
 
       # A hook script only runs if hooks.json registers it. Shell scripts are
       # never auto-discovered.
-      if [[ -f "$hooks_json" ]] && ! grep -q "$(basename "$hook_file")" "$hooks_json"; then
+      if [[ -f "$hooks_json" ]] && ! grep -qF "$(basename "$hook_file")" "$hooks_json"; then
         error "$hook_file is not referenced in $hooks_json, so it will never run"
       fi
     done
@@ -229,7 +294,14 @@ while IFS='|' read -r name source; do
            ! node -e "JSON.parse(require('fs').readFileSync('$hooks_json','utf8'))" 2>/dev/null; then
           error "$hooks_json is not valid JSON"
         else
-          info "hooks/hooks.json registers the hook scripts"
+          manifest_findings=$(audit_hooks_manifest "$hooks_json" "$plugin_dir")
+          if [[ -n "$manifest_findings" ]]; then
+            while IFS= read -r finding; do
+              [[ -n "$finding" ]] && error "$finding"
+            done <<< "$manifest_findings"
+          else
+            info "hooks/hooks.json registers the hook scripts against real events"
+          fi
         fi
       else
         error "$plugin_dir/hooks has $hook_count script(s) but no hooks/hooks.json -- none of them will run"

@@ -26,7 +26,13 @@ format_with() {
   local cmd="$1"
   shift
   if command -v "$cmd" &>/dev/null; then
-    "$cmd" "$@" 2>/dev/null && echo "FORMATTED: $FILE (via $cmd)" || true
+    # stdout on exit 0 reaches only the debug log, so a plain echo would tell
+    # nobody. `systemMessage` is the documented way to show the user a message.
+    # The formatter's own chatter is discarded because Claude Code requires the
+    # hook's stdout to hold nothing but the JSON object.
+    # https://code.claude.com/docs/en/hooks#json-output
+    "$cmd" "$@" >/dev/null 2>&1 &&
+      jq -n --arg msg "auto-format: reformatted $FILE via $cmd" '{systemMessage: $msg}' || true
   fi
   # A missing formatter is not an error. Returning non-zero here would trip
   # `set -e` and surface a spurious hook failure on every edit.

@@ -37,7 +37,7 @@ plugins/{name}/
 | Type | Format | Required Fields | Purpose |
 |------|--------|-----------------|---------|
 | **Skill** | Markdown | name, description (must start with "Use when") | Background knowledge, auto-activates |
-| **Command** | Markdown | description, user-invocable: true | User-invocable via `/command-name` |
+| **Command** | Markdown | description (all fields optional) | User-invocable via `/command-name` |
 | **Agent** | Markdown | name, description, model (haiku/sonnet) | Autonomous sub-conversation |
 | **Hook** | Shell script + `hooks/hooks.json` | shebang, set -euo pipefail, an entry in hooks.json | Runs on tool events. Unregistered scripts never run |
 
@@ -60,7 +60,7 @@ description: Short description of what the command does
 user-invocable: true
 ---
 ```
-The field is hyphenated. `user_invocable` is not a recognised key; the validator errors on it.
+Every field is optional. `user-invocable` is the hyphenated field name Claude Code documents and it already defaults to `true`, so this line is explicit rather than load-bearing. `user_invocable` is not a field Claude Code reads, so the validator errors on that spelling.
 
 **Agent frontmatter**:
 ```yaml
@@ -82,9 +82,9 @@ Model options: `haiku` (fast/mechanical tasks), `sonnet` (deep reasoning). `opus
   }
 }
 ```
-Real events are `PreToolUse` / `PostToolUse` (there is no `PreToolCall`). Scripts are never auto-discovered -- an unregistered script is dead weight.
+This marketplace's hooks use `PreToolUse` and `PostToolUse` (there is no `PreToolCall`); `validate-plugins.sh` checks manifest keys against the [full event list](https://code.claude.com/docs/en/hooks#hook-events). Scripts are never auto-discovered -- an unregistered script is dead weight.
 
-**Hook scripts**: Must start with `#!/usr/bin/env bash` and `set -euo pipefail`. The tool call arrives as JSON on **stdin** (`.tool_input.command`, `.tool_input.file_path`), not as arguments. A `Bash` matcher fires on every Bash call, so gate on the command first. Exit 0 = no decision (stdout goes to the transcript), exit 2 = block (stderr is the reason), any other code = non-blocking error.
+**Hook scripts**: Must start with `#!/usr/bin/env bash` and `set -euo pipefail`. The tool call arrives as JSON on **stdin** (`.hook_event_name`, `.tool_name`, `.tool_input.command`, `.tool_input.file_path`), not as arguments. A `Bash` matcher fires on every Bash call, so gate on the event, the tool, and then the command. Exit 0 = no decision, exit 2 = block (stderr is the reason Claude sees), any other code = non-blocking error. On tool events, exit-0 stdout only reaches the debug log, so a warn-only hook has to print a [`systemMessage`](https://code.claude.com/docs/en/hooks#json-output) JSON object to be seen at all.
 
 ## Validation
 
@@ -93,7 +93,7 @@ bash scripts/validate-plugins.sh
 bash scripts/check-links.sh
 ```
 
-`validate-plugins.sh` checks: marketplace.json validity, plugin directory existence, SKILL.md frontmatter format, "Use when..." descriptions, file length limits, command frontmatter (`user-invocable`, not `user_invocable`), agent frontmatter (name/description/model), and hook structure (shebang, safety flags, and that every hook script is registered in a valid `hooks/hooks.json`). `check-links.sh` resolves every relative markdown link across tracked `*.md`. Both run in CI via `.github/workflows/validate.yml`, alongside skillcheck.
+`validate-plugins.sh` checks: marketplace.json validity, plugin directory existence, SKILL.md frontmatter format, "Use when..." descriptions, file length limits, command frontmatter (`user-invocable`, not `user_invocable`), agent frontmatter (name/description/model), and hook structure (shebang, safety flags, every script registered in a valid `hooks/hooks.json`, every manifest reference pointing at a script that exists, and every manifest key naming a real event). `check-links.sh` resolves every relative markdown link across tracked `*.md`, and reports how many targets it skipped for resolving outside the repo. Both run in CI via `.github/workflows/validate.yml`, alongside skillcheck.
 
 ## Plugin Inventory
 
@@ -128,7 +128,7 @@ bash scripts/check-links.sh
 - **Language-agnostic where possible** -- most plugins support Python, Node.js, Go, Rust
 - **Version numbers in code examples** include comments linking to upstream for freshness checks
 - **Agent model selection**: `sonnet` for reasoning-heavy tasks, `haiku` for fast/mechanical tasks
-- **Hook exit codes**: exit 0 = allow (or warn only), exit 2 = block. `exit 1` is a non-blocking error, not a block
+- **Hook exit codes**: exit 0 = allow (warn via a `systemMessage` JSON object, not a bare echo), exit 2 = block. `exit 1` is a non-blocking error, not a block
 - **One plugin per PR** when contributing
 
 ## Making Changes

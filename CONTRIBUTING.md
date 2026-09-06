@@ -67,7 +67,7 @@ user-invocable: true
 ---
 ```
 
-The field is hyphenated. `user_invocable` is not a recognised key and is rejected by the Skills API and `claude.ai` upload paths -- the validator now errors on it.
+The field is hyphenated: [`user-invocable`](https://code.claude.com/docs/en/slash-commands) is the documented name and `user_invocable` is not a field Claude Code reads. Both spellings happen to behave the same here because `user-invocable` defaults to `true`, but the underscore form is a silent typo, so the validator errors on it. Every field is optional; `description` is the one worth writing.
 
 Follow with numbered steps that the AI agent will execute.
 
@@ -119,7 +119,7 @@ Hooks are shell scripts that Claude Code runs on tool events. Place the script i
 
 Always reference the script through `${CLAUDE_PLUGIN_ROOT}` so the path resolves wherever the plugin is installed. `matcher` is a case-sensitive regex over the tool name (`Bash`, `Write|Edit`, `*`).
 
-Valid events: `PreToolUse`, `PostToolUse`, `UserPromptSubmit`, `Stop`, `SubagentStop`, `SessionStart`, `SessionEnd`, `PreCompact`, `Notification`. There is no `PreToolCall` or `PostToolCall`.
+The event name has to be one Claude Code dispatches. This marketplace only uses `PreToolUse` and `PostToolUse`; the full set is in the [hook events reference](https://code.claude.com/docs/en/hooks#hook-events), and `validate-plugins.sh` checks a manifest's keys against it. There is no `PreToolCall` or `PostToolCall`.
 
 Hooks load at session start, so restart Claude Code after changing `hooks.json` or a script.
 
@@ -133,33 +133,56 @@ CMD=$(jq -r '.tool_input.command // empty' <<<"$INPUT" 2>/dev/null || true)   # 
 FILE=$(jq -r '.tool_input.file_path // empty' <<<"$INPUT" 2>/dev/null || true) # Write/Edit
 ```
 
-A `Bash` matcher fires on *every* Bash call, so gate on the command you actually care about before doing any real work:
+`.hook_event_name` and `.tool_name` are on the same payload. Check them, because a hook can be registered against more than one event and a `Bash` matcher fires on *every* Bash call:
 
 ```bash
-grep -qE '\bgit\b.*\bcommit\b' <<<"$CMD" || exit 0
+[ "$(jq -r '.tool_name // empty' <<<"$INPUT")" = "Bash" ] || exit 0
+```
+
+Then gate on the command you actually care about. Matching the raw string is not enough -- `grep -rn "git commit" docs/` contains `git commit` and is read-only -- so split on shell separators and require the statement to *start* with the program:
+
+```bash
+while IFS= read -r segment; do
+  segment="${segment#"${segment%%[![:space:]]*}"}"
+  [[ "$segment" =~ ^git([[:space:]]|$) ]] || continue
+  grep -qE '(^|[[:space:]])commit([[:space:]]|$)' <<<"$segment" && RUN=1
+done < <(tr ';|&\n' '\n' <<<"$CMD")
 ```
 
 ### Exit codes
 
 | Exit | Meaning |
 | --- | --- |
-| `0` | No decision. stdout is shown in the transcript -- this is how warn-only hooks report. |
-| `2` | **Block.** stderr is fed back to Claude as the reason. |
+| `0` | No decision. The tool call proceeds. |
+| `2` | **Block.** On `PreToolUse` the call is prevented and stderr is the reason Claude sees. `PostToolUse` cannot block, but stderr still reaches Claude. |
 | other | Non-blocking error. The tool call proceeds and the hook looks broken. |
 
 `exit 1` does not block, despite being the conventional shell failure code. Use `exit 2` and write the reason to stderr.
+
+### Warning without blocking
+
+A warn-only hook cannot just `echo`. On `PreToolUse` and `PostToolUse`, [stdout from a hook that exits 0 goes to the debug log and is never shown](https://code.claude.com/docs/en/hooks#exit-code-0) -- only `UserPromptSubmit`, `UserPromptExpansion`, `SessionStart`, and `PostModelSwitch` surface it. To reach the user, exit 0 and print a [`systemMessage`](https://code.claude.com/docs/en/hooks#json-output) object, and nothing else, on stdout:
+
+```bash
+jq -n --arg msg "branch-guard: you are committing directly to '$BRANCH'." '{systemMessage: $msg}'
+exit 0
+```
+
+Claude Code parses stdout as JSON only when it starts with `{` and ends with `}`, so any stray `echo` alongside it turns the whole thing back into ignored plain text.
 
 ### Guidelines
 
 - **shebang**: Always start with `#!/usr/bin/env bash`
 - **safety**: Always include `set -euo pipefail`, and make sure no expected-failure path (a missing formatter, an absent remote) trips it
-- **blocking vs warning**: Only block (`exit 2`) for genuinely dangerous operations (committing secrets, force pushing to main). Warn (`exit 0` with a message on stdout) for everything else
-- **degrade quietly**: If `jq` is missing the hook cannot read its input. Say so once and `exit 0` for a guard; stay silent for a warn-only hook. Never block on your own inability to check
+- **blocking vs warning**: Only block (`exit 2`) for genuinely dangerous operations (committing secrets, force pushing to main). Warn (`exit 0` with a `systemMessage`) for everything else
+- **judge the real target**: A guard has to inspect what the command would actually do, not a proxy for it. `no-force-push` reads the push refspec, not just the checked-out branch, because `git push --force origin main` from a feature branch is the dangerous case
+- **degrade quietly**: If `jq` is missing the hook cannot read its input. Say so once in a `systemMessage` and `exit 0` for a guard; stay silent for a warn-only hook. Never block on your own inability to check
 - **naming**: Use kebab-case, describe what the hook guards (e.g., `secret-guard`, `commit-lint`)
 - **comments**: Include a header comment naming the real event and matcher
-- **testing**: Pipe a payload in and check the exit code before you open the PR:
+- **testing**: Pipe a full payload in and check the exit code before you open the PR. Test the allow cases too, or you ship a guard that blocks unrelated shell calls:
   ```bash
-  echo '{"tool_input":{"command":"git push --force"}}' | bash plugins/dev-rules/hooks/no-force-push.sh; echo "rc=$?"
+  payload='{"hook_event_name":"PreToolUse","tool_name":"Bash","tool_input":{"command":"git push --force origin main"}}'
+  bash plugins/dev-rules/hooks/no-force-push.sh <<<"$payload"; echo "rc=$?"   # expect 2
   ```
 
 ## Pull Request Guidelines

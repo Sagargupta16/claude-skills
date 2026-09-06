@@ -184,7 +184,7 @@ These standalone plugin marketplaces complement this collection:
 
 ### Related tools
 
-Not plugin marketplaces, but built for the same workflow. Each row is the repo's own description.
+Not plugin marketplaces, but built for the same workflow. Each row quotes the repo's own GitHub description; where a row adds a sentence, it is a note about how that repo relates to this one.
 
 | Repo | What It Does |
 |---|---|

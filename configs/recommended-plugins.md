@@ -106,6 +106,7 @@ Recommended official plugins that pair well with this marketplace:
 | PHP | `php-lsp` |
 | Ruby | `ruby-lsp` |
 | Swift | `swift-lsp` |
+| Shopify Liquid | `liquid-lsp` |
 
 ### Output Styles (optional)
 

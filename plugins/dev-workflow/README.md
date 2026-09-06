@@ -31,7 +31,9 @@ Registered in [`hooks/hooks.json`](hooks/hooks.json). Needs `jq` on your PATH to
 
 | Hook | Event / matcher | Description |
 |------|-----------------|-------------|
-| `auto-format` | PostToolUse / `Write\|Edit` | Detects the project formatter (prettier, biome, dprint, ruff, black, gofmt, rustfmt, shfmt, terraform) and runs it on the file just written. A formatter that is not installed is skipped silently; the hook never blocks |
+| `auto-format` | PostToolUse / `Write\|Edit` | Detects the project formatter (prettier, biome, dprint, ruff, black, gofmt, rustfmt, shfmt, terraform) and runs it on the file just written. The hook never blocks |
+
+The JS/TS branch runs the formatter through `npx`, so on a project that has a biome or prettier config but no local install, `npx` fetches the package from the registry. Every other branch calls the binary directly and does nothing when it is absent.
 
 ## Example
 
