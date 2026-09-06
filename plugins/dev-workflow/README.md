@@ -27,9 +27,13 @@ Everyday development commands - commit, review, test, fix, create PRs, and check
 
 ## Hooks
 
-| Hook | Event | Description |
-|------|-------|-------------|
-| `auto-format` | PostToolUse | Detects project formatter (prettier, biome, black, ruff, gofmt, rustfmt) and runs it after file writes |
+Registered in [`hooks/hooks.json`](hooks/hooks.json). Needs `jq` on your PATH to read the edited file path.
+
+| Hook | Event / matcher | Description |
+|------|-----------------|-------------|
+| `auto-format` | PostToolUse / `Write\|Edit` | Detects the project formatter (prettier, biome, dprint, ruff, black, gofmt, rustfmt, shfmt, terraform) and runs it on the file just written. The hook never blocks |
+
+The JS/TS branch runs the formatter through `npx`, so on a project that has a biome or prettier config but no local install, `npx` fetches the package from the registry. Every other branch calls the binary directly and does nothing when it is absent.
 
 ## Example
 

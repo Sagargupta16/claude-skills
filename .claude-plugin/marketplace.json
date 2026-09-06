@@ -6,7 +6,7 @@
   },
   "metadata": {
     "description": "Focused Claude Code plugins covering everyday dev workflow, git, OSS contributions, Docker, dependency audits, repo hygiene, refactoring, FARM stack, context management, diff explanation, debug triage, Renovate triage, session audit, Python clean code, and animation/motion. Opinionated, battle-tested across 60+ repos.",
-    "version": "5.2.0",
+    "version": "5.3.0",
     "pluginRoot": "./plugins"
   },
   "plugins": [
@@ -14,7 +14,7 @@
       "name": "dev-workflow",
       "source": "./plugins/dev-workflow",
       "description": "Everyday dev commands -- commit, review, test, fix bugs, create PRs, check repo status, and inspect PR health. Agents: code-reviewer, debugger. Hook: auto-format. Commands use dynamic context injection for grounded, first-attempt responses.",
-      "version": "4.3.0",
+      "version": "4.4.0",
       "author": {
         "name": "Sagar Gupta"
       },
@@ -33,7 +33,7 @@
       "name": "dev-rules",
       "source": "./plugins/dev-rules",
       "description": "Development guardrails -- git safety, security best practices, PR workflow discipline, context optimization, CLAUDE.md authoring rules, and important tag patterns. Hooks: secret-guard, no-force-push, branch-guard.",
-      "version": "4.3.0",
+      "version": "4.4.0",
       "author": {
         "name": "Sagar Gupta"
       },
@@ -51,7 +51,7 @@
       "name": "farm-stack",
       "source": "./plugins/farm-stack",
       "description": "FARM stack (FastAPI + React + MongoDB) development patterns, scaffolding, and best practices. Agent: farm-scaffolder.",
-      "version": "4.1.0",
+      "version": "4.1.1",
       "author": {
         "name": "Sagar Gupta"
       },
@@ -70,7 +70,7 @@
       "name": "docker-deploy",
       "source": "./plugins/docker-deploy",
       "description": "Docker best practices -- multi-stage Dockerfiles, compose patterns, image optimization, health checks, signal handling, and security hardening. Agent: dockerfile-optimizer.",
-      "version": "4.1.0",
+      "version": "4.1.1",
       "author": {
         "name": "Sagar Gupta"
       },
@@ -88,7 +88,7 @@
       "name": "deps-audit",
       "source": "./plugins/deps-audit",
       "description": "Dependency auditing -- vulnerability scanning, outdated package detection, unused dependency identification, and safe update strategies. Agent: dependency-auditor.",
-      "version": "4.0.0",
+      "version": "4.0.1",
       "author": {
         "name": "Sagar Gupta"
       },
@@ -107,7 +107,7 @@
       "name": "oss-contrib",
       "source": "./plugins/oss-contrib",
       "description": "Open source contribution workflow -- upstream sync, CONTRIBUTING.md compliance, code style matching, PR preparation, CLA/DCO signing, AI disclosure, and PR quality bar. Agent: pr-analyzer. Hook: upstream-sync-check. Commands use dynamic context injection.",
-      "version": "4.3.0",
+      "version": "4.4.0",
       "author": {
         "name": "Sagar Gupta"
       },
@@ -125,7 +125,7 @@
       "name": "repo-polish",
       "source": "./plugins/repo-polish",
       "description": "Repository hygiene -- .gitignore, .env.example, README, LICENSE generation, secret detection, project type detection, and CLAUDE.md auditing. Agent: repo-auditor.",
-      "version": "4.3.0",
+      "version": "4.3.1",
       "author": {
         "name": "Sagar Gupta"
       },
@@ -143,7 +143,7 @@
       "name": "refactoring",
       "source": "./plugins/refactoring",
       "description": "Safe refactoring workflows -- code smell detection, extract/rename/move patterns, migration strategies (JS to TS, CJS to ESM), and structured refactoring process. Agent: refactorer.",
-      "version": "4.0.0",
+      "version": "4.0.1",
       "author": {
         "name": "Sagar Gupta"
       },
@@ -161,7 +161,7 @@
       "name": "git-advanced",
       "source": "./plugins/git-advanced",
       "description": "Advanced git operations -- rebasing, cherry-picking, conflict resolution, bisect, stash management, history exploration, and undo strategies. Agent: git-assistant. Hook: commit-lint.",
-      "version": "4.0.0",
+      "version": "4.1.0",
       "author": {
         "name": "Sagar Gupta"
       },
@@ -180,7 +180,7 @@
       "name": "context-management",
       "source": "./plugins/context-management",
       "description": "Context window management -- compaction timing, context rot prevention, branching strategies, and sub-agent isolation patterns. Agent: context-advisor.",
-      "version": "4.2.0",
+      "version": "4.2.1",
       "author": {
         "name": "Sagar Gupta"
       },
@@ -289,7 +289,7 @@
       "name": "motion",
       "source": "./plugins/motion",
       "description": "Animation work in three modes -- audit motion against Disney's 12 principles with file:line findings, add purposeful micro-interactions, or fix animation performance (compositor-only properties, layout thrashing).",
-      "version": "1.1.0",
+      "version": "1.1.1",
       "author": {
         "name": "Sagar Gupta"
       },

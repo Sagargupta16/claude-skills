@@ -1,6 +1,6 @@
 ---
 description: Audit project dependencies for vulnerabilities, outdated packages, and unused deps
-user_invocable: true
+user-invocable: true
 ---
 
 Audit and report on the current project's dependencies.

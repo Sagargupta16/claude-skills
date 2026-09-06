@@ -1,6 +1,6 @@
 ---
 description: Audit and fix repository hygiene - .gitignore, .env.example, README, LICENSE
-user_invocable: true
+user-invocable: true
 ---
 
 Audit the current repository and fix any missing or incomplete hygiene files.

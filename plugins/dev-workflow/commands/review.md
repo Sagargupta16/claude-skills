@@ -1,6 +1,6 @@
 ---
 description: Review the current branch's changes for quality, bugs, and best practices
-user_invocable: true
+user-invocable: true
 ---
 
 ## Live state

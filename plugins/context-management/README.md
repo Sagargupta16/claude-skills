@@ -19,6 +19,6 @@ Context window management -- compaction timing, context rot prevention, branchin
 
 ## Install
 
-```bash
-claude plugin add sagar-dev-skills/context-management
+```
+/plugin install context-management@sagar-dev-skills
 ```

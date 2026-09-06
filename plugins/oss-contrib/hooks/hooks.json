@@ -1,0 +1,17 @@
+{
+  "description": "Warns when the current branch is behind upstream before a pull request is created. Never blocks.",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/upstream-sync-check.sh\"",
+            "timeout": 30
+          }
+        ]
+      }
+    ]
+  }
+}

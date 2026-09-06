@@ -1,6 +1,6 @@
 ---
 description: Assess current context health and recommend compaction, clearing, or sub-agent strategy
-user_invocable: true
+user-invocable: true
 ---
 
 Analyze the current session's context health:

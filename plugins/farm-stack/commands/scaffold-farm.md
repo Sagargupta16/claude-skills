@@ -1,6 +1,6 @@
 ---
 description: Scaffold a new FARM stack project with FastAPI + React + MongoDB
-user_invocable: true
+user-invocable: true
 ---
 
 Scaffold a new FARM stack (FastAPI + React + MongoDB) project in the current directory.
