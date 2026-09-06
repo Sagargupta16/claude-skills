@@ -27,15 +27,5 @@ jobs:
           path: plugins/
           fail-on: error
 
-      - name: Check for broken internal links in README
-        run: |
-          errors=0
-          # Check that paths referenced in README.md exist
-          grep -oP '\[.*?\]\(((?!https?://)[^)]+)\)' README.md | \
-            grep -oP '\(([^)]+)\)' | tr -d '()' | while read -r path; do
-              if [[ ! -e "$path" ]]; then
-                echo "ERROR: Broken link in README.md -> $path"
-                errors=$((errors + 1))
-              fi
-            done
-          exit $errors
+      - name: Check for broken relative links in markdown
+        run: bash scripts/check-links.sh
