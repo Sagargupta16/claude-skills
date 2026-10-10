@@ -1,5 +1,15 @@
 # Changelog
 
+## [5.4.0] - 2026-10-10
+
+### Added
+
+- **`svg-forge`, the first external plugin.** Animated SVGs that render everywhere: README cards, banners, loaders and diagrams that survive GitHub's image proxy, plus React and Motion scenes. Three skills (`animated-svg`, `motion-scene`, `svg-audit`), the `svg-designer` agent, a generator with timing presets and a validator. It lives in [Sagargupta16/svg-forge](https://github.com/Sagargupta16/svg-forge) and is listed here with a `{"source": "github", "repo": "Sagargupta16/svg-forge"}` entry, so `/plugin install svg-forge@sagar-dev-skills` fetches it from that repo. README "External Plugins" table, install line, `reference.yaml` index and the settings template follow.
+
+### Changed
+
+- **`validate-plugins.sh` understands external sources.** A plugin whose `source` is an object is checked for a `github` source with an `owner/name` repo instead of a local directory; its skills are validated by its own repo's CI. Previously an object source was stringified into a bogus directory path.
+
 ## [5.3.0] - 2026-09-06
 
 All six hooks this marketplace ships were inert. None of them were registered, so Claude Code never ran any of them -- including the `dev-rules` guardrails advertised as blocking secrets and force pushes. Three more defects sat underneath: the scripts read their input from positional arguments (Claude Code passes JSON on stdin), they used `exit 1` to block (only `exit 2` blocks), and the warn-only ones reported with a bare `echo`, which on a tool event reaches the debug log and nobody else. Anyone who installed `dev-rules` for `secret-guard` or `no-force-push` had zero protection while believing they were covered.

@@ -38,7 +38,10 @@ print(data.get('metadata', {}).get('pluginRoot', '.'))
 import json
 data = json.load(open('$MARKETPLACE'))
 for p in data['plugins']:
-    print(p['name'] + '|' + p.get('source', p['name']))
+    s = p.get('source', p['name'])
+    if isinstance(s, dict):
+        s = 'external:' + s.get('source', '') + ':' + s.get('repo', s.get('url', ''))
+    print(p['name'] + '|' + s)
 " | tr -d '\r')
 elif command -v node &>/dev/null; then
   PLUGIN_ROOT=$(node -e "
@@ -47,7 +50,11 @@ console.log((data.metadata || {}).pluginRoot || '.');
 " | tr -d '\r')
   PLUGIN_NAMES=$(node -e "
 const data = JSON.parse(require('fs').readFileSync('$MARKETPLACE','utf8'));
-data.plugins.forEach(p => console.log(p.name + '|' + (p.source || p.name)));
+data.plugins.forEach(p => {
+  let s = p.source || p.name;
+  if (typeof s === 'object') s = 'external:' + (s.source || '') + ':' + (s.repo || s.url || '');
+  console.log(p.name + '|' + s);
+});
 " | tr -d '\r')
 else
   error "Neither python3 nor node available for JSON parsing"
@@ -125,6 +132,21 @@ JS
 while IFS='|' read -r name source; do
   echo ""
   echo "--- Plugin: $name ---"
+
+  # A plugin hosted in its own repo ({"source": "github", "repo": "owner/name"})
+  # has no directory here; its own CI validates its skills, so only the
+  # entry's shape is checked.
+  if [[ "$source" == external:* ]]; then
+    kind="${source#external:}"
+    kind="${kind%%:*}"
+    target="${source#external:*:}"
+    if [[ "$kind" == "github" && "$target" =~ ^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$ ]]; then
+      info "External plugin from GitHub repo $target (validated in its own repo)"
+    else
+      error "External plugin $name needs a github source with repo owner/name (got '${source#external:}')"
+    fi
+    continue
+  fi
 
   # Resolve plugin directory: if source is a path (contains /), use as-is;
   # otherwise treat as a name relative to pluginRoot (backwards compat).

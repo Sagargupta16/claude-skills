@@ -5,8 +5,8 @@
     "email": "sg85207@gmail.com"
   },
   "metadata": {
-    "description": "Focused Claude Code plugins covering everyday dev workflow, git, OSS contributions, Docker, dependency audits, repo hygiene, refactoring, FARM stack, context management, diff explanation, debug triage, Renovate triage, session audit, Python clean code, and animation/motion. Opinionated, battle-tested across 60+ repos.",
-    "version": "5.3.0",
+    "description": "Focused Claude Code plugins covering everyday dev workflow, git, OSS contributions, Docker, dependency audits, repo hygiene, refactoring, FARM stack, context management, diff explanation, debug triage, Renovate triage, session audit, Python clean code, animation/motion, and animated SVG design (svg-forge, from its own repo). Opinionated, battle-tested across 60+ repos.",
+    "version": "5.4.0",
     "pluginRoot": "./plugins"
   },
   "plugins": [
@@ -301,6 +301,28 @@
         "performance",
         "frontend",
         "ui"
+      ],
+      "category": "frontend"
+    },
+    {
+      "name": "svg-forge",
+      "source": {
+        "source": "github",
+        "repo": "Sagargupta16/svg-forge"
+      },
+      "description": "Design animated SVGs that render everywhere: self-contained README cards, banners, loaders and diagrams that survive GitHub's image proxy, plus React and Motion scenes for apps. Skills animated-svg, motion-scene, svg-audit; agent svg-designer; a generator with timing presets and a validator. Lives in its own repo.",
+      "version": "0.1.0",
+      "author": {
+        "name": "Sagar Gupta"
+      },
+      "license": "MIT",
+      "keywords": [
+        "svg",
+        "animation",
+        "smil",
+        "readme",
+        "motion",
+        "design"
       ],
       "category": "frontend"
     }
