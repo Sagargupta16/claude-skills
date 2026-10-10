@@ -118,6 +118,8 @@ bash scripts/check-links.sh
 
 **Totals**: 16 skills, 16 commands, 11 agents, 6 hooks
 
+**External**: `svg-forge` (3 skills, 1 agent) is listed with a `{"source": "github", "repo": "Sagargupta16/svg-forge"}` entry and validated in its own repo; `validate-plugins.sh` only checks the entry's shape for external sources.
+
 ## Key Conventions
 
 - **Skill descriptions** always start with "Use when..." to define activation triggers

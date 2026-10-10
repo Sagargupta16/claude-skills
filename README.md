@@ -64,6 +64,14 @@ Most plugins are language-agnostic and adapt to your stack (Python, Node, Go, Ru
 | **context-management** | `/manage-context` | context-advisor | - | Context rot detection, compaction timing, branching strategy, sub-agent isolation |
 | **starter-session-audit** | _(skill only)_ | - | - | End-of-session audit. Scans conversation for uncaptured corrections, preferences, decisions; proposes where to save each. |
 
+### External Plugins
+
+Listed here, built and validated in their own repos. The marketplace entry points at the repo, so `/plugin install` fetches it from there.
+
+| Plugin | Skills | Agents | Hooks | What It Does |
+|--------|--------|--------|-------|-------------|
+| **[svg-forge](https://github.com/Sagargupta16/svg-forge)** | `animated-svg`, `motion-scene`, `svg-audit` | svg-designer | - | Animated SVGs that render everywhere: README cards, banners, loaders and diagrams that survive GitHub's image proxy, plus React and Motion scenes. Ships a generator with timing presets and a validator. |
+
 ## Component Types
 
 | Type | Count | What It Does |
@@ -72,6 +80,8 @@ Most plugins are language-agnostic and adapt to your stack (Python, Node, Go, Ru
 | **Commands** | 16 | User-invocable slash commands (`/commit`, `/test`, etc.) |
 | **Agents** | 11 | Autonomous sub-conversations for code review, debugging, scanning |
 | **Hooks** | 6 | Shell scripts registered in the plugin's `hooks/hooks.json` and run by Claude Code on tool events (block secrets, validate commits, etc.) |
+
+Counts cover the 16 plugins in this repo; external plugins carry their own counts.
 
 ## Installation
 
@@ -100,6 +110,7 @@ Most plugins are language-agnostic and adapt to your stack (Python, Node, Go, Ru
 /plugin install starter-session-audit@sagar-dev-skills
 /plugin install clean-code@sagar-dev-skills
 /plugin install motion@sagar-dev-skills
+/plugin install svg-forge@sagar-dev-skills
 ```
 
 ### Update, inspect, or remove
