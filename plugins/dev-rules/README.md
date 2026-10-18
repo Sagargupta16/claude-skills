@@ -19,7 +19,7 @@ Registered in [`hooks/hooks.json`](hooks/hooks.json). All three match the `Bash`
 | Hook | Event / matcher | Description |
 |------|-----------------|-------------|
 | `secret-guard` | PreToolUse / `Bash`, on `git commit` | Blocks the commit (exit 2) when a secret pattern appears in the staged content, or in a tracked working-tree change that `-a` / `-am` would stage |
-| `no-force-push` | PreToolUse / `Bash`, on `git push` | Blocks (exit 2) a force push aimed at main, master, production, or release. Reads the refspec, so a target named on the command line counts, `+branch` counts as a force, and `--force` at a feature branch does not |
+| `no-force-push` | PreToolUse / `Bash`, on `git push` | Blocks (exit 2) a force push aimed at main, master, production, or release. Reads the refspec, so a target named on the command line counts, `HEAD` means the checked-out branch, `+branch` and `-fu` count as a force, and `--force` at a feature branch does not |
 | `branch-guard` | PreToolUse / `Bash`, on `git commit` | Warns when committing directly to main or master. Never blocks |
 
 These hooks need `jq` on your PATH to read the tool call. Without it the two guards say so once and stand down rather than blocking.

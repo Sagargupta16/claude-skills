@@ -1,5 +1,21 @@
 # Changelog
 
+## [5.4.1] - 2026-10-18
+
+Guardrail fixes found by feeding the hooks real commands and staged files, plus README work.
+
+### Fixed
+
+- **`secret-guard` missed single-quoted secrets and most connection strings.** Its patterns used `\s` and `\x27`, neither of which `grep -E` understands inside a bracket expression: `[^/\s]` excluded the letter `s`, and `["\x27]` matched `"`, `\`, `x`, `2` and `7` instead of a single quote. So `password = 'hunter2'`, `secret = 'abc'`, `mongodb+srv://sagar:secretpass@...` and `postgres://user:pass@...` all committed without a block, and `password = "x"` slipped through because `x` was in the excluded set. The patterns now use `[[:space:]]` and a literal quote. Added the `postgresql://` scheme, OpenAI `sk-proj-` / `sk-svcacct-` / `sk-admin-` keys, Anthropic `sk-ant-` keys and GitHub `github_pat_` fine-grained tokens, none of which the old list caught. `dev-rules` 4.4.1.
+- **`no-force-push` allowed two common forms of force push to `main`.** `git push --force origin HEAD` from `main` named the target `HEAD`, which never matched a protected branch, and a short-flag bundle such as `git push -fu origin main` was skipped as an unknown option. `HEAD` and `@` now resolve to the checked-out branch, and any short-flag bundle containing `f` counts as a force. `git push --force origin HEAD` from a feature branch is still allowed.
+- **`commit-lint` flagged valid breaking-change commits.** `feat!: ...` and `fix(api)!: ...` are valid Conventional Commits, but the regex had no room for the `!`, so every breaking-change commit (this repo's own 5.0.0 commit included) got a format warning. `git-advanced` 4.1.1.
+- **`svg-forge` entry** listed version `0.1.0`; its repo released `0.2.0` on 2026-10-11.
+- **README version badge** read 5.3.0 through the whole 5.4.0 release.
+
+### Added
+
+- **README: Quick start and How It Works.** A two-line install that says what you get, a Mermaid diagram of how the marketplace, plugins, hooks and Claude Code fit together, the design decisions behind it, and the local gate commands.
+
 ## [5.4.0] - 2026-10-10
 
 ### Added
