@@ -2,7 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Plugins](https://img.shields.io/badge/plugins-16-green.svg)](#plugins)
-[![Version](https://img.shields.io/badge/version-5.5.0-orange.svg)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-5.6.0-orange.svg)](CHANGELOG.md)
 [![CI](https://github.com/Sagargupta16/claude-skills/actions/workflows/validate.yml/badge.svg)](https://github.com/Sagargupta16/claude-skills/actions)
 
 Focused Claude Code plugin marketplace. 16 plugins covering everyday dev workflow, git, open-source contributions, Docker, dependency audits, repo hygiene, refactoring, FARM stack, context management, diff explanation, debug triage, Renovate triage, end-of-session audit, Python clean code, and animation/motion.
@@ -17,6 +17,50 @@ Plugins are individually installable. Pick the ones relevant to your stack.
 ```
 
 Restart Claude Code. `dev-rules` now blocks `git push --force` to `main` and commits that stage an API key, and warns on direct commits to `main`. The hooks need `jq` on your PATH.
+
+## Tested guardrail hooks
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/demo/hooks-demo-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="docs/demo/hooks-demo-light.svg">
+  <img alt="Terminal: git push --force origin main is blocked by no-force-push, a commit with a staged Anthropic key is blocked by secret-guard, a commit titled 'update stuff' gets a commit-lint warning, and a force push to a feature branch is allowed" src="docs/demo/hooks-demo-dark.svg" width="100%">
+</picture>
+
+Every line above is real output. [`scripts/demo.sh`](scripts/demo.sh) feeds those four commands to the hooks in a throwaway repo, and CI fails if what the hooks print stops matching the [committed transcript](docs/demo/hooks-demo.json). The animation is rendered from that transcript with [svg-forge](https://github.com/Sagargupta16/svg-forge); [docs/demo/README.md](docs/demo/README.md) has the commands.
+
+The six hooks run against [`tests/hooks/run.sh`](tests/hooks/run.sh), a table of 88 fixture cases on every pull request. Each case pipes a real payload into the hook on stdin, inside a scratch git repo with real branches, staged blobs, commits and an upstream remote, and expects `block` (exit 2), `warn` (exit 0 with a `systemMessage`) or `allow` (exit 0, silent).
+
+| Hook | Cases | What they cover |
+|------|------:|-----------------|
+| secret-guard | 31 | 15 credential forms, `commit -a`, staged vs working copy, chained commands, false positives |
+| no-force-push | 28 | `-f`, `--force-with-lease`, `+refspec`, `src:main`, `HEAD`, `-fu`, `--all`, feature branches |
+| commit-lint | 12 | breaking-change `!`, scopes, unknown types, subjects over 72 chars |
+| auto-format | 7 | formatter detection, a formatter that fails, missing files |
+| branch-guard | 5 | `main`, `master`, feature branches, `grep "git commit"` |
+| upstream-sync-check | 5 | no upstream, level, 2 commits behind, look-alike commands |
+
+The same suite can replay any older release with `--ref`, which is how the earlier hook bugs show up as numbers:
+
+| Hooks at | Cases passed | Why the rest fail |
+|----------|-------------:|-------------------|
+| `v5.2.0` | 31 / 88 | hooks read argv instead of stdin and blocked with `exit 1`, which does not block |
+| 5.3.0 (`d4256ed`) | 71 / 88 | `\s` and `\x27` inside `grep -E` brackets, missing token formats, `HEAD` and `-fu` force pushes, `feat!:` |
+| 5.4.0 (`83bbe07`) | 71 / 88 | same hooks as 5.3.0 |
+| 5.4.1 and later | 88 / 88 | |
+
+```bash
+bash tests/hooks/run.sh              # the hooks in this checkout
+bash tests/hooks/run.sh --ref v5.2.0 # the hooks at any git ref
+```
+
+## Where to start
+
+Sixteen plugins is a lot to read. Start with these four:
+
+- **`dev-rules`** -- the tested hooks above, plus a guardrail skill for git safety, secrets, PR workflow and dependencies.
+- **`starter-session-audit`** -- at the end of a session, scans the conversation for corrections, preferences and decisions you never saved, and proposes where to save each.
+- **`renovate-triage`** -- sorts every open Renovate PR across your repos into merge, close or defer.
+- **`svg-forge`** (external) -- animated README cards and diagrams that survive GitHub's image proxy. The demo above was made with it.
 
 ## Philosophy
 
@@ -119,13 +163,16 @@ flowchart TD
 - **Progressive disclosure.** A skill's `description` is the only part always in context, so each one starts with `Use when ...` to say exactly when it should fire. Long rule sets (`clean-code`, `motion`) live in `references/` and load only when the skill needs them.
 - **Hooks follow Claude Code's contract, not a guess at it.** Each script is registered in `hooks/hooks.json`, reads the tool call as JSON on stdin and warns through a `systemMessage` JSON object. The five Bash hooks also gate on `hook_event_name` and `tool_name` and split the command on shell separators so `grep "git commit"` does not trigger them, and the two that stop a call (`secret-guard`, `no-force-push`) block with `exit 2`. `auto-format` runs on `Write|Edit` and never blocks. 5.3.0 is the release where all six hooks were found inert and rewired; the [CHANGELOG](CHANGELOG.md) has the full story.
 - **External plugins stay in their own repo.** `svg-forge` is listed with a `github` source, so it is versioned, tested and released on its own while installing from this marketplace.
-- **CI guards the format.** Every pull request and every push to `main` runs [`scripts/validate-plugins.sh`](scripts/validate-plugins.sh) (manifests, frontmatter, hook registration against the real event list), [skillcheck](https://github.com/Sagargupta16/skillcheck) (Agent Skills spec lint) and [`scripts/check-links.sh`](scripts/check-links.sh) (relative links across every tracked Markdown file).
+- **CI guards the format.** Every pull request and every push to `main` runs [`scripts/validate-plugins.sh`](scripts/validate-plugins.sh) (manifests, frontmatter, hook registration against the real event list), [skillcheck](https://github.com/Sagargupta16/skillcheck) (Agent Skills spec lint), [`scripts/check-links.sh`](scripts/check-links.sh) (relative links across every tracked Markdown file), the [hook test suite](tests/hooks/run.sh) and a diff of the demo transcript against what the hooks print today.
+- **Each new version becomes a release.** When `Validate Plugins` passes on `main`, the [Release workflow](.github/workflows/release.yml) reads `metadata.version` from `marketplace.json` and, if `v<version>` does not exist yet, tags that commit and publishes a GitHub Release whose notes are that version's CHANGELOG section ([`scripts/release-notes.sh`](scripts/release-notes.sh)).
 
 Run the same gates locally:
 
 ```bash
 bash scripts/validate-plugins.sh
 bash scripts/check-links.sh
+bash tests/hooks/run.sh
+bash scripts/demo.sh --json | diff -u docs/demo/hooks-demo.json -
 ```
 
 ## Installation
@@ -179,12 +226,16 @@ claude-skills/
 ├── .claude-plugin/
 │   └── marketplace.json
 ├── .github/
-│   ├── workflows/validate.yml
+│   ├── workflows/{validate,release}.yml
 │   ├── ISSUE_TEMPLATE/
 │   └── pull_request_template.md
 ├── scripts/
 │   ├── validate-plugins.sh
-│   └── check-links.sh
+│   ├── check-links.sh
+│   ├── demo.sh
+│   └── release-notes.sh
+├── tests/hooks/run.sh
+├── docs/demo/
 ├── plugins/
 │   ├── dev-workflow/
 │   │   ├── .claude-plugin/plugin.json

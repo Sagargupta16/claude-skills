@@ -184,6 +184,8 @@ Claude Code parses stdout as JSON only when it starts with `{` and ends with `}`
   payload='{"hook_event_name":"PreToolUse","tool_name":"Bash","tool_input":{"command":"git push --force origin main"}}'
   bash plugins/dev-rules/hooks/no-force-push.sh <<<"$payload"; echo "rc=$?"   # expect 2
   ```
+  Then add the case to [`tests/hooks/run.sh`](tests/hooks/run.sh), which CI runs on every PR. Each row names the hook, the expected outcome (`block`, `warn` or `allow`) and the payload, and runs inside a scratch git repo. A new hook needs block and allow rows; a bug fix needs the row that would have caught it, and `bash tests/hooks/run.sh --ref <old-commit>` shows it failing there. Build fake secrets from split strings (`"gh""p_..."`), never as literals, so the file does not trip a secret scanner.
+- **demo**: If a hook's messages change, the CI demo check fails until you regenerate [`docs/demo/`](docs/demo/README.md).
 
 ## Pull Request Guidelines
 
@@ -215,4 +217,4 @@ The marketplace follows [semver](https://semver.org/) via the `metadata.version`
 - Never re-use a published version number.
 - New plugins enter at `1.0.0`. The six added in 5.0.0 and 5.1.0 all did. Plugins carrying a `4.x` version predate that convention -- do not renumber them.
 - CHANGELOG.md gets one entry per marketplace version under a heading like `## [4.3.0] - 2026-05-13`, grouped by Added / Changed / Fixed / Removed.
-- Tag the marketplace version (`git tag v5.3.0`) and publish a GitHub Release with the CHANGELOG body for that version, so users can pin a known-good marketplace as SECURITY.md promises.
+- Releases are automatic. Once `Validate Plugins` passes on `main`, [`.github/workflows/release.yml`](.github/workflows/release.yml) tags `v<metadata.version>` on that commit and publishes a GitHub Release with the CHANGELOG body for that version ([`scripts/release-notes.sh`](scripts/release-notes.sh)), so users can pin a known-good marketplace as SECURITY.md promises. It skips versions that are already released and fails if the CHANGELOG has no section for the version, so write the entry before bumping. Preview the notes with `bash scripts/release-notes.sh 5.6.0`.

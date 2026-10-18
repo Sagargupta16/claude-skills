@@ -6,7 +6,7 @@
   },
   "metadata": {
     "description": "Focused Claude Code plugins covering everyday dev workflow, git, OSS contributions, Docker, dependency audits, repo hygiene, refactoring, FARM stack, context management, diff explanation, debug triage, Renovate triage, session audit, Python clean code, animation/motion, animated SVG design (svg-forge) and architecture diagrams (orrery), each from its own repo. Opinionated, battle-tested across 60+ repos.",
-    "version": "5.5.0",
+    "version": "5.6.0",
     "pluginRoot": "./plugins"
   },
   "plugins": [

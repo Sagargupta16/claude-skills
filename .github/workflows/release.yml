@@ -1,0 +1,76 @@
+name: Release
+
+# Tags and publishes a GitHub Release for each new marketplace version, so users
+# can pin a known-good marketplace as SECURITY.md promises. Runs after
+# "Validate Plugins" passes on a push to main, reads metadata.version from
+# .claude-plugin/marketplace.json, and does nothing when v<version> already
+# exists. The notes are that version's CHANGELOG.md section.
+
+on:
+  workflow_run:
+    workflows: [Validate Plugins]
+    types: [completed]
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    if: >-
+      (github.event_name == 'workflow_dispatch' &&
+      github.ref == 'refs/heads/main') ||
+      (github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.event == 'push')
+    runs-on: ubuntu-latest
+    env:
+      RUN_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      # Default checkout: the tip of main, never a ref taken from the
+      # triggering run. The next step checks it is the commit that passed.
+      - uses: actions/checkout@v7
+
+      - name: Read the marketplace version
+        id: version
+        run: |
+          if [[ "$(git rev-parse HEAD)" != "$RUN_SHA" ]]; then
+            echo "main moved past $RUN_SHA; the run for the newer commit releases it."
+            echo "release=false" >>"$GITHUB_OUTPUT"
+            exit 0
+          fi
+          version=$(jq -r '.metadata.version' .claude-plugin/marketplace.json)
+          if ! [[ "$version" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "::error::metadata.version '$version' is not x.y.z"
+            exit 1
+          fi
+          echo "version=$version" >>"$GITHUB_OUTPUT"
+          if gh release view "v$version" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            echo "release=false" >>"$GITHUB_OUTPUT"
+            echo "v$version is already released, nothing to do."
+          else
+            echo "release=true" >>"$GITHUB_OUTPUT"
+          fi
+
+      - name: Extract the release notes from CHANGELOG.md
+        if: steps.version.outputs.release == 'true'
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+        run: bash scripts/release-notes.sh "$VERSION" >"$RUNNER_TEMP/notes.md"
+
+      - name: Tag and publish the release
+        if: steps.version.outputs.release == 'true'
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          gh release create "v$VERSION" \
+            --repo "$GITHUB_REPOSITORY" \
+            --target "$RUN_SHA" \
+            --title "v$VERSION" \
+            --notes-file "$RUNNER_TEMP/notes.md" \
+            --latest

@@ -91,9 +91,15 @@ This marketplace's hooks use `PreToolUse` and `PostToolUse` (there is no `PreToo
 ```bash
 bash scripts/validate-plugins.sh
 bash scripts/check-links.sh
+bash tests/hooks/run.sh
+bash scripts/demo.sh --json | diff -u docs/demo/hooks-demo.json -
 ```
 
-`validate-plugins.sh` checks: marketplace.json validity, plugin directory existence, SKILL.md frontmatter format, "Use when..." descriptions, file length limits, command frontmatter (`user-invocable`, not `user_invocable`), agent frontmatter (name/description/model), and hook structure (shebang, safety flags, every script registered in a valid `hooks/hooks.json`, every manifest reference pointing at a script that exists, and every manifest key naming a real event). `check-links.sh` resolves every relative markdown link across tracked `*.md`, and reports how many targets it skipped for resolving outside the repo. Both run in CI via `.github/workflows/validate.yml`, alongside skillcheck.
+`tests/hooks/run.sh` runs 88 fixture cases across all six hooks: each pipes a real payload into the hook inside a scratch git repo and expects `block` (exit 2), `warn` (exit 0 + `systemMessage`) or `allow` (exit 0, silent). `--ref <commit>` replays the suite against an older release's hooks. Fake secrets in it are built from split strings so the file never holds a literal token. `scripts/demo.sh` drives the hooks through four commands for the README animation; CI diffs its output against `docs/demo/hooks-demo.json`, and `docs/demo/README.md` has the svg-forge command that re-renders the SVGs.
+
+`.github/workflows/release.yml` runs after `Validate Plugins` passes on `main`: if `v<metadata.version>` has no release yet, it tags the commit and publishes a release with that version's CHANGELOG section (`scripts/release-notes.sh`).
+
+`validate-plugins.sh` checks: marketplace.json validity, plugin directory existence, SKILL.md frontmatter format, "Use when..." descriptions, file length limits, command frontmatter (`user-invocable`, not `user_invocable`), agent frontmatter (name/description/model), and hook structure (shebang, safety flags, every script registered in a valid `hooks/hooks.json`, every manifest reference pointing at a script that exists, and every manifest key naming a real event). `check-links.sh` resolves every relative markdown link across tracked `*.md`, and reports how many targets it skipped for resolving outside the repo. All four run in CI via `.github/workflows/validate.yml`, alongside skillcheck.
 
 ## Plugin Inventory
 
