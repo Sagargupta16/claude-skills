@@ -36,6 +36,7 @@ plugins:
 # External plugins: name -> repo (validated in their own repo)
 external_plugins:
   svg-forge: github:Sagargupta16/svg-forge
+  orrery: github:Sagargupta16/orrery
 
 # Skill files: keyword -> SKILL.md path
 skills:

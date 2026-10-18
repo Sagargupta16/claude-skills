@@ -2,7 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Plugins](https://img.shields.io/badge/plugins-16-green.svg)](#plugins)
-[![Version](https://img.shields.io/badge/version-5.4.1-orange.svg)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-5.5.0-orange.svg)](CHANGELOG.md)
 [![CI](https://github.com/Sagargupta16/claude-skills/actions/workflows/validate.yml/badge.svg)](https://github.com/Sagargupta16/claude-skills/actions)
 
 Focused Claude Code plugin marketplace. 16 plugins covering everyday dev workflow, git, open-source contributions, Docker, dependency audits, repo hygiene, refactoring, FARM stack, context management, diff explanation, debug triage, Renovate triage, end-of-session audit, Python clean code, and animation/motion.
@@ -80,6 +80,7 @@ Listed here, built and validated in their own repos. The marketplace entry point
 | Plugin | Skills | Agents | Hooks | What It Does |
 |--------|--------|--------|-------|-------------|
 | **[svg-forge](https://github.com/Sagargupta16/svg-forge)** | `animated-svg`, `motion-scene`, `svg-audit` | svg-designer | - | Animated SVGs that render everywhere: README cards, banners, loaders and diagrams that survive GitHub's image proxy, plus React and Motion scenes. Ships a generator with timing presets and a validator. |
+| **[orrery](https://github.com/Sagargupta16/orrery)** | `orrery` | conventions-reviewer, flow-reviewer, legibility-reviewer | - | Animated architecture and system design diagrams from a short YAML spec with the official AWS, Azure, Google Cloud, Kubernetes, GitHub and IBM icons, rendered to SVG, PNG, draw.io, React TSX and HTML. Bundled CLI (Node 22+), a validator with fixes and a measured `/orrery:review` loop. [Gallery](https://sagargupta.online/orrery/gallery/). |
 
 ## Component Types
 
@@ -155,6 +156,7 @@ bash scripts/check-links.sh
 /plugin install clean-code@sagar-dev-skills
 /plugin install motion@sagar-dev-skills
 /plugin install svg-forge@sagar-dev-skills
+/plugin install orrery@sagar-dev-skills
 ```
 
 ### Update, inspect, or remove
