@@ -29,16 +29,21 @@ jobs:
       github.event.workflow_run.event == 'push')
     runs-on: ubuntu-latest
     env:
-      SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
+      RUN_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
       GH_TOKEN: ${{ github.token }}
     steps:
+      # Default checkout: the tip of main, never a ref taken from the
+      # triggering run. The next step checks it is the commit that passed.
       - uses: actions/checkout@v7
-        with:
-          ref: ${{ env.SHA }}
 
       - name: Read the marketplace version
         id: version
         run: |
+          if [[ "$(git rev-parse HEAD)" != "$RUN_SHA" ]]; then
+            echo "main moved past $RUN_SHA; the run for the newer commit releases it."
+            echo "release=false" >>"$GITHUB_OUTPUT"
+            exit 0
+          fi
           version=$(jq -r '.metadata.version' .claude-plugin/marketplace.json)
           if ! [[ "$version" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
             echo "::error::metadata.version '$version' is not x.y.z"
@@ -46,22 +51,26 @@ jobs:
           fi
           echo "version=$version" >>"$GITHUB_OUTPUT"
           if gh release view "v$version" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
-            echo "exists=true" >>"$GITHUB_OUTPUT"
+            echo "release=false" >>"$GITHUB_OUTPUT"
             echo "v$version is already released, nothing to do."
           else
-            echo "exists=false" >>"$GITHUB_OUTPUT"
+            echo "release=true" >>"$GITHUB_OUTPUT"
           fi
 
       - name: Extract the release notes from CHANGELOG.md
-        if: steps.version.outputs.exists == 'false'
-        run: bash scripts/release-notes.sh "${{ steps.version.outputs.version }}" >"$RUNNER_TEMP/notes.md"
+        if: steps.version.outputs.release == 'true'
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
+        run: bash scripts/release-notes.sh "$VERSION" >"$RUNNER_TEMP/notes.md"
 
       - name: Tag and publish the release
-        if: steps.version.outputs.exists == 'false'
+        if: steps.version.outputs.release == 'true'
+        env:
+          VERSION: ${{ steps.version.outputs.version }}
         run: |
-          gh release create "v${{ steps.version.outputs.version }}" \
+          gh release create "v$VERSION" \
             --repo "$GITHUB_REPOSITORY" \
-            --target "$SHA" \
-            --title "v${{ steps.version.outputs.version }}" \
+            --target "$RUN_SHA" \
+            --title "v$VERSION" \
             --notes-file "$RUNNER_TEMP/notes.md" \
             --latest
