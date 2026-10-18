@@ -23,7 +23,8 @@ concurrency:
 jobs:
   release:
     if: >-
-      github.event_name == 'workflow_dispatch' ||
+      (github.event_name == 'workflow_dispatch' &&
+      github.ref == 'refs/heads/main') ||
       (github.event.workflow_run.conclusion == 'success' &&
       github.event.workflow_run.event == 'push')
     runs-on: ubuntu-latest
