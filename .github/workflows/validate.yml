@@ -29,3 +29,9 @@ jobs:
 
       - name: Check for broken relative links in markdown
         run: bash scripts/check-links.sh
+
+      - name: Run the hook test suite
+        run: bash tests/hooks/run.sh
+
+      - name: Check the README demo still matches what the hooks print
+        run: bash scripts/demo.sh --json | diff -u docs/demo/hooks-demo.json -

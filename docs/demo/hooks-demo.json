@@ -1,0 +1,40 @@
+{
+  "title": "claude code: dev-rules hooks",
+  "prompt": "$",
+  "lines": [
+    {
+      "cmd": "git push --force origin main",
+      "out": [
+        "BLOCKED: Force push to main is not allowed.",
+        "Force pushing to protected branches can destroy team history and break CI.",
+        "no-force-push: exit 2, Claude Code blocks the call"
+      ],
+      "tone": "warn"
+    },
+    {
+      "cmd": "git commit -m \"feat: add api client\"",
+      "out": [
+        "BLOCKED: Potential secrets detected in the content this commit would include:",
+        "  client.py (staged) matches: sk-ant-[a-zA-Z0-9_-]{20,}",
+        "secret-guard: exit 2, Claude Code blocks the call"
+      ],
+      "tone": "warn"
+    },
+    {
+      "cmd": "git commit -m \"update stuff\"",
+      "out": [
+        "commit-lint: Commit message does not follow conventional commit format.",
+        "  Got: update stuff",
+        "commit-lint: exit 0, the warning is shown and the call goes ahead"
+      ],
+      "tone": "muted"
+    },
+    {
+      "cmd": "git push --force origin feat/client",
+      "out": [
+        "every hook: exit 0, allowed"
+      ],
+      "tone": "ok"
+    }
+  ]
+}
