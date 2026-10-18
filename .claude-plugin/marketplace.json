@@ -5,8 +5,8 @@
     "email": "sg85207@gmail.com"
   },
   "metadata": {
-    "description": "Focused Claude Code plugins covering everyday dev workflow, git, OSS contributions, Docker, dependency audits, repo hygiene, refactoring, FARM stack, context management, diff explanation, debug triage, Renovate triage, session audit, Python clean code, animation/motion, and animated SVG design (svg-forge, from its own repo). Opinionated, battle-tested across 60+ repos.",
-    "version": "5.4.1",
+    "description": "Focused Claude Code plugins covering everyday dev workflow, git, OSS contributions, Docker, dependency audits, repo hygiene, refactoring, FARM stack, context management, diff explanation, debug triage, Renovate triage, session audit, Python clean code, animation/motion, animated SVG design (svg-forge) and architecture diagrams (orrery), each from its own repo. Opinionated, battle-tested across 60+ repos.",
+    "version": "5.5.0",
     "pluginRoot": "./plugins"
   },
   "plugins": [
@@ -325,6 +325,30 @@
         "design"
       ],
       "category": "frontend"
+    },
+    {
+      "name": "orrery",
+      "source": {
+        "source": "github",
+        "repo": "Sagargupta16/orrery"
+      },
+      "description": "Animated architecture and system design diagrams from a short YAML spec, drawn with the official AWS, Azure, Google Cloud, Kubernetes, GitHub and IBM icons, laid out by ELK and rendered to SVG, PNG, draw.io, React TSX and HTML. Skill orrery with a bundled CLI; command /orrery:review; agents conventions-reviewer, flow-reviewer, legibility-reviewer. Lives in its own repo.",
+      "version": "0.7.0",
+      "author": {
+        "name": "Sagar Gupta"
+      },
+      "license": "MIT",
+      "keywords": [
+        "architecture",
+        "diagrams",
+        "aws",
+        "azure",
+        "gcp",
+        "kubernetes",
+        "svg",
+        "drawio"
+      ],
+      "category": "development"
     }
   ]
 }

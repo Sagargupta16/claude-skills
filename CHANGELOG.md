@@ -1,5 +1,11 @@
 # Changelog
 
+## [5.5.0] - 2026-10-18
+
+### Added
+
+- **`orrery`, the second external plugin.** Animated architecture and system design diagrams from a short YAML spec, drawn with the official AWS, Azure, Google Cloud, Kubernetes, GitHub and IBM icons, laid out by ELK and rendered to SVG, PNG, draw.io, React TSX and HTML. One skill with a bundled CLI, the `/orrery:review` command and three reviewer agents. It lives in [Sagargupta16/orrery](https://github.com/Sagargupta16/orrery) and is listed with a `{"source": "github", "repo": "Sagargupta16/orrery"}` entry at 0.7.0, so `/plugin install orrery@sagar-dev-skills` fetches it from that repo. README "External Plugins" table, install line, `reference.yaml` index and the settings template follow.
+
 ## [5.4.1] - 2026-10-18
 
 Guardrail fixes found by feeding the hooks real commands and staged files, plus README work.

@@ -118,7 +118,7 @@ bash scripts/check-links.sh
 
 **Totals**: 16 skills, 16 commands, 11 agents, 6 hooks
 
-**External**: `svg-forge` (3 skills, 1 agent) is listed with a `{"source": "github", "repo": "Sagargupta16/svg-forge"}` entry and validated in its own repo; `validate-plugins.sh` only checks the entry's shape for external sources.
+**External**: `svg-forge` (3 skills, 1 agent) and `orrery` (1 skill, 3 agents, 1 command) are listed with `{"source": "github", "repo": "Sagargupta16/<name>"}` entries and validated in their own repos; `validate-plugins.sh` only checks the entry's shape for external sources.
 
 ## Key Conventions
 
