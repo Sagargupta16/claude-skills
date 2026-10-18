@@ -1,5 +1,20 @@
 # Changelog
 
+## [5.6.0] - 2026-10-18
+
+Every hook bug fixed in 5.3.0 and 5.4.1 was found by hand, by piping payloads in during an audit. This release turns those probes into a suite that runs on every pull request, puts a demo built from real hook output at the top of the README, and makes each marketplace version a GitHub Release.
+
+### Added
+
+- **Hook test suite, `tests/hooks/run.sh`.** 88 fixture cases across all six hooks: secret-guard 31, no-force-push 28, commit-lint 12, auto-format 7, branch-guard 5, upstream-sync-check 5. Each case pipes a real payload into the hook on stdin inside a scratch git repo (real branches, staged blobs, commits, a local bare repo as `upstream`, stub formatters on `PATH`) and expects `block` (exit 2 with a reason), `warn` (exit 0 with one `systemMessage` object) or `allow` (exit 0, silent). `--ref <commit>` replays the suite against an older release's hooks: `v5.2.0` passes 31 of 88, 5.3.0 and 5.4.0 pass 71 of 88, 5.4.1 and this release pass 88 of 88. Fake secrets are assembled from split strings, so the file holds no literal token. Runs in `validate.yml`.
+- **README demo from real hook output.** `scripts/demo.sh` drives the hooks through four commands in a throwaway repo (a force push to `main`, a commit with a staged Anthropic key, a commit titled `update stuff`, a force push to a feature branch) and prints what they said and the exit codes. `docs/demo/hooks-demo.json` is that transcript, rendered into dark and light animated SVGs with svg-forge's `typing` kind. CI fails if the hooks' output stops matching the committed transcript. `docs/demo/README.md` has the regenerate commands.
+- **Release workflow, `.github/workflows/release.yml`.** After `Validate Plugins` passes on a push to `main`, it reads `metadata.version` and, when `v<version>` has no release yet, tags that commit and publishes a GitHub Release with the version's CHANGELOG section as notes. Only `v5.2.0` had been tagged; 5.3.0 through 5.5.0 never were. `scripts/release-notes.sh <version>` extracts the section and fails on a missing or empty one.
+- **README: "Tested guardrail hooks" and "Where to start".** The demo, the per-hook case table, the replay table by release, and the four plugins to try first.
+
+### Changed
+
+- **CONTRIBUTING:** hook changes add a row to the test suite; releases are automatic, so the manual `git tag` step is gone. **CLAUDE.md** and the PR template list the new gates. `reference.yaml` gains a `tooling` index and its version stamp, left at 5.4.1 by 5.5.0, now matches.
+
 ## [5.5.0] - 2026-10-18
 
 ### Added

@@ -3,7 +3,7 @@
 # Use this to find the right plugin, skill, command, agent, or hook.
 #
 # Format: keyword -> file path (relative to repo root)
-# Updated: 2026-10-18 | Version: 5.4.1
+# Updated: 2026-10-18 | Version: 5.6.0
 
 stats:
   plugins: 16
@@ -134,6 +134,15 @@ hook_manifests:
   dev-rules: plugins/dev-rules/hooks/hooks.json
   git-advanced: plugins/git-advanced/hooks/hooks.json
   oss-contrib: plugins/oss-contrib/hooks/hooks.json
+
+# Repo tooling (not shipped to users)
+tooling:
+  validate-plugins: scripts/validate-plugins.sh
+  check-links: scripts/check-links.sh
+  hook-tests: tests/hooks/run.sh
+  hook-demo: scripts/demo.sh
+  release-notes: scripts/release-notes.sh
+  release-workflow: .github/workflows/release.yml
 
 # Categories for navigation (mirrors marketplace.json `category` per plugin)
 categories:

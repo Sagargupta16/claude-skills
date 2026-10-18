@@ -20,6 +20,7 @@ Please fill in the sections below. Delete any that do not apply.
 
 - [ ] One plugin per PR (per [CONTRIBUTING.md](../CONTRIBUTING.md))
 - [ ] Ran `bash scripts/validate-plugins.sh` locally and it passes
+- [ ] Changed a hook? Added a case to `tests/hooks/run.sh` and ran it
 - [ ] `marketplace.json` updated if a plugin was added or version-bumped
 - [ ] `README.md` plugin table updated if adding/removing a plugin
 - [ ] `reference.yaml` stats and index updated if component counts changed
