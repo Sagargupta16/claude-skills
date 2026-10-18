@@ -2,12 +2,21 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Plugins](https://img.shields.io/badge/plugins-16-green.svg)](#plugins)
-[![Version](https://img.shields.io/badge/version-5.3.0-orange.svg)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-5.4.1-orange.svg)](CHANGELOG.md)
 [![CI](https://github.com/Sagargupta16/claude-skills/actions/workflows/validate.yml/badge.svg)](https://github.com/Sagargupta16/claude-skills/actions)
 
 Focused Claude Code plugin marketplace. 16 plugins covering everyday dev workflow, git, open-source contributions, Docker, dependency audits, repo hygiene, refactoring, FARM stack, context management, diff explanation, debug triage, Renovate triage, end-of-session audit, Python clean code, and animation/motion.
 
 Plugins are individually installable. Pick the ones relevant to your stack.
+
+## Quick start
+
+```text
+/plugin marketplace add Sagargupta16/claude-skills
+/plugin install dev-rules@sagar-dev-skills
+```
+
+Restart Claude Code. `dev-rules` now blocks `git push --force` to `main` and commits that stage an API key, and warns on direct commits to `main`. The hooks need `jq` on your PATH.
 
 ## Philosophy
 
@@ -82,6 +91,41 @@ Listed here, built and validated in their own repos. The marketplace entry point
 | **Hooks** | 6 | Shell scripts registered in the plugin's `hooks/hooks.json` and run by Claude Code on tool events (block secrets, validate commits, etc.) |
 
 Counts cover the 16 plugins in this repo; external plugins carry their own counts.
+
+## How It Works
+
+```mermaid
+flowchart TD
+  subgraph repo["This repo"]
+    M[".claude-plugin/marketplace.json"]
+    P["plugins/name/<br/>skills, commands,<br/>agents, hooks"]
+  end
+  X["Sagargupta16/svg-forge<br/>(external source)"]
+  M -->|"source: ./plugins/name"| P
+  M -->|"source: github"| X
+  M -->|"/plugin marketplace add"| CC["Claude Code"]
+  CC -->|"/plugin install"| S["Session"]
+  S --> SK["Skills: description always loaded,<br/>body and references/ on demand"]
+  S --> CM["Commands: /commit, /review, ..."]
+  S --> AG["Agents: isolated sub-conversations"]
+  S --> HK["hooks/hooks.json registers<br/>PreToolUse / PostToolUse"]
+  HK --> SH["bash script reads the tool call<br/>as JSON on stdin"]
+  SH -->|"exit 2 + stderr"| BL["Tool call blocked"]
+  SH -->|"exit 0 + systemMessage"| WN["Warning shown to user"]
+```
+
+- **Content only, no runtime.** Everything is Markdown, JSON and bash. Claude Code is the runtime; this repo only ships what it loads.
+- **Progressive disclosure.** A skill's `description` is the only part always in context, so each one starts with `Use when ...` to say exactly when it should fire. Long rule sets (`clean-code`, `motion`) live in `references/` and load only when the skill needs them.
+- **Hooks follow Claude Code's contract, not a guess at it.** Each script is registered in `hooks/hooks.json`, gates on `hook_event_name` and `tool_name`, splits the command on shell separators so `grep "git commit"` does not trigger it, blocks with `exit 2` and warns through a `systemMessage` JSON object. 5.3.0 is the release where all six hooks were found inert and rewired; the [CHANGELOG](CHANGELOG.md) has the full story.
+- **External plugins stay in their own repo.** `svg-forge` is listed with a `github` source, so it is versioned, tested and released on its own while installing from this marketplace.
+- **CI guards the format.** Every pull request and every push to `main` runs [`scripts/validate-plugins.sh`](scripts/validate-plugins.sh) (manifests, frontmatter, hook registration against the real event list), [skillcheck](https://github.com/Sagargupta16/skillcheck) (Agent Skills spec lint) and [`scripts/check-links.sh`](scripts/check-links.sh) (relative links across every tracked Markdown file).
+
+Run the same gates locally:
+
+```bash
+bash scripts/validate-plugins.sh
+bash scripts/check-links.sh
+```
 
 ## Installation
 
