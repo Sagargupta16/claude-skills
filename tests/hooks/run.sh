@@ -36,7 +36,7 @@ WORK=$(mktemp -d)
 trap 'rm -rf "$WORK"' EXIT
 
 REF=""
-if [ "${1:-}" = "--ref" ]; then
+if [[ "${1:-}" = "--ref" ]]; then
   REF="${2:?--ref needs a git ref, for example v5.2.0}"
   mkdir -p "$WORK/ref"
   if ! git -C "$ROOT" archive "$REF" plugins | tar -x -C "$WORK/ref"; then
@@ -61,7 +61,11 @@ FAIL=0
 declare -A HOOK_CASES=()
 
 # Repeats a character N times, for building fake tokens of the right length.
-rep() { printf "%${2}s" "" | tr ' ' "$1"; }
+rep() {
+  local char="$1" count="$2"
+  printf "%${count}s" "" | tr ' ' "$char"
+  return 0
+}
 
 # Fake credentials, split so no line of this file matches a real pattern.
 FAKE_AWS="AK""IA$(rep 7 16)"
@@ -80,14 +84,23 @@ FAKE_KEY="-----BEGIN RSA PRIVATE"" KEY-----"
 FAKE_MONGO="mongo""db+srv://app:s3cret@cluster0.example.net/db"
 FAKE_PG="postgres""ql://app:s3cret@db.example.net:5432/app"
 
+# Strings several cases share.
+COMMIT_FEAT_X='git commit -m "feat: x"'
+FORCE_MAIN="Force push to main"
+LINT_FORMAT="does not follow conventional commit format"
+
 payload_bash() {
-  jq -nc --arg e "$1" --arg c "$2" \
+  local event="$1" command="$2"
+  jq -nc --arg e "$event" --arg c "$command" \
     '{hook_event_name: $e, tool_name: "Bash", tool_input: {command: $c}}'
+  return 0
 }
 
 payload_file() {
-  jq -nc --arg e "$1" --arg t "$2" --arg f "$3" \
+  local event="$1" tool="$2" file="$3"
+  jq -nc --arg e "$event" --arg t "$tool" --arg f "$file" \
     '{hook_event_name: $e, tool_name: $t, tool_input: {file_path: $f}}'
+  return 0
 }
 
 # Fresh scratch repo on `main` with one commit, isolated from the user's git
@@ -106,6 +119,7 @@ new_repo() {
   git -C "$dir" add tracked.txt
   git -C "$dir" commit -q -m "chore: initial commit"
   REPO="$dir"
+  return 0
 }
 
 # Puts the scratch repo back to its first commit with nothing staged.
@@ -113,11 +127,14 @@ reset_repo() {
   git -C "$REPO" checkout -q main 2>/dev/null
   git -C "$REPO" reset -q --hard
   git -C "$REPO" clean -qfd
+  return 0
 }
 
 stage() {
-  printf '%s\n' "$2" >"$REPO/$1"
-  git -C "$REPO" add -- "$1"
+  local file="$1" content="$2"
+  printf '%s\n' "$content" >"$REPO/$file"
+  git -C "$REPO" add -- "$file"
+  return 0
 }
 
 # check HOOK EXPECT NAME PAYLOAD [stdout-substring]
@@ -129,28 +146,28 @@ check() {
   rc=$?
   out=${out//$'\r'/}
 
-  if [ "$rc" -eq 2 ]; then
+  if [[ "$rc" -eq 2 ]]; then
     got=block
-    [ -s "$WORK/stderr" ] || detail="exit 2 with an empty stderr"
-  elif [ "$rc" -eq 0 ] && [ -z "$out" ]; then
+    [[ -s "$WORK/stderr" ]] || detail="exit 2 with an empty stderr"
+  elif [[ "$rc" -eq 0 && -z "$out" ]]; then
     got=allow
-  elif [ "$rc" -eq 0 ] && jq -e 'type == "object" and (.systemMessage | type == "string")' <<<"$out" &>/dev/null; then
+  elif [[ "$rc" -eq 0 ]] && jq -e 'type == "object" and (.systemMessage | type == "string")' <<<"$out" &>/dev/null; then
     got=warn
   else
     got="rc=$rc"
     detail="stdout: ${out:0:120}"
   fi
 
-  if [ "$got" = "$expect" ] && [ -z "$detail" ] && [ -n "$needle" ]; then
+  if [[ "$got" = "$expect" && -z "$detail" && -n "$needle" ]]; then
     local haystack="$out"
-    [ "$got" = block ] && haystack=$(tr -d '\r' <"$WORK/stderr")
+    [[ "$got" = block ]] && haystack=$(tr -d '\r' <"$WORK/stderr")
     [[ "$haystack" == *"$needle"* ]] || detail="output is missing: $needle"
   fi
 
   local label
   label=$(basename "$hook" .sh)
   HOOK_CASES[$label]=$((${HOOK_CASES[$label]:-0} + 1))
-  if [ "$got" = "$expect" ] && [ -z "$detail" ]; then
+  if [[ "$got" = "$expect" && -z "$detail" ]]; then
     PASS=$((PASS + 1))
     printf 'PASS  %-20s %-5s  %s\n' "$label" "$expect" "$name"
   else
@@ -165,9 +182,11 @@ new_repo secrets
 COMMIT=$(payload_bash PreToolUse 'git commit -m "feat: add client"')
 
 secret_case() {
+  local file="$1" content="$2" name="$3"
   reset_repo
-  stage "$1" "$2"
-  check "$HOOK_SECRET" block "$3" "$COMMIT" "$1 (staged)"
+  stage "$file" "$content"
+  check "$HOOK_SECRET" block "$name" "$COMMIT" "$file (staged)"
+  return 0
 }
 
 secret_case aws.py "KEY = \"$FAKE_AWS\"" "AWS access key"
@@ -213,14 +232,16 @@ check "$HOOK_SECRET" allow "grep for the words git commit" \
 check "$HOOK_SECRET" allow "git status with a secret staged" \
   "$(payload_bash PreToolUse 'git status')"
 check "$HOOK_SECRET" allow "PostToolUse event is ignored" \
-  "$(payload_bash PostToolUse 'git commit -m "feat: x"')"
+  "$(payload_bash PostToolUse "$COMMIT_FEAT_X")"
 check "$HOOK_SECRET" allow "non-Bash tool is ignored" \
   "$(jq -nc '{hook_event_name: "PreToolUse", tool_name: "Write", tool_input: {command: "git commit -m x"}}')"
 
 clean_case() {
+  local file="$1" content="$2" name="$3"
   reset_repo
-  stage "$1" "$2"
-  check "$HOOK_SECRET" allow "$3" "$COMMIT"
+  stage "$file" "$content"
+  check "$HOOK_SECRET" allow "$name" "$COMMIT"
+  return 0
 }
 
 clean_case notes.md "Rotate the key every 90 days." "plain prose"
@@ -233,18 +254,20 @@ clean_case settings.py "$(printf 'pass''word = os.environ["DB_PASSWORD"]')" "pas
 new_repo pushes
 
 push_case() {
-  check "$HOOK_PUSH" "$1" "$2" "$(payload_bash PreToolUse "$2")" "${3:-}"
+  local expect="$1" command="$2" needle="${3:-}"
+  check "$HOOK_PUSH" "$expect" "$command" "$(payload_bash PreToolUse "$command")" "$needle"
+  return 0
 }
 
-push_case block "git push --force origin main" "Force push to main"
+push_case block "git push --force origin main" "$FORCE_MAIN"
 push_case block "git push -f origin main"
 push_case block "git push --force-with-lease origin main"
 push_case block "git push origin +main"
 push_case block "git push --force origin feat/x:main"
 push_case block "git push --force origin refs/heads/main"
-push_case block "git push --force origin HEAD" "Force push to main"
+push_case block "git push --force origin HEAD" "$FORCE_MAIN"
 push_case block "git push --force origin @"
-push_case block "git push --force" "Force push to main"
+push_case block "git push --force" "$FORCE_MAIN"
 push_case block "git push -fu origin main"
 push_case block "git push -o ci.skip --force origin main"
 push_case block "git push --force --all" "every branch on the remote"
@@ -265,24 +288,24 @@ git -C "$REPO" checkout -q -b feat/x
 push_case allow "git push --force"
 push_case allow "git push --force origin HEAD"
 push_case allow "git push -fu origin feat/x"
-push_case block "git push --force origin main" "Force push to main"
+push_case block "git push --force origin main" "$FORCE_MAIN"
 git -C "$REPO" checkout -q main
 
 # --- branch-guard -----------------------------------------------------------
 
 new_repo branches
 check "$HOOK_BRANCH" warn "commit on main" \
-  "$(payload_bash PreToolUse 'git commit -m "feat: x"')" "committing directly to 'main'"
+  "$(payload_bash PreToolUse "$COMMIT_FEAT_X")" "committing directly to 'main'"
 check "$HOOK_BRANCH" allow "grep for git commit on main" \
   "$(payload_bash PreToolUse 'grep -rn "git commit" docs/')"
 check "$HOOK_BRANCH" allow "PostToolUse event is ignored" \
-  "$(payload_bash PostToolUse 'git commit -m "feat: x"')"
+  "$(payload_bash PostToolUse "$COMMIT_FEAT_X")"
 git -C "$REPO" checkout -q -b master
 check "$HOOK_BRANCH" warn "commit on master" \
-  "$(payload_bash PreToolUse 'git commit -m "feat: x"')" "committing directly to 'master'"
+  "$(payload_bash PreToolUse "$COMMIT_FEAT_X")" "committing directly to 'master'"
 git -C "$REPO" checkout -q -b feat/x
 check "$HOOK_BRANCH" allow "commit on a feature branch" \
-  "$(payload_bash PreToolUse 'git commit -m "feat: x"')"
+  "$(payload_bash PreToolUse "$COMMIT_FEAT_X")"
 
 # --- commit-lint ------------------------------------------------------------
 
@@ -290,8 +313,10 @@ new_repo lint
 AFTER_COMMIT=$(payload_bash PostToolUse 'git commit -m "msg"')
 
 lint_case() {
-  git -C "$REPO" commit -q --allow-empty -m "$2"
-  check "$HOOK_LINT" "$1" "$2" "$AFTER_COMMIT" "${3:-}"
+  local expect="$1" message="$2" needle="${3:-}"
+  git -C "$REPO" commit -q --allow-empty -m "$message"
+  check "$HOOK_LINT" "$expect" "$message" "$AFTER_COMMIT" "$needle"
+  return 0
 }
 
 lint_case allow "feat: add user authentication"
@@ -299,10 +324,10 @@ lint_case allow "fix(api): handle empty body"
 lint_case allow "feat!: drop the v1 api"
 lint_case allow "fix(api)!: change the response shape"
 lint_case allow "revert: undo the cache change"
-lint_case warn "bad message here" "does not follow conventional commit format"
-lint_case warn "feat!drop the colon" "does not follow conventional commit format"
-lint_case warn "Feat: capitalised type" "does not follow conventional commit format"
-lint_case warn "feature: unknown type" "does not follow conventional commit format"
+lint_case warn "bad message here" "$LINT_FORMAT"
+lint_case warn "feat!drop the colon" "$LINT_FORMAT"
+lint_case warn "Feat: capitalised type" "$LINT_FORMAT"
+lint_case warn "feature: unknown type" "$LINT_FORMAT"
 git -C "$REPO" commit -q --allow-empty -m "feat: $(rep x 70)"
 check "$HOOK_LINT" warn "76-char subject line" "$AFTER_COMMIT" "(max 72)"
 check "$HOOK_LINT" allow "git status is not linted" "$(payload_bash PostToolUse 'git status')"
@@ -348,6 +373,7 @@ format_case() {
   local input
   input=$(payload_file PostToolUse Edit "$file")
   PATH="$STUBS:$PATH" check "$HOOK_FORMAT" "$expect" "$name" "$input" "$needle"
+  return 0
 }
 
 printf 'package main\n' >"$REPO/main.go"
@@ -375,4 +401,4 @@ done
 echo ""
 echo "$((PASS + FAIL)) cases across ${#HOOK_CASES[@]} hooks: $PASS passed, $FAIL failed"
 
-[ "$FAIL" -eq 0 ] || exit 1
+[[ "$FAIL" -eq 0 ]] || exit 1

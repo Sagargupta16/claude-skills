@@ -49,7 +49,7 @@ run() {
   for step in "$@"; do
     event="${step%%=*}"
     hook="${step#*=}"
-    if [ "$event" = "commit" ]; then
+    if [[ "$event" = "commit" ]]; then
       git -C "$REPO" commit -q -m "$hook"
       continue
     fi
@@ -62,14 +62,14 @@ run() {
     set -e
     out=${out//$'\r'/}
     err=$(tr -d '\r' <"$WORK/err")
-    if [ "$rc" -eq 2 ]; then
+    if [[ "$rc" -eq 2 ]]; then
       while IFS= read -r line; do
         outs+=("$line")
       done < <(grep -v '^$' <<<"$err" | head -n 2)
       outs+=("$name: exit 2, Claude Code blocks the call")
       tone=warn
       break
-    elif [ -n "$out" ]; then
+    elif [[ -n "$out" ]]; then
       while IFS= read -r line; do
         outs+=("$line")
       done < <(jq -r '.systemMessage' <<<"$out" | tr -d '\r' | head -n 2)
@@ -77,7 +77,7 @@ run() {
       tone=muted
     fi
   done
-  if [ ${#outs[@]} -eq 0 ]; then
+  if [[ ${#outs[@]} -eq 0 ]]; then
     outs+=("every hook: exit 0, allowed")
   fi
   LINES=$(jq -c --arg c "$cmd" --arg t "$tone" '. + [{cmd: $c, out: $ARGS.positional, tone: $t}]' \
@@ -103,7 +103,7 @@ run 'git commit -m "update stuff"' "${PRE[@]}" "commit=update stuff" "PostToolUs
 # 4. Force pushing your own feature branch is fine.
 run "git push --force origin feat/client" "${PRE[@]}"
 
-if [ "$MODE" = "--json" ]; then
+if [[ "$MODE" = "--json" ]]; then
   jq -n --argjson lines "$LINES" '{title: "claude code: dev-rules hooks", prompt: "$", lines: $lines}'
   exit 0
 fi

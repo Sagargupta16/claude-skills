@@ -23,7 +23,7 @@ NOTES=$(tr -d '\r' <"$CHANGELOG" | awk -v want="## [$VERSION]" '
 NOTES=$(sed -e '/./,$!d' <<<"$NOTES")
 NOTES=$(printf '%s\n' "$NOTES" | sed -e ':a' -e '/^\n*$/{$d;N;ba' -e '}')
 
-if [ -z "${NOTES//[[:space:]]/}" ]; then
+if [[ -z "${NOTES//[[:space:]]/}" ]]; then
   echo "ERROR: $CHANGELOG has no notes under ## [$VERSION]" >&2
   exit 1
 fi
