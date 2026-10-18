@@ -74,19 +74,24 @@ for segment in "${COMMIT_SEGMENTS[@]}"; do
   done
 done
 
-# Patterns that indicate hardcoded secrets
+# Patterns that indicate hardcoded secrets. These are POSIX EREs for grep -E:
+# use [[:space:]] rather than \s, which is literal `\` and `s` inside a bracket
+# expression, and a real ' rather than \x27, which grep -E does not decode.
 PATTERNS=(
   'AKIA[0-9A-Z]{16}'                    # AWS access key
   'sk-[a-zA-Z0-9]{20,}'                 # OpenAI/Stripe secret key
+  'sk-(proj|svcacct|admin)-[a-zA-Z0-9_-]{20,}'  # OpenAI project/service key
+  'sk-ant-[a-zA-Z0-9_-]{20,}'           # Anthropic API key
   'ghp_[a-zA-Z0-9]{36}'                 # GitHub personal access token
   'gho_[a-zA-Z0-9]{36}'                 # GitHub OAuth token
-  'glpat-[a-zA-Z0-9\-]{20}'            # GitLab personal access token
-  'xox[bpors]-[a-zA-Z0-9\-]+'          # Slack token
-  'password\s*=\s*["\x27][^"\x27]+'     # password = "..."
-  'secret\s*=\s*["\x27][^"\x27]+'       # secret = "..."
+  'github_pat_[a-zA-Z0-9_]{22,}'        # GitHub fine-grained token
+  'glpat-[a-zA-Z0-9-]{20}'              # GitLab personal access token
+  'xox[bpors]-[a-zA-Z0-9-]+'            # Slack token
+  "password[[:space:]]*=[[:space:]]*[\"'][^\"']+"  # password = "..." or '...'
+  "secret[[:space:]]*=[[:space:]]*[\"'][^\"']+"    # secret = "..." or '...'
   'PRIVATE KEY-----'                     # Private key block
-  'mongodb(\+srv)?://[^/\s]+:[^/\s]+@'  # MongoDB connection string with creds
-  'postgres://[^/\s]+:[^/\s]+@'         # Postgres connection string with creds
+  'mongodb(\+srv)?://[^/[:space:]]+:[^/[:space:]]+@'  # MongoDB URI with creds
+  'postgres(ql)?://[^/[:space:]]+:[^/[:space:]]+@'    # Postgres URI with creds
 )
 
 FOUND=0

@@ -72,7 +72,11 @@ protected_target() {
       -o | --repo | --receive-pack | --exec | --push-option)
         skip_value=1
         ;;
-      -*) ;;
+      --*) ;;
+      -*)
+        # A short-flag bundle such as -fu forces just like -f.
+        [[ "$token" == *f* ]] && force=1
+        ;;
       *)
         if [ "$remote_seen" -eq 0 ]; then
           remote_seen=1
@@ -111,6 +115,10 @@ protected_target() {
     # src:dst pushes to dst; a bare refspec pushes to the same name.
     dest="${refspec##*:}"
     dest="${dest#refs/heads/}"
+    # HEAD and @ name the checked-out branch.
+    if [ "$dest" = "HEAD" ] || [ "$dest" = "@" ]; then
+      dest="$CURRENT"
+    fi
     if grep -qE "$PROTECTED" <<<"$dest"; then
       printf '%s' "$dest"
       return 0

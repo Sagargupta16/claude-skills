@@ -40,14 +40,15 @@ if [ -z "$MSG" ]; then
 fi
 
 # Check for conventional commit format
-# First line must be: type: description or type(scope): description
+# First line must be: type: description or type(scope): description, with an
+# optional ! before the colon for a breaking change (feat!: ..., fix(api)!: ...)
 VALID_TYPES="feat|fix|refactor|docs|test|chore|style|perf|ci|build|revert"
 
 FIRST_LINE=$(head -1 <<<"$MSG")
 
 WARNINGS=""
 
-if ! grep -qE "^($VALID_TYPES)(\(.+\))?: .+" <<<"$FIRST_LINE"; then
+if ! grep -qE "^($VALID_TYPES)(\(.+\))?!?: .+" <<<"$FIRST_LINE"; then
   WARNINGS+="Commit message does not follow conventional commit format."
   WARNINGS+=$'\n'"  Got: $FIRST_LINE"
   WARNINGS+=$'\n'"  Expected: type: description"
