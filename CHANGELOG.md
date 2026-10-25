@@ -1,5 +1,11 @@
 # Changelog
 
+## [5.6.1] - 2026-10-25
+
+### Fixed
+
+- **External plugin entries were several releases behind.** `svg-forge` was listed at 0.2.0 while its repo released 0.3.0 on 2026-10-18, and `orrery` at 0.7.0 while its repo released 0.12.1 on 2026-10-24. The orrery entry also still described the 0.7.0 plugin: one command and three reviewer agents. It now lists `/orrery:draw`, `/orrery:doc`, `/orrery:import-image` and `/orrery:review`, and the planner, diagram-author, image-importer and patch-proposer agents beside the four reviewers. The svg-forge entry now names its 14 kinds, 15 themes, WCAG contrast validator and frame renderer. README "External Plugins" table, the version badge, the `reference.yaml` stamp and the CLAUDE.md inventory follow.
+
 ## [5.6.0] - 2026-10-18
 
 Every hook bug fixed in 5.3.0 and 5.4.1 was found by hand, by piping payloads in during an audit. This release turns those probes into a suite that runs on every pull request, puts a demo built from real hook output at the top of the README, and makes each marketplace version a GitHub Release.

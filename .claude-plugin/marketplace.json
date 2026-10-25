@@ -6,7 +6,7 @@
   },
   "metadata": {
     "description": "Focused Claude Code plugins covering everyday dev workflow, git, OSS contributions, Docker, dependency audits, repo hygiene, refactoring, FARM stack, context management, diff explanation, debug triage, Renovate triage, session audit, Python clean code, animation/motion, animated SVG design (svg-forge) and architecture diagrams (orrery), each from its own repo. Opinionated, battle-tested across 60+ repos.",
-    "version": "5.6.0",
+    "version": "5.6.1",
     "pluginRoot": "./plugins"
   },
   "plugins": [
@@ -310,8 +310,8 @@
         "source": "github",
         "repo": "Sagargupta16/svg-forge"
       },
-      "description": "Design animated SVGs that render everywhere: self-contained README cards, banners, loaders and diagrams that survive GitHub's image proxy, plus React and Motion scenes for apps. Skills animated-svg, motion-scene, svg-audit; agent svg-designer; a generator with timing presets and a validator. Lives in its own repo.",
-      "version": "0.2.0",
+      "description": "Design animated SVGs that render everywhere: self-contained README cards, banners, loaders, icons and diagrams that survive GitHub's image proxy, plus React and Motion scenes for apps. Skills animated-svg, motion-scene, svg-audit; agent svg-designer; a generator for 14 kinds with 15 contrast-checked themes, a validator with WCAG contrast rules, a frame renderer and a minifier. Lives in its own repo.",
+      "version": "0.3.0",
       "author": {
         "name": "Sagar Gupta"
       },
@@ -332,8 +332,8 @@
         "source": "github",
         "repo": "Sagargupta16/orrery"
       },
-      "description": "Animated architecture and system design diagrams from a short YAML spec, drawn with the official AWS, Azure, Google Cloud, Kubernetes, GitHub and IBM icons, laid out by ELK and rendered to SVG, PNG, draw.io, React TSX and HTML. Skill orrery with a bundled CLI; command /orrery:review; agents conventions-reviewer, flow-reviewer, legibility-reviewer. Lives in its own repo.",
-      "version": "0.7.0",
+      "description": "Architecture, system design and business flow diagrams from a short YAML spec, drawn with the official AWS, Azure, Google Cloud, Kubernetes, GitHub and IBM icons plus 5,500 tech logos, auto-laid out and rendered to SVG, PNG, editable draw.io, React TSX, HTML and design documents. Skill orrery with a bundled CLI; commands /orrery:draw, /orrery:doc, /orrery:import-image, /orrery:review; agents planner, diagram-author, image-importer, patch-proposer and four reviewers (accuracy, conventions, flow, legibility). Lives in its own repo.",
+      "version": "0.12.1",
       "author": {
         "name": "Sagar Gupta"
       },
