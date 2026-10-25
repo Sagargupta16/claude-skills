@@ -3,7 +3,7 @@
 # Use this to find the right plugin, skill, command, agent, or hook.
 #
 # Format: keyword -> file path (relative to repo root)
-# Updated: 2026-10-18 | Version: 5.6.0
+# Updated: 2026-10-25 | Version: 5.6.1
 
 stats:
   plugins: 16
