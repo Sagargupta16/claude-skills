@@ -1,5 +1,11 @@
 # Changelog
 
+## [5.7.0] - 2026-11-01
+
+### Added
+
+- **`praxinoscope`, the third external plugin.** Short videos made from code: a brief becomes a storyboard you approve, then a proof, a fresh-eyes review, a render and a final review bound to the file's content hashes. Every frame is drawn in Python as a pure function of time, the music and sound effects are synthesized in numpy and mastered to -14 LUFS, and 58 coded QA checks run on the file. One skill with six styles (signal, ledger, blueprint, marquee, pulse, cartridge) and two agents, builder and reviewer. It lives in [Sagargupta16/praxinoscope](https://github.com/Sagargupta16/praxinoscope) and is listed with a `{"source": "github", "repo": "Sagargupta16/praxinoscope"}` entry at 0.1.0, so `/plugin install praxinoscope@sagar-dev-skills` fetches it from that repo. README "External Plugins" table, install line, `reference.yaml` index, the settings template and the CLAUDE.md inventory follow.
+
 ## [5.6.1] - 2026-10-25
 
 ### Fixed

@@ -5,8 +5,8 @@
     "email": "sg85207@gmail.com"
   },
   "metadata": {
-    "description": "Focused Claude Code plugins covering everyday dev workflow, git, OSS contributions, Docker, dependency audits, repo hygiene, refactoring, FARM stack, context management, diff explanation, debug triage, Renovate triage, session audit, Python clean code, animation/motion, animated SVG design (svg-forge) and architecture diagrams (orrery), each from its own repo. Opinionated, battle-tested across 60+ repos.",
-    "version": "5.6.1",
+    "description": "Focused Claude Code plugins covering everyday dev workflow, git, OSS contributions, Docker, dependency audits, repo hygiene, refactoring, FARM stack, context management, diff explanation, debug triage, Renovate triage, session audit, Python clean code, animation/motion, animated SVG design (svg-forge), architecture diagrams (orrery) and short videos made from code (praxinoscope), each from its own repo. Opinionated, battle-tested across 60+ repos.",
+    "version": "5.7.0",
     "pluginRoot": "./plugins"
   },
   "plugins": [
@@ -349,6 +349,28 @@
         "drawio"
       ],
       "category": "development"
+    },
+    {
+      "name": "praxinoscope",
+      "source": {
+        "source": "github",
+        "repo": "Sagargupta16/praxinoscope"
+      },
+      "description": "Short videos made from code: a brief becomes a storyboard you approve, a proof, a fresh-eyes review, a render and a final review, with every frame drawn in Python as a pure function of time, numpy music and sound effects mastered to -14 LUFS, and 58 coded QA checks proven by planted-fault self tests. Skill praxinoscope with six styles (signal, ledger, blueprint, marquee, pulse, cartridge); agents builder and reviewer. Needs uv and ffmpeg. Lives in its own repo.",
+      "version": "0.1.0",
+      "author": {
+        "name": "Sagar Gupta"
+      },
+      "license": "MIT",
+      "keywords": [
+        "video",
+        "animation",
+        "motion-graphics",
+        "ffmpeg",
+        "pillow",
+        "storyboard"
+      ],
+      "category": "frontend"
     }
   ]
 }
