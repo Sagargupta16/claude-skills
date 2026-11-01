@@ -1,5 +1,11 @@
 # Changelog
 
+## [5.7.1] - 2026-11-01
+
+### Fixed
+
+- **External plugin entries said older versions than they install.** Their `github` sources carry no `ref`, so `/plugin install` fetches each repo's `main`. `praxinoscope` was listed at 0.1.0 while its main is 0.1.1, and `orrery` at 0.12.1 while its main is 0.12.2. Both entries now carry those versions. orrery's main holds 0.12.2 (its changelog dates it 2026-10-27) but has no `v0.12.2` tag or release yet. `svg-forge` already matched, at 0.3.0. The version badge and the `reference.yaml` stamp follow.
+
 ## [5.7.0] - 2026-11-01
 
 ### Added

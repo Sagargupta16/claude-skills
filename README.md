@@ -2,7 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Plugins](https://img.shields.io/badge/plugins-16-green.svg)](#plugins)
-[![Version](https://img.shields.io/badge/version-5.7.0-orange.svg)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-5.7.1-orange.svg)](CHANGELOG.md)
 [![CI](https://github.com/Sagargupta16/claude-skills/actions/workflows/validate.yml/badge.svg)](https://github.com/Sagargupta16/claude-skills/actions)
 
 Focused Claude Code plugin marketplace. 16 plugins covering everyday dev workflow, git, open-source contributions, Docker, dependency audits, repo hygiene, refactoring, FARM stack, context management, diff explanation, debug triage, Renovate triage, end-of-session audit, Python clean code, and animation/motion.
