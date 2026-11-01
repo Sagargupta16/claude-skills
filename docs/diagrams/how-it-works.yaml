@@ -1,0 +1,107 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/Sagargupta16/orrery/main/skills/orrery/references/diagram.schema.json
+# Rendered with orrery (github.com/Sagargupta16/orrery):
+#   orrery render docs/diagrams/how-it-works.yaml -o docs/diagrams/how-it-works -f svg --theme both
+# Reviewed at README width: orrery review docs/diagrams/how-it-works.yaml --width 880
+title: How the marketplace works
+subtitle: Content only. Claude Code reads the manifest, installs each plugin from its source and runs the hooks it registers.
+direction: down
+layout: { spacing: compact }
+
+groups:
+  github: { type: box, label: Sagargupta16 on GitHub, icon: logos:github-icon }
+  session: { type: box, label: Your Claude Code session, icon: logos:claude-code }
+
+nodes:
+  manifest:
+    icon: tabler:json
+    label: marketplace.json
+    note: read by /plugin marketplace add
+    in: github
+    evidence:
+      - .claude-plugin/marketplace.json:2#sagar-dev-skills
+      - README.md:15#marketplace
+  local:
+    icon: github:file-directory
+    label: plugins/<name>/
+    note: 16 plugins in this repo
+    in: github
+    evidence: .claude-plugin/marketplace.json:15#./plugins/dev-workflow
+  external:
+    icon: github:repo
+    label: External plugin repos
+    note: svg-forge, orrery, praxinoscope
+    in: github
+    evidence:
+      - .claude-plugin/marketplace.json:311#svg-forge
+      - .claude-plugin/marketplace.json:333#orrery
+      - .claude-plugin/marketplace.json:357#praxinoscope
+  claude:
+    icon: logos:claude-code
+    label: Claude Code
+    note: loads plugins at session start
+    in: session
+    evidence: README.md:16#install
+  skills:
+    icon: tabler:book
+    label: Skills
+    note: description always loaded, body on demand
+    in: session
+    evidence: plugins/dev-workflow/skills/dev-workflow/SKILL.md:3#description
+  commands:
+    icon: tabler:slash
+    label: Commands
+    note: /commit, /review, ...
+    in: session
+    evidence: plugins/dev-workflow/commands/commit.md:2#description
+  agents:
+    icon: tabler:robot
+    label: Agents
+    note: isolated sub-conversations
+    in: session
+    evidence: plugins/dev-workflow/agents/code-reviewer.md:4#model
+  hooks:
+    icon: tabler:webhook
+    label: hooks/hooks.json
+    note: PreToolUse, PostToolUse
+    in: session
+    evidence:
+      - plugins/dev-rules/hooks/hooks.json:4#PreToolUse
+      - plugins/dev-workflow/hooks/hooks.json:4#PostToolUse
+  script:
+    icon: logos:bash-icon
+    label: Hook script
+    note: reads the tool call as JSON on stdin
+    in: session
+    evidence: plugins/dev-rules/hooks/secret-guard.sh:22#INPUT
+  blocked:
+    icon: tabler:hand-stop
+    label: Tool call blocked
+    note: secret-guard, no-force-push
+    in: session
+    evidence:
+      - plugins/dev-rules/hooks/secret-guard.sh:134#exit
+      - plugins/dev-rules/hooks/no-force-push.sh:140#exit
+  warned:
+    icon: tabler:alert-triangle
+    label: Warning shown
+    note: four warn-only hooks
+    in: session
+    evidence:
+      - plugins/dev-rules/hooks/branch-guard.sh:44#systemMessage
+      - plugins/git-advanced/hooks/commit-lint.sh:71#systemMessage
+  allowed:
+    icon: tabler:circle-check
+    label: Tool call allowed
+    note: nothing to report
+    in: session
+    evidence: plugins/dev-rules/hooks/branch-guard.sh:47#exit
+
+edges:
+  - "manifest -> local: source: ./plugins/<name>"
+  - "manifest -> external: source: github"
+  - local, external -> claude: /plugin install
+  - claude -> skills, commands, agents, hooks
+  - hooks -> script: matching tool call
+  - "script -> blocked: exit 2 + stderr"
+  - "script -> warned: exit 0 + systemMessage"
+  - "script -> allowed: exit 0, silent"
