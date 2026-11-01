@@ -140,25 +140,13 @@ Counts cover the 16 plugins in this repo; external plugins carry their own count
 
 ## How It Works
 
-```mermaid
-flowchart TD
-  subgraph repo["This repo"]
-    M[".claude-plugin/marketplace.json"]
-    P["plugins/name/<br/>skills, commands,<br/>agents, hooks"]
-  end
-  X["Sagargupta16/svg-forge<br/>(external source)"]
-  M -->|"source: ./plugins/name"| P
-  M -->|"source: github"| X
-  M -->|"/plugin marketplace add"| CC["Claude Code"]
-  CC -->|"/plugin install"| S["Session"]
-  S --> SK["Skills: description always loaded,<br/>body and references/ on demand"]
-  S --> CM["Commands: /commit, /review, ..."]
-  S --> AG["Agents: isolated sub-conversations"]
-  S --> HK["hooks/hooks.json registers<br/>PreToolUse / PostToolUse"]
-  HK --> SH["bash script reads the tool call<br/>as JSON on stdin"]
-  SH -->|"exit 2 + stderr"| BL["Tool call blocked"]
-  SH -->|"exit 0 + systemMessage"| WN["Warning shown to user"]
-```
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/diagrams/how-it-works-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="docs/diagrams/how-it-works-light.svg">
+  <img width="880" src="docs/diagrams/how-it-works-light.svg" alt="How the marketplace works: when you run /plugin marketplace add, Claude Code reads .claude-plugin/marketplace.json from Sagargupta16/claude-skills on GitHub. Each entry names a source: ./plugins/&lt;name&gt; for the 16 plugins in this repo, or a github source for the external plugin repos svg-forge, orrery and praxinoscope. /plugin install fetches the plugin from that source into your Claude Code session, which loads its skills (the description always, the body on demand), its slash commands such as /commit and /review, its agents as isolated sub-conversations, and its hooks/hooks.json, which registers PreToolUse and PostToolUse hooks. On a matching tool call Claude Code runs the hook's bash script with the tool call as JSON on stdin. The script blocks the call with exit 2 and a reason on stderr (secret-guard, no-force-push), shows a warning with exit 0 and a systemMessage (the four warn-only hooks), or lets it through silently with exit 0.">
+</picture>
+
+The spec behind the picture is [`docs/diagrams/how-it-works.yaml`](docs/diagrams/how-it-works.yaml), rendered with [orrery](https://github.com/Sagargupta16/orrery).
 
 - **Content only, no runtime.** Everything is Markdown, JSON and bash. Claude Code is the runtime; this repo only ships what it loads.
 - **Progressive disclosure.** A skill's `description` is the only part always in context, so each one starts with `Use when ...` to say exactly when it should fire. Long rule sets (`clean-code`, `motion`) live in `references/` and load only when the skill needs them.
