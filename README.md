@@ -2,7 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Plugins](https://img.shields.io/badge/plugins-16-green.svg)](#plugins)
-[![Version](https://img.shields.io/badge/version-5.6.1-orange.svg)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-5.7.0-orange.svg)](CHANGELOG.md)
 [![CI](https://github.com/Sagargupta16/claude-skills/actions/workflows/validate.yml/badge.svg)](https://github.com/Sagargupta16/claude-skills/actions)
 
 Focused Claude Code plugin marketplace. 16 plugins covering everyday dev workflow, git, open-source contributions, Docker, dependency audits, repo hygiene, refactoring, FARM stack, context management, diff explanation, debug triage, Renovate triage, end-of-session audit, Python clean code, and animation/motion.
@@ -125,6 +125,7 @@ Listed here, built and validated in their own repos. The marketplace entry point
 |--------|--------|--------|-------|-------------|
 | **[svg-forge](https://github.com/Sagargupta16/svg-forge)** | `animated-svg`, `motion-scene`, `svg-audit` | svg-designer | - | Animated SVGs that render everywhere: README cards, banners, loaders and diagrams that survive GitHub's image proxy, plus React and Motion scenes. Ships a generator for 14 kinds with 15 contrast-checked themes, a WCAG contrast validator and a frame renderer. |
 | **[orrery](https://github.com/Sagargupta16/orrery)** | `orrery` | planner, diagram-author, image-importer, patch-proposer, accuracy-reviewer, conventions-reviewer, flow-reviewer, legibility-reviewer | - | Architecture, system design and business flow diagrams from a short YAML spec with the official AWS, Azure, Google Cloud, Kubernetes, GitHub and IBM icons plus 5,500 tech logos, rendered to SVG, PNG, draw.io, React TSX, HTML and design documents. Bundled CLI (Node 22+), a validator with fixes, `/orrery:draw`, `/orrery:doc`, `/orrery:import-image` and a measured `/orrery:review` loop. [Gallery](https://sagargupta.online/orrery/gallery/). |
+| **[praxinoscope](https://github.com/Sagargupta16/praxinoscope)** | `praxinoscope` | builder, reviewer | - | Short videos made from code: a storyboard you approve, a proof, a fresh-eyes review, a render and a final review, with every frame a pure function of time and 58 coded QA checks on the file. Six styles, from product launches and data stories to 9:16 reels and 8-bit parodies. Needs uv and ffmpeg. |
 
 ## Component Types
 
@@ -204,6 +205,7 @@ bash scripts/demo.sh --json | diff -u docs/demo/hooks-demo.json -
 /plugin install motion@sagar-dev-skills
 /plugin install svg-forge@sagar-dev-skills
 /plugin install orrery@sagar-dev-skills
+/plugin install praxinoscope@sagar-dev-skills
 ```
 
 ### Update, inspect, or remove
