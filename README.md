@@ -125,7 +125,7 @@ Listed here, built and validated in their own repos. The marketplace entry point
 |--------|--------|--------|-------|-------------|
 | **[svg-forge](https://github.com/Sagargupta16/svg-forge)** | `animated-svg`, `motion-scene`, `svg-audit` | svg-designer | - | Animated SVGs that render everywhere: README cards, banners, loaders and diagrams that survive GitHub's image proxy, plus React and Motion scenes. Ships a generator for 14 kinds with 15 contrast-checked themes, a WCAG contrast validator and a frame renderer. |
 | **[orrery](https://github.com/Sagargupta16/orrery)** | `orrery` | planner, diagram-author, image-importer, patch-proposer, accuracy-reviewer, conventions-reviewer, flow-reviewer, legibility-reviewer | - | Architecture, system design and business flow diagrams from a short YAML spec with the official AWS, Azure, Google Cloud, Kubernetes, GitHub and IBM icons plus 5,500 tech logos, rendered to SVG, PNG, draw.io, React TSX, HTML and design documents. Bundled CLI (Node 22+), a validator with fixes, `/orrery:draw`, `/orrery:doc`, `/orrery:import-image` and a measured `/orrery:review` loop. [Gallery](https://sagargupta.online/orrery/gallery/). |
-| **[praxinoscope](https://github.com/Sagargupta16/praxinoscope)** | `praxinoscope` | builder, reviewer | - | Short videos made from code: a storyboard you approve, a proof, a fresh-eyes review, a render and a final review, with every frame a pure function of time and 58 coded QA checks on the file. Six styles, from product launches and data stories to 9:16 reels and 8-bit parodies. Needs uv and ffmpeg. |
+| **[kinograph](https://github.com/Sagargupta16/kinograph)** | `kinograph` | builder, reviewer | - | Short videos made from code: a storyboard you approve, a proof, a fresh-eyes review, a render and a final review, with every frame a pure function of time and 58 coded QA checks on the file. Six styles, from product launches and data stories to 9:16 reels and 8-bit parodies. Needs uv and ffmpeg. |
 
 ## Component Types
 
@@ -143,7 +143,7 @@ Counts cover the 16 plugins in this repo; external plugins carry their own count
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/diagrams/how-it-works-dark.svg">
   <source media="(prefers-color-scheme: light)" srcset="docs/diagrams/how-it-works-light.svg">
-  <img width="880" src="docs/diagrams/how-it-works-light.svg" alt="How the marketplace works: when you run /plugin marketplace add, Claude Code reads .claude-plugin/marketplace.json from Sagargupta16/claude-skills on GitHub. Each entry names a source: ./plugins/&lt;name&gt; for the 16 plugins in this repo, or a github source for the external plugin repos svg-forge, orrery and praxinoscope. /plugin install fetches the plugin from that source into your Claude Code session, which loads its skills (the description always, the body on demand), its slash commands such as /commit and /review, its agents as isolated sub-conversations, and its hooks/hooks.json, which registers PreToolUse and PostToolUse hooks. On a matching tool call Claude Code runs the hook's bash script with the tool call as JSON on stdin. The script blocks the call with exit 2 and a reason on stderr (secret-guard, no-force-push), shows a warning with exit 0 and a systemMessage (the four warn-only hooks), or lets it through silently with exit 0.">
+  <img width="880" src="docs/diagrams/how-it-works-light.svg" alt="How the marketplace works: when you run /plugin marketplace add, Claude Code reads .claude-plugin/marketplace.json from Sagargupta16/claude-skills on GitHub. Each entry names a source: ./plugins/&lt;name&gt; for the 16 plugins in this repo, or a github source for the external plugin repos svg-forge, orrery and kinograph. /plugin install fetches the plugin from that source into your Claude Code session, which loads its skills (the description always, the body on demand), its slash commands such as /commit and /review, its agents as isolated sub-conversations, and its hooks/hooks.json, which registers PreToolUse and PostToolUse hooks. On a matching tool call Claude Code runs the hook's bash script with the tool call as JSON on stdin. The script blocks the call with exit 2 and a reason on stderr (secret-guard, no-force-push), shows a warning with exit 0 and a systemMessage (the four warn-only hooks), or lets it through silently with exit 0.">
 </picture>
 
 The spec behind the picture is [`docs/diagrams/how-it-works.yaml`](docs/diagrams/how-it-works.yaml), rendered with [orrery](https://github.com/Sagargupta16/orrery).
@@ -193,7 +193,7 @@ bash scripts/demo.sh --json | diff -u docs/demo/hooks-demo.json -
 /plugin install motion@sagar-dev-skills
 /plugin install svg-forge@sagar-dev-skills
 /plugin install orrery@sagar-dev-skills
-/plugin install praxinoscope@sagar-dev-skills
+/plugin install kinograph@sagar-dev-skills
 ```
 
 ### Update, inspect, or remove
