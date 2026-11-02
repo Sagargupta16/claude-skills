@@ -37,7 +37,7 @@ plugins:
 external_plugins:
   svg-forge: github:Sagargupta16/svg-forge
   orrery: github:Sagargupta16/orrery
-  praxinoscope: github:Sagargupta16/praxinoscope
+  kinograph: github:Sagargupta16/kinograph
 
 # Skill files: keyword -> SKILL.md path
 skills:
