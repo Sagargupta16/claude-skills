@@ -1,5 +1,11 @@
 # Changelog
 
+## [5.7.2] - 2026-11-02
+
+### Changed
+
+- **`kinograph` replaces `praxinoscope` in the marketplace.** The plugin was renamed from praxinoscope to kinograph and is now at 0.2.0 in its own repo. Its entry, the marketplace description, the README table and install line, the settings template and `reference.yaml` all use the new name. Anyone who installed `praxinoscope@sagar-dev-skills` needs to uninstall it and install `kinograph@sagar-dev-skills`. The `how-it-works` diagram is re-rendered from its spec.
+
 ## [5.7.1] - 2026-11-01
 
 ### Fixed
