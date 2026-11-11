@@ -1,5 +1,15 @@
 # Changelog
 
+## [5.8.0] - 2026-11-11
+
+### Added
+
+- **`foreman`, the fourth external plugin.** It splits a task into subtasks, hands each one to a predefined agent type and picks Haiku, Sonnet, Opus or Fable for it by the kind of work, then runs the subtasks in dependency waves and verifies once. A script checks every plan before any agent starts (overlapping file ownership, a model above the route with no written reason), a run log turns finished runs into route suggestions, and big plans compile to a Workflow script. Two skills (`dispatch`, `new-agent`) and ten agents: scout, mechanic, researcher, builder, writer, reviewer, verifier, architect, debugger and specialist. It lives in [Sagargupta16/foreman](https://github.com/Sagargupta16/foreman) and is listed with a `{"source": "github", "repo": "Sagargupta16/foreman"}` entry at 0.3.0, so `/plugin install foreman@sagar-dev-skills` fetches it from that repo. README "External Plugins" table, install line, `reference.yaml` index, the settings template and the CLAUDE.md inventory follow, and the `how-it-works` diagram is re-rendered from its spec.
+
+### Fixed
+
+- **The README version badge and the `reference.yaml` stamp still said 5.7.1.** Both now follow `metadata.version`.
+
 ## [5.7.2] - 2026-11-02
 
 ### Changed
