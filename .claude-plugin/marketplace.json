@@ -5,8 +5,8 @@
     "email": "sg85207@gmail.com"
   },
   "metadata": {
-    "description": "Focused Claude Code plugins covering everyday dev workflow, git, OSS contributions, Docker, dependency audits, repo hygiene, refactoring, FARM stack, context management, diff explanation, debug triage, Renovate triage, session audit, Python clean code, animation/motion, animated SVG design (svg-forge), architecture diagrams (orrery) and short videos made from code (kinograph), each from its own repo. Opinionated, battle-tested across 60+ repos.",
-    "version": "5.7.2",
+    "description": "Focused Claude Code plugins covering everyday dev workflow, git, OSS contributions, Docker, dependency audits, repo hygiene, refactoring, FARM stack, context management, diff explanation, debug triage, Renovate triage, session audit, Python clean code, animation/motion, animated SVG design (svg-forge), architecture diagrams (orrery), short videos made from code (kinograph) and task splitting with a model picked per subtask (foreman), each from its own repo. Opinionated, battle-tested across 60+ repos.",
+    "version": "5.8.0",
     "pluginRoot": "./plugins"
   },
   "plugins": [
@@ -371,6 +371,28 @@
         "storyboard"
       ],
       "category": "frontend"
+    },
+    {
+      "name": "foreman",
+      "source": {
+        "source": "github",
+        "repo": "Sagargupta16/foreman"
+      },
+      "description": "Splits a task into subtasks, hands each one to a predefined agent type and picks Haiku, Sonnet, Opus or Fable for it by the kind of work, then runs the subtasks in dependency waves and verifies once. Skills dispatch and new-agent; agents scout, mechanic, researcher, builder, writer, reviewer, verifier, architect, debugger and specialist; seven task templates, a plan checker that catches overlapping file ownership before any agent starts, a run log whose stats suggest route changes, a plan-to-Workflow compiler and a scaffolder for new agents and agent plugins. Needs Python 3.12+. Lives in its own repo.",
+      "version": "0.3.1",
+      "author": {
+        "name": "Sagar Gupta"
+      },
+      "license": "MIT",
+      "keywords": [
+        "agents",
+        "subagents",
+        "orchestration",
+        "delegation",
+        "model-routing",
+        "planning"
+      ],
+      "category": "workflow"
     }
   ]
 }
