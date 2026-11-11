@@ -379,7 +379,7 @@
         "repo": "Sagargupta16/foreman"
       },
       "description": "Splits a task into subtasks, hands each one to a predefined agent type and picks Haiku, Sonnet, Opus or Fable for it by the kind of work, then runs the subtasks in dependency waves and verifies once. Skills dispatch and new-agent; agents scout, mechanic, researcher, builder, writer, reviewer, verifier, architect, debugger and specialist; seven task templates, a plan checker that catches overlapping file ownership before any agent starts, a run log whose stats suggest route changes, a plan-to-Workflow compiler and a scaffolder for new agents and agent plugins. Needs Python 3.12+. Lives in its own repo.",
-      "version": "0.3.0",
+      "version": "0.3.1",
       "author": {
         "name": "Sagar Gupta"
       },
