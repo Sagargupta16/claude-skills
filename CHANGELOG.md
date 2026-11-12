@@ -1,5 +1,11 @@
 # Changelog
 
+## [5.10.0] - 2026-11-12
+
+### Added
+
+- **`zoetrope`, short videos made from code.** A brief becomes a storyboard you approve, then a proof, a fresh-eyes review, a render and a final review; every frame is drawn in Python as a pure function of time, and 60 coded QA checks run on the file. One skill with 40 style cards and two agents. It lives in [Sagargupta16/zoetrope](https://github.com/Sagargupta16/zoetrope) and is listed at 2.6.0 with a github source, so `/plugin install zoetrope@sagar-dev-skills` fetches it from that repo. README table and install line, `reference.yaml`, the settings template, the CLAUDE.md inventory and the `how-it-works` diagram follow.
+
 ## [5.9.0] - 2026-11-12
 
 ### Removed

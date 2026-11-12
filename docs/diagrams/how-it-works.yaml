@@ -29,12 +29,13 @@ nodes:
   external:
     icon: github:repo
     label: External plugin repos
-    note: svg-forge, orrery, foreman
+    note: svg-forge, orrery, foreman, zoetrope
     in: github
     evidence:
       - .claude-plugin/marketplace.json:308#svg-forge
       - .claude-plugin/marketplace.json:330#orrery
       - .claude-plugin/marketplace.json:354#foreman
+      - .claude-plugin/marketplace.json:376#zoetrope
   claude:
     icon: logos:claude-code
     label: Claude Code
