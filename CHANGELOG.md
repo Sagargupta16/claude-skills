@@ -32,19 +32,19 @@
 
 ### Changed
 
-- **`kinograph` replaces `praxinoscope` in the marketplace.** The plugin was renamed from praxinoscope to kinograph and is now at 0.2.0 in its own repo. Its entry, the marketplace description, the README table and install line, the settings template and `reference.yaml` all use the new name. Anyone who installed `praxinoscope@sagar-dev-skills` needs to uninstall it and install `kinograph@sagar-dev-skills`. The `how-it-works` diagram is re-rendered from its spec.
+- **The short-video plugin was renamed in the marketplace.** Its entry, the marketplace description, the README table and install line, the settings template and `reference.yaml` all use the new name, and the `how-it-works` diagram is re-rendered from its spec. (That plugin is now `zoetrope`, listed in 5.10.0.)
 
 ## [5.7.1] - 2026-11-01
 
 ### Fixed
 
-- **External plugin entries said older versions than they install.** Their `github` sources carry no `ref`, so `/plugin install` fetches each repo's `main`. `praxinoscope` was listed at 0.1.0 while its main is 0.1.1, and `orrery` at 0.12.1 while its main is 0.12.2. Both entries now carry those versions. orrery's main holds 0.12.2 (its changelog dates it 2026-10-27) but has no `v0.12.2` tag or release yet. `svg-forge` already matched, at 0.3.0. The version badge and the `reference.yaml` stamp follow.
+- **External plugin entries said older versions than they install.** Their `github` sources carry no `ref`, so `/plugin install` fetches each repo's `main`. the short-video plugin was listed at 0.1.0 while its main is 0.1.1, and `orrery` at 0.12.1 while its main is 0.12.2. Both entries now carry those versions. orrery's main holds 0.12.2 (its changelog dates it 2026-10-27) but has no `v0.12.2` tag or release yet. `svg-forge` already matched, at 0.3.0. The version badge and the `reference.yaml` stamp follow.
 
 ## [5.7.0] - 2026-11-01
 
 ### Added
 
-- **`praxinoscope`, the third external plugin.** Short videos made from code: a brief becomes a storyboard you approve, then a proof, a fresh-eyes review, a render and a final review bound to the file's content hashes. Every frame is drawn in Python as a pure function of time, the music and sound effects are synthesized in numpy and mastered to -14 LUFS, and 58 coded QA checks run on the file. One skill with six styles (signal, ledger, blueprint, marquee, pulse, cartridge) and two agents, builder and reviewer. It lives in [Sagargupta16/praxinoscope](https://github.com/Sagargupta16/praxinoscope) and is listed with a `{"source": "github", "repo": "Sagargupta16/praxinoscope"}` entry at 0.1.0, so `/plugin install praxinoscope@sagar-dev-skills` fetches it from that repo. README "External Plugins" table, install line, `reference.yaml` index, the settings template and the CLAUDE.md inventory follow.
+- **The short-video plugin, the third external plugin (now `zoetrope`).** Short videos made from code: a brief becomes a storyboard you approve, then a proof, a fresh-eyes review, a render and a final review bound to the file's content hashes. Every frame is drawn in Python as a pure function of time, the music and sound effects are synthesized in numpy and mastered to -14 LUFS, and 58 coded QA checks run on the file. One skill with six styles (signal, ledger, blueprint, marquee, pulse, cartridge) and two agents, builder and reviewer. It lives in [Sagargupta16/the short-video plugin](https://github.com/Sagargupta16/the short-video plugin) and is listed with a `{"source": "github", "repo": "Sagargupta16/the short-video plugin"}` entry at 0.1.0, so `/plugin install the short-video plugin@sagar-dev-skills` fetches it from that repo. README "External Plugins" table, install line, `reference.yaml` index, the settings template and the CLAUDE.md inventory follow.
 
 ## [5.6.1] - 2026-10-25
 
