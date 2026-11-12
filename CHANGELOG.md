@@ -1,5 +1,11 @@
 # Changelog
 
+## [5.9.0] - 2026-11-12
+
+### Removed
+
+- **The external short-video plugin is no longer listed.** Its repo was deleted; the skill lives on only as a private skill. Its entry, the README table row and install line, the settings template, the `reference.yaml` index, the CLAUDE.md inventory and the `how-it-works` diagram drop it, and the marketplace description names foreman in its place. Anyone who installed it from this marketplace should uninstall it.
+
 ## [5.8.0] - 2026-11-11
 
 ### Added

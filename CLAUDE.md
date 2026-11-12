@@ -124,7 +124,7 @@ bash scripts/demo.sh --json | diff -u docs/demo/hooks-demo.json -
 
 **Totals**: 16 skills, 16 commands, 11 agents, 6 hooks
 
-**External**: `svg-forge` (3 skills, 1 agent), `orrery` (1 skill, 8 agents, 4 commands), `kinograph` (1 skill, 2 agents) and `foreman` (2 skills, 10 agents) are listed with `{"source": "github", "repo": "Sagargupta16/<name>"}` entries and validated in their own repos; `validate-plugins.sh` only checks the entry's shape for external sources.
+**External**: `svg-forge` (3 skills, 1 agent), `orrery` (1 skill, 8 agents, 4 commands) and `foreman` (2 skills, 10 agents) are listed with `{"source": "github", "repo": "Sagargupta16/<name>"}` entries and validated in their own repos; `validate-plugins.sh` only checks the entry's shape for external sources.
 
 ## Key Conventions
 
