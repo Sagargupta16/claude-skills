@@ -1,5 +1,11 @@
 # Changelog
 
+## [5.10.2] - 2026-11-12
+
+### Changed
+
+- **foreman is listed at 0.4.0**, the version its main installs: writers may not weaken a test to pass, a proof gate for the reviewer, an optional hook that records each agent run, and cost in the run log.
+
 ## [5.10.1] - 2026-11-12
 
 ### Changed
