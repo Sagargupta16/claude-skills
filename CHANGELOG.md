@@ -1,5 +1,11 @@
 # Changelog
 
+## [5.10.1] - 2026-11-12
+
+### Changed
+
+- **zoetrope is listed at 2.6.1**, the version its main installs: a plugin icon and neutral wording.
+
 ## [5.10.0] - 2026-11-12
 
 ### Added
