@@ -3,7 +3,7 @@
 # Use this to find the right plugin, skill, command, agent, or hook.
 #
 # Format: keyword -> file path (relative to repo root)
-# Updated: 2026-11-11 | Version: 5.8.0
+# Updated: 2026-11-12 | Version: 5.9.0
 
 stats:
   plugins: 16
@@ -37,7 +37,6 @@ plugins:
 external_plugins:
   svg-forge: github:Sagargupta16/svg-forge
   orrery: github:Sagargupta16/orrery
-  kinograph: github:Sagargupta16/kinograph
   foreman: github:Sagargupta16/foreman
 
 # Skill files: keyword -> SKILL.md path
