@@ -6,7 +6,7 @@
   },
   "metadata": {
     "description": "Focused Claude Code plugins covering everyday dev workflow, git, OSS contributions, Docker, dependency audits, repo hygiene, refactoring, FARM stack, context management, diff explanation, debug triage, Renovate triage, session audit, Python clean code, animation/motion, animated SVG design (svg-forge), architecture diagrams (orrery), short videos made from code (zoetrope) and task splitting with a model picked per subtask (foreman), each from its own repo. Opinionated, battle-tested across 60+ repos.",
-    "version": "5.10.0",
+    "version": "5.10.1",
     "pluginRoot": "./plugins"
   },
   "plugins": [
@@ -379,7 +379,7 @@
         "repo": "Sagargupta16/zoetrope"
       },
       "description": "Short videos made from code: a brief becomes a storyboard you approve, a proof, a fresh-eyes review, a render and a final review, with every frame drawn in Python as a pure function of time, music and sound mastered to -14 LUFS, and 60 coded QA checks proven by planted-fault self tests. Skill zoetrope with 40 style cards; agents zoetrope-builder and zoetrope-reviewer. Needs uv and ffmpeg. Lives in its own repo.",
-      "version": "2.6.0",
+      "version": "2.6.1",
       "author": {
         "name": "Sagar Gupta"
       },
