@@ -55,6 +55,7 @@
     "svg-forge@sagar-dev-skills": true,
     "orrery@sagar-dev-skills": true,
     "foreman@sagar-dev-skills": true,
+    "zoetrope@sagar-dev-skills": true,
 
     "pyright-lsp@claude-plugins-official": true,
     "typescript-lsp@claude-plugins-official": true,

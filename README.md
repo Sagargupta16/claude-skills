@@ -2,7 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Plugins](https://img.shields.io/badge/plugins-16-green.svg)](#plugins)
-[![Version](https://img.shields.io/badge/version-5.9.0-orange.svg)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-5.10.0-orange.svg)](CHANGELOG.md)
 [![CI](https://github.com/Sagargupta16/claude-skills/actions/workflows/validate.yml/badge.svg)](https://github.com/Sagargupta16/claude-skills/actions)
 
 Focused Claude Code plugin marketplace. 16 plugins covering everyday dev workflow, git, open-source contributions, Docker, dependency audits, repo hygiene, refactoring, FARM stack, context management, diff explanation, debug triage, Renovate triage, end-of-session audit, Python clean code, and animation/motion.
@@ -126,6 +126,7 @@ Listed here, built and validated in their own repos. The marketplace entry point
 | **[svg-forge](https://github.com/Sagargupta16/svg-forge)** | `animated-svg`, `motion-scene`, `svg-audit` | svg-designer | - | Animated SVGs that render everywhere: README cards, banners, loaders and diagrams that survive GitHub's image proxy, plus React and Motion scenes. Ships a generator for 14 kinds with 15 contrast-checked themes, a WCAG contrast validator and a frame renderer. |
 | **[orrery](https://github.com/Sagargupta16/orrery)** | `orrery` | planner, diagram-author, image-importer, patch-proposer, accuracy-reviewer, conventions-reviewer, flow-reviewer, legibility-reviewer | - | Architecture, system design and business flow diagrams from a short YAML spec with the official AWS, Azure, Google Cloud, Kubernetes, GitHub and IBM icons plus 5,500 tech logos, rendered to SVG, PNG, draw.io, React TSX, HTML and design documents. Bundled CLI (Node 22+), a validator with fixes, `/orrery:draw`, `/orrery:doc`, `/orrery:import-image` and a measured `/orrery:review` loop. [Gallery](https://sagargupta.online/orrery/gallery/). |
 | **[foreman](https://github.com/Sagargupta16/foreman)** | `dispatch`, `new-agent` | scout, mechanic, researcher, builder, writer, reviewer, verifier, architect, debugger, specialist | - | Splits a task into subtasks, hands each one to a predefined agent type and picks Haiku, Sonnet, Opus or Fable for it by the kind of work, then runs them in dependency waves and verifies once. A script checks every plan before any agent starts, a run log suggests route changes, and `/foreman:new-agent` scaffolds and lints new agents and agent plugins. Needs Python 3.12+. |
+| **[zoetrope](https://github.com/Sagargupta16/zoetrope)** | `zoetrope` | zoetrope-builder, zoetrope-reviewer | - | Short videos made from code: a storyboard you approve, a proof, a fresh-eyes review, a render and a final review, with every frame a pure function of time and 60 coded QA checks on the file. 40 style cards, from product launches and explainers to 9:16 reels, game parodies and one real 3D character. Needs uv and ffmpeg. |
 
 ## Component Types
 
@@ -143,7 +144,7 @@ Counts cover the 16 plugins in this repo; external plugins carry their own count
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/diagrams/how-it-works-dark.svg">
   <source media="(prefers-color-scheme: light)" srcset="docs/diagrams/how-it-works-light.svg">
-  <img width="880" src="docs/diagrams/how-it-works-light.svg" alt="How the marketplace works: when you run /plugin marketplace add, Claude Code reads .claude-plugin/marketplace.json from Sagargupta16/claude-skills on GitHub. Each entry names a source: ./plugins/&lt;name&gt; for the 16 plugins in this repo, or a github source for the external plugin repos svg-forge, orrery and foreman. /plugin install fetches the plugin from that source into your Claude Code session, which loads its skills (the description always, the body on demand), its slash commands such as /commit and /review, its agents as isolated sub-conversations, and its hooks/hooks.json, which registers PreToolUse and PostToolUse hooks. On a matching tool call Claude Code runs the hook's bash script with the tool call as JSON on stdin. The script blocks the call with exit 2 and a reason on stderr (secret-guard, no-force-push), shows a warning with exit 0 and a systemMessage (the four warn-only hooks), or lets it through silently with exit 0.">
+  <img width="880" src="docs/diagrams/how-it-works-light.svg" alt="How the marketplace works: when you run /plugin marketplace add, Claude Code reads .claude-plugin/marketplace.json from Sagargupta16/claude-skills on GitHub. Each entry names a source: ./plugins/&lt;name&gt; for the 16 plugins in this repo, or a github source for the external plugin repos svg-forge, orrery, foreman and zoetrope. /plugin install fetches the plugin from that source into your Claude Code session, which loads its skills (the description always, the body on demand), its slash commands such as /commit and /review, its agents as isolated sub-conversations, and its hooks/hooks.json, which registers PreToolUse and PostToolUse hooks. On a matching tool call Claude Code runs the hook's bash script with the tool call as JSON on stdin. The script blocks the call with exit 2 and a reason on stderr (secret-guard, no-force-push), shows a warning with exit 0 and a systemMessage (the four warn-only hooks), or lets it through silently with exit 0.">
 </picture>
 
 The spec behind the picture is [`docs/diagrams/how-it-works.yaml`](docs/diagrams/how-it-works.yaml), rendered with [orrery](https://github.com/Sagargupta16/orrery).
@@ -194,6 +195,7 @@ bash scripts/demo.sh --json | diff -u docs/demo/hooks-demo.json -
 /plugin install svg-forge@sagar-dev-skills
 /plugin install orrery@sagar-dev-skills
 /plugin install foreman@sagar-dev-skills
+/plugin install zoetrope@sagar-dev-skills
 ```
 
 ### Update, inspect, or remove
