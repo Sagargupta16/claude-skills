@@ -1,5 +1,11 @@
 # Changelog
 
+## [5.10.3] - 2026-11-13
+
+### Changed
+
+- **zoetrope is listed at 2.7.0**, the version its main installs: a guide to image plates, the faster route for photo-like videos (pictures from a local or hosted image model, animated and captioned by the engine).
+
 ## [5.10.2] - 2026-11-12
 
 ### Changed
